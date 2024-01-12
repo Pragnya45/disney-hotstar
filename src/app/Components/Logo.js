@@ -22,7 +22,7 @@ const LogoWrapper = styled.div`
   align-items: center;
   gap: 0.5rem;
   position: fixed;
-  padding: 32px;
+  padding: 32px 32px 32px 5px;
 `;
 const Image = styled(ImageView)``;
 
