@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
-const banner = "/assets/images/OPPO-Reno-11-series-India.webp";
+const banner = "/assets/images/Banner-karma.jpg";
+const logo = "/assets/icons/logo_dark.png";
 function Banner() {
   return (
     <Bannerwrapper>
@@ -12,6 +13,16 @@ function Banner() {
             <Image src={banner} alt="disney" width={590} height={320} />
           </ImgWrapper>
         </LeftContainer>
+        <RightContainer>
+          <BannerContentWrapper>
+            <Logo src={logo} alt="disney" width={590} height={320} />
+            <Content>
+              <Title>Karma Calling</Title>
+              <StreamingDate>Streaming from Jan 26</StreamingDate>
+            </Content>
+          </BannerContentWrapper>
+          <Button>Trailer</Button>
+        </RightContainer>
       </Bannercontainer>
     </Bannerwrapper>
   );
@@ -33,7 +44,7 @@ const Bannercontainer = styled.div`
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 20rem;
+  height: 16rem;
 `;
 const LeftContainer = styled.div`
   height: 100%;
@@ -54,7 +65,64 @@ const ImgWrapper = styled.div`
   left: 0;
   top: 0;
   height: 100%;
+  width: 100%;
   position: absolute;
-  object-fit: fill;
+  /* object-fit: fill; */
 `;
-const Image = styled(ImageView)``;
+const Image = styled(ImageView)`
+  /* object-fit: contain; */
+  width: 100%;
+
+  height: 100%;
+`;
+const RightContainer = styled.div`
+  background: var(--bg_color-gradient);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 8px;
+  width: 36%;
+`;
+const BannerContentWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`;
+const Logo = styled(ImageView)`
+  max-width: 48px;
+  height: auto;
+  border-radius: 2px;
+`;
+const Content = styled.div`
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  gap: 0.3rem;
+`;
+const Title = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--white_color);
+`;
+const StreamingDate = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--text-color1000);
+`;
+const Button = styled.button`
+  color: var(--white_color);
+  font-family: var(--FONT-FAMILY);
+  background-color: var(--bg_color700);
+  outline: none;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  width: 170px;
+  cursor: pointer;
+  padding: 18px 3px;
+`;

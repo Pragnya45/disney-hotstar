@@ -2,11 +2,14 @@
   --bg_color1000: #0f1014;
   --bg_color900: rgba(255, 204, 117, 0.1);
   --bg_color800: #16181f;
+  --bg_color700: #252833;
+  --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --white_color: #ffffff;
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
+  --text-color1000: #8f98b2;
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
-  --box-shadow1000: 5px 5px #0000;
+  --box-shadow1000: 0 0 #0000;
   --linear-gradientColor1: linear-gradient(
     90deg,
     #101014,

@@ -179,20 +179,17 @@ const Button = styled.button`
     }
     ${Search} {
       color: var(--white_color);
-      box-shadow: var(--box-shadow1000);
       fill: var(--white_color);
       border-color: rgba(229, 231, 235, 1);
     }
     ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
       display: block;
       color: var(--white_color);
-      box-shadow: var(--box-shadow1000);
       fill: var(--white_color);
       border-color: rgba(229, 231, 235, 1);
     }
     ${NavText} {
       color: var(--white_color);
-      box-shadow: var(--box-shadow1000);
 
       border-color: rgba(229, 231, 235, 1);
     }

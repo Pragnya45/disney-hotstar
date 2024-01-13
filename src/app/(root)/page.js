@@ -9,6 +9,7 @@ const page = () => {
   return (
     <Main>
       <Nav>
+        <BackdropWidth></BackdropWidth>
         <Logo />
         <Sidebar />
       </Nav>
@@ -31,8 +32,15 @@ const Nav = styled.div`
   flex-direction: column;
   gap: 2rem;
   width: 12%;
+  height: 100vh;
   position: fixed;
   z-index: 20;
+`;
+const BackdropWidth = styled.div`
+  height: 100vh;
+  width: 12%;
+  position: absolute;
+  background: var(--box-shadow1000);
 `;
 const Contentwrapper = styled.div`
   padding-right: 6rem;
