@@ -4,6 +4,7 @@ import React from "react";
 import Sidebar from "../Components/Sidebar";
 import Logo from "../Components/Logo";
 import Banner from "../Components/Banner";
+import Home from "../views/Home";
 
 const page = () => {
   return (
@@ -13,9 +14,7 @@ const page = () => {
         <Logo />
         <Sidebar />
       </Nav>
-      <Contentwrapper>
-        <Banner />
-      </Contentwrapper>
+      <Home />
     </Main>
   );
 };
@@ -27,6 +26,13 @@ const Main = styled.div`
   width: 100%;
   min-height: 100vh;
 `;
+const BackdropWidth = styled.div`
+  display: none;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  background: var(--sidenav-backdrop-color);
+`;
 const Nav = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,16 +41,9 @@ const Nav = styled.div`
   height: 100vh;
   position: fixed;
   z-index: 20;
-`;
-const BackdropWidth = styled.div`
-  height: 100vh;
-  width: 12%;
-  position: absolute;
-  background: var(--box-shadow1000);
-`;
-const Contentwrapper = styled.div`
-  padding-right: 6rem;
-  margin-left: 6rem;
-  display: flex;
-  flex-direction: column;
+  &:hover {
+    ${BackdropWidth} {
+      display: block;
+    }
+  }
 `;

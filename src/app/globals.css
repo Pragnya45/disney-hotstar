@@ -4,12 +4,28 @@
   --bg_color800: #16181f;
   --bg_color700: #252833;
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
+  --bg_color-next-gradient: linear-gradient(
+    269.25deg,
+    #0f1014 0.62%,
+    rgba(15, 16, 20, 0) 99.33%
+  );
+  --bg_color-prev-gradient: linear-gradient(
+    88deg,
+    #0f1014 0.62%,
+    rgba(15, 16, 20, 0) 99.33%
+  );
   --white_color: #ffffff;
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
   --text-color1000: #8f98b2;
+  --text-color900: #e1e6f0;
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
   --box-shadow1000: 0 0 #0000;
+  --sidenav-backdrop-color: linear-gradient(
+    269.57deg,
+    rgba(15, 16, 20, 0.95) 16.24%,
+    rgba(15, 16, 20, 0) 98.46%
+  );
   --linear-gradientColor1: linear-gradient(
     90deg,
     #101014,
