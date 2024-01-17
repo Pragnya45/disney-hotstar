@@ -15,14 +15,16 @@
     rgba(15, 16, 20, 0) 99.33%
   );
   --white_color: #ffffff;
+  --white_color1000: rgba(229, 231, 235, 1);
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
   --text-color1000: #8f98b2;
   --text-color900: #e1e6f0;
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
   --box-shadow1000: 0 0 #0000;
+
   --sidenav-backdrop-color: linear-gradient(
-    269.57deg,
+    90.43deg,
     rgba(15, 16, 20, 0.95) 16.24%,
     rgba(15, 16, 20, 0) 98.46%
   );

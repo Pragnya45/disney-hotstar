@@ -12,51 +12,51 @@ function LatestReleases() {
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/echo-2.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/greatNorth.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/Luke.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/vaccinewar.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/misson.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/dance+.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/believe-in-magic-2.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/freelancer.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/12thfail.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/indian-cricket.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/parking.jpg",
     },
     {
       title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
+      img: "/assets/images/telugu-2.jpg",
     },
     {
       title: "The Hanuman of Legend",
@@ -108,14 +108,45 @@ function LatestReleases() {
   }
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 6,
+    slidesToShow: 7,
+    slidesToScroll: 7,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
-    responsive: [],
+    responsive: [
+      {
+        breakpoint: 1440,
+        settings: {
+          slidesToShow: 6,
+          slidesToScroll: 6,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
+
   return (
     <Wrapper>
       <Heading>Latest Releases</Heading>
@@ -154,6 +185,11 @@ const CardWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
   margin-top: 1rem;
+  &:hover {
+    .slick-next {
+      opacity: 1;
+    }
+  }
 `;
 const Card = styled.div`
   position: relative;
@@ -180,11 +216,25 @@ const ArrowRightIcon = styled(ChevronRightIcon)`
 const StyledSlider = styled(Slider)`
   width: 98%;
   position: relative;
+  .slick-disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
   .slick-track {
     display: flex;
   }
   .slick-active {
-    width: 205px !important;
+    /* width: 205px !important; */
+    outline: none !important;
+    border: none !important;
+  }
+  .slick-slide:active {
+    outline: none !important;
+    border: none !important;
+  }
+  .slick-slide {
+    outline: none !important;
+    border: none !important;
   }
 
   .slick-list {
@@ -194,7 +244,7 @@ const StyledSlider = styled(Slider)`
     padding: 0.1rem;
     width: 3rem;
     background: var(--bg_color-prev-gradient);
-    z-index: 35;
+    z-index: 5;
     position: absolute;
     height: 100%;
   }
@@ -204,9 +254,9 @@ const StyledSlider = styled(Slider)`
     padding: 0.1rem;
     background: var(--bg_color-next-gradient);
     width: 3rem;
-    z-index: 35;
+    z-index: 5;
     height: 100%;
-
+    opacity: 0;
     position: absolute;
   }
 `;

@@ -37,11 +37,12 @@ const Nav = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  width: 12%;
+  width: 5%;
   height: 100vh;
   position: fixed;
   z-index: 20;
   &:hover {
+    width: 20%;
     ${BackdropWidth} {
       display: block;
     }

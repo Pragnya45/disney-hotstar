@@ -58,6 +58,7 @@ const NavText = styled.p`
   font-family: var(--FONT-FAMILY);
   font-size: 18px;
   display: none;
+  font-weight: 700;
 `;
 const Search = styled(SearchIcon)`
   width: 20px;
@@ -126,7 +127,7 @@ const SidebarWrapper = styled.div`
   display: flex;
   background: none;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2.5rem;
   cursor: pointer;
   position: absolute;
 
@@ -144,6 +145,7 @@ const Button = styled.button`
   border: none;
   display: flex;
   gap: 1rem;
+  cursor: pointer;
   animation: animationStart 0.1s ease-out, animationEnd 0.2s ease 0.1s;
   transition-duration: 0.15s;
   transition-property: all;
@@ -169,29 +171,33 @@ const Button = styled.button`
     }
   }
   &:hover {
+    margin-left: 37px;
+    transition: 0.3s ease-in-out;
     ${Home},${Tv},${Movie},${Sports},${Category} {
       display: none;
       color: var(--white_color);
       box-shadow: var(--box-shadow1000);
       fill: var(--white_color);
-      border-color: rgba(229, 231, 235, 1);
+      border-color: var(--white_color1000);
       border: 0 solid;
     }
     ${Search} {
       color: var(--white_color);
       fill: var(--white_color);
-      border-color: rgba(229, 231, 235, 1);
+      border-color: var(--white_color1000);
     }
     ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
       display: block;
       color: var(--white_color);
       fill: var(--white_color);
-      border-color: rgba(229, 231, 235, 1);
+      width: 22px;
+      height: 22px;
+      border-color: var(--white_color1000);
     }
     ${NavText} {
       color: var(--white_color);
-
-      border-color: rgba(229, 231, 235, 1);
+      font-size: 20px;
+      border-color: var(--white_color1000);
     }
   }
 `;
