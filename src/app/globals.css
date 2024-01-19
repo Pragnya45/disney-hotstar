@@ -3,6 +3,8 @@
   --bg_color900: rgba(255, 204, 117, 0.1);
   --bg_color800: #16181f;
   --bg_color700: #252833;
+  --bg_color600: hsla(0, 0%, 100%, 0.08);
+  --bg_color500: hsla(0, 0%, 100%, 0.6);
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-next-gradient: linear-gradient(
     269.25deg,
@@ -22,6 +24,17 @@
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
   --box-shadow1000: 0 0 #0000;
+  --box-shadow900: 1px 31px 23px 1px rgba(0, 0, 0, 0.57);
+  --text-shadow: 0 0 10px #000;
+  --overlay-color: linear-gradient(
+    180deg,
+    rgba(22, 24, 31, 0),
+    rgba(22, 24, 31, 0.15) 24.61%,
+    rgba(22, 24, 31, 0.3) 38.57%,
+    rgba(22, 24, 31, 0.75) 64.27%,
+    rgba(22, 24, 31, 0.92) 82.94%,
+    #16181f
+  );
 
   --sidenav-backdrop-color: linear-gradient(
     90.43deg,
