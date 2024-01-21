@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ImageView from "../../Components/Image";
+import ImageView from "./Image";
 import Slider from "react-slick";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -9,100 +9,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
 
-const hanumanImg = "/assets/images/hovercard-hanuman.webp";
-const hanumanTitleImg = "/assets/images/hanuman-title.webp";
-
-function LatestReleases() {
-  const releases = [
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/echo-2.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/greatNorth.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/Luke.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/vaccinewar.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/misson.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/dance+.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/believe-in-magic-2.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/freelancer.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/12thfail.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/indian-cricket.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/parking.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/telugu-2.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-    {
-      title: "The Hanuman of Legend",
-      img: "/assets/images/hanuman.jpg",
-    },
-  ];
+function HorizontalCard({ title, data }) {
   function PrevArrow(props) {
     const { className, onClick } = props;
 
@@ -157,64 +64,72 @@ function LatestReleases() {
 
   return (
     <Wrapper>
-      <Heading>Latest Releases</Heading>
+      <Heading>{title}</Heading>
+
       <CardWrapper>
         <StyledSlider {...settings}>
-          {releases.map((release, index) => (
-            <Card key={index}>
-              <CardImage
-                src={release.img}
-                alt={release.title}
-                width={100}
-                height={100}
-              />
-              <HoverCard>
-                <HoverContent>
-                  <Hoverimg
-                    src={hanumanImg}
-                    alt="hanuman"
-                    width={200}
-                    height={200}
-                  />
-                  <LanguageWrapper>
-                    Hindi
-                    <StyleddownArrow />
-                  </LanguageWrapper>
-                  <ImgOverlay> </ImgOverlay>I
-                  <HovercardTitleImg
-                    src={hanumanTitleImg}
-                    width={100}
-                    height={100}
-                    alt="hanuman-img"
-                  />
-                  <BottomContentWrapper>
-                    <WatchWrapper>
-                      <WatchNowBUtton>
-                        <StyleddPlay /> Watch Now
-                      </WatchNowBUtton>
-                      <WatchListButton>
-                        <StyleddPlus />
-                      </WatchListButton>
-                    </WatchWrapper>
-                    <YearDetailsWrapper>
-                      <Text>2014</Text>
-                      <StyledCircle />
-                      <Text>3 Seasons</Text>
-                      <StyledCircle />
-                      <Text>7 Languages</Text>
-                      <StyledCircle />
-                      <Text>U/A 7+</Text>
-                    </YearDetailsWrapper>
-                    <Description>
-                      Setting his mighty foot on Lanka, Hanuman <br /> unleashes
-                      himself against Ravan. Watch the <br /> legendary hero and
-                      the demon king go head to <br /> head in this ultimate
-                      war.
-                    </Description>
-                  </BottomContentWrapper>
-                </HoverContent>
-              </HoverCard>
-            </Card>
+          {data.map((release, index) => (
+            <ContentWrapper key={index}>
+              <Card>
+                <CardImage
+                  src={release.img}
+                  alt={release.title}
+                  width={100}
+                  height={100}
+                />
+                <PlayWrapper>
+                  <Play />
+                  <Duration>5m</Duration>
+                </PlayWrapper>
+                {release?.hovercardData?.map((hoverData, index) => (
+                  <HoverCard key={index}>
+                    <HoverContent>
+                      <Hoverimg
+                        src={hoverData.coverpic}
+                        alt="hanuman"
+                        width={200}
+                        height={200}
+                      />
+                      <LanguageWrapper>
+                        {hoverData.language}
+                        <StyleddownArrow />
+                      </LanguageWrapper>
+                      <ImgOverlay> </ImgOverlay>I
+                      <HovercardTitleImg
+                        src={hoverData.titleImg}
+                        width={100}
+                        height={100}
+                        alt="hanuman-img"
+                      />
+                      <BottomContentWrapper>
+                        <WatchWrapper>
+                          <WatchNowBUtton>
+                            <StyleddPlay /> Watch Now
+                          </WatchNowBUtton>
+                          <WatchListButton>
+                            <StyleddPlus />
+                          </WatchListButton>
+                        </WatchWrapper>
+                        <YearDetailsWrapper>
+                          <Text>{hoverData.year}</Text>
+                          <StyledCircle />
+                          <Text>
+                            {hoverData.seasons}
+                            Seasons
+                          </Text>
+                          <StyledCircle />
+                          <Text>{hoverData.totalLanguage}Languages</Text>
+                          <StyledCircle />
+                          <Text>U/A{hoverData.ua}</Text>
+                        </YearDetailsWrapper>
+                        <Description>{hoverData.description}</Description>
+                      </BottomContentWrapper>
+                    </HoverContent>
+                  </HoverCard>
+                ))}
+              </Card>
+              <Title>{release.title}</Title>
+            </ContentWrapper>
           ))}
         </StyledSlider>
       </CardWrapper>
@@ -222,18 +137,50 @@ function LatestReleases() {
   );
 }
 
-export default LatestReleases;
+export default HorizontalCard;
 
 const Wrapper = styled.div`
   display: flex;
   margin-left: 6rem;
   flex-direction: column;
 `;
+const Title = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color900);
+`;
+const PlayWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px 10px;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--linear-gradient-color);
+`;
+const Play = styled(PlayArrowIcon)`
+  width: 35px;
+  height: 25px;
+  color: var(--text-color900);
+  border-radius: 6px;
+`;
+
+const Duration = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--tw-shadow);
+`;
 const Heading = styled.p`
   font-family: var(--FONT-FAMILY);
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 const CardWrapper = styled.div`
   display: flex;
@@ -244,6 +191,13 @@ const CardWrapper = styled.div`
       opacity: 1;
     }
   }
+`;
+const ContentWrapper = styled.div`
+  display: flex !important;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+  width: 16rem !important;
 `;
 
 const CardImage = styled(ImageView)`
@@ -265,6 +219,7 @@ const ArrowRightIcon = styled(ChevronRightIcon)`
 `;
 const StyledSlider = styled(Slider)`
   width: 98%;
+  z-index: 2 !important;
   position: relative;
   .slick-disabled {
     opacity: 0;
@@ -282,13 +237,12 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-list {
-    /* overflow: hidden; */
   }
   .slick-prev {
     padding: 0.1rem;
     width: 3rem;
     background: var(--bg_color-prev-gradient);
-    z-index: 5;
+    z-index: 1;
     position: absolute;
     height: 100%;
   }
@@ -298,7 +252,6 @@ const StyledSlider = styled(Slider)`
     padding: 0.1rem;
     background: var(--bg_color-next-gradient);
     width: 3rem;
-    z-index: 5;
     height: 100%;
     opacity: 0;
     position: absolute;
@@ -306,18 +259,17 @@ const StyledSlider = styled(Slider)`
 `;
 const HoverCard = styled.div`
   display: none;
-  width: 300px;
-  height: 274px;
+  width: 330px;
+  height: 395px;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
   orphans: 10;
   position: absolute;
   left: -35px;
-  botoom: 2px;
-  bottom: 7px;
-  z-index: 7;
+  z-index: 8 !important;
   animation: hoveranimation 0.2s ease-in forwards;
+  top: -45px;
 
   @keyframes hoveranimation {
     0% {
@@ -325,14 +277,14 @@ const HoverCard = styled.div`
     }
     100% {
       opacity: 1;
-      transform: scaleX(1) scaleY(1.3);
+      transform: scaleX(1) scaleY(1);
     }
   }
 `;
 const Card = styled.div`
   position: relative;
-  width: 12rem !important;
-  height: 16rem !important;
+  width: 16rem !important;
+  height: 10rem !important;
   cursor: pointer;
   &:hover {
     ${HoverCard} {
@@ -357,15 +309,15 @@ const Hoverimg = styled(ImageView)`
   top: 0;
   left: 0;
   width: 100%;
-  height: 8.5rem;
+  height: 12rem;
   border-radius: 6px;
 `;
 const HovercardTitleImg = styled(ImageView)`
   position: absolute;
   top: 65px;
   left: 10px;
-  width: 8rem;
-  height: 3rem;
+  width: 7rem;
+  height: 4rem;
 `;
 const LanguageWrapper = styled.button`
   display: flex;
@@ -373,25 +325,25 @@ const LanguageWrapper = styled.button`
   position: absolute;
   background-color: transparent;
   color: var(--white_color);
-  font-size: 10px;
+  font-size: 14px;
   letter-spacing: 0.2px;
   font-weight: 700;
   border: none;
   outline: none;
-  top: 5px;
+  top: 10px;
   left: 10px;
   cursor: pointer;
   font-family: var(--FONT-FAMILY);
   text-shadow: var(--text-shadow);
 `;
 const StyleddownArrow = styled(KeyboardArrowDownIcon)`
-  width: 25px;
-  height: 17px;
+  width: 27px;
+  height: 19px;
   color: var(--white_color);
 `;
 const StyleddPlay = styled(PlayArrowIcon)`
-  width: 25px;
-  height: 17px;
+  width: 27px;
+  height: 19px;
 
   color: var(--bg_color1000);
 `;
@@ -409,14 +361,14 @@ const ImgOverlay = styled.div`
   width: 100%;
   background: var(--overlay-color);
   position: absolute;
-  top: 90px;
-  height: 4rem;
+  top: 110px;
+  height: 6rem;
 `;
 const BottomContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.5rem;
-  top: 140px;
+  top: 210px;
   position: absolute;
 `;
 const WatchWrapper = styled.div`
@@ -426,25 +378,25 @@ const WatchWrapper = styled.div`
 const WatchNowBUtton = styled.button`
   font-family: var(--FONT-FAMILY);
   background-color: var(--white_color);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--bg_color1000);
   font-weight: 700;
-  width: 14rem;
-  border-radius: 4px;
+  width: 15.2rem;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
-  padding: 0.5rem 2.3rem !important;
+  padding: 0.9rem 2.3rem !important;
   justify-content: center;
   align-items: center;
   border: none;
   outline: none;
 `;
 const WatchListButton = styled.button`
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.9rem 0.7rem;
   margin-left: 0.8rem;
   background: var(--bg_color600);
   border: none;
@@ -453,8 +405,8 @@ const WatchListButton = styled.button`
 `;
 const YearDetailsWrapper = styled.div`
   display: flex;
-  margin-top: 1rem;
-  gap: 4px;
+  margin-top: 1.2rem;
+  gap: 9px;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
@@ -462,14 +414,14 @@ const YearDetailsWrapper = styled.div`
 const Text = styled.p`
   font-family: var(--FONT-FAMILY);
   color: var(--white_color);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
 `;
 const Description = styled.p`
-  margin-top: 0.3rem;
+  margin-top: 0.7rem;
   font-family: var(--FONT-FAMILY) !important;
   color: var(--text-color1000);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   text-align: start;
 `;

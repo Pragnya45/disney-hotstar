@@ -5,6 +5,7 @@ import Sidebar from "../Components/Sidebar";
 import Logo from "../Components/Logo";
 import Banner from "../Components/Banner";
 import Home from "../views/Home";
+import Footer from "@/app/Components/Footer";
 
 const page = () => {
   return (
@@ -15,6 +16,7 @@ const page = () => {
         <Sidebar />
       </Nav>
       <Home />
+      <Footer />
     </Main>
   );
 };
@@ -25,9 +27,9 @@ const Main = styled.div`
   background: var(--bg_color1000);
   width: 100%;
   min-height: 100vh;
+  padding-bottom: 2rem;
 `;
 const BackdropWidth = styled.div`
-  display: none;
   height: 100vh;
   width: 100%;
   position: absolute;
@@ -43,8 +45,5 @@ const Nav = styled.div`
   z-index: 20;
   &:hover {
     width: 20%;
-    ${BackdropWidth} {
-      display: block;
-    }
   }
 `;

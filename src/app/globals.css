@@ -4,7 +4,6 @@
   --bg_color800: #16181f;
   --bg_color700: #252833;
   --bg_color600: hsla(0, 0%, 100%, 0.08);
-  --bg_color500: hsla(0, 0%, 100%, 0.6);
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-next-gradient: linear-gradient(
     269.25deg,
@@ -21,6 +20,7 @@
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
   --text-color1000: #8f98b2;
   --text-color900: #e1e6f0;
+  --text-color800: rgba(59, 130, 246, 0.5);
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
   --box-shadow1000: 0 0 #0000;
@@ -34,6 +34,11 @@
     rgba(22, 24, 31, 0.75) 64.27%,
     rgba(22, 24, 31, 0.92) 82.94%,
     #16181f
+  );
+  --linear-gradient-color: linear-gradient(
+    180deg,
+    rgba(15, 16, 20, 0),
+    rgba(15, 16, 20, 0.75)
   );
 
   --sidenav-backdrop-color: linear-gradient(
