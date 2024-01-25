@@ -4,39 +4,61 @@ import CheckIcon from "@mui/icons-material/Check";
 import ImageView from "./Image";
 const facebook_icon = "/assets/icons/facebook.png";
 const twitter_icon = "/assets/icons/twitter.png";
+const playstore_icon = "/assets/icons/google-playstore.webp";
+const appstore_icon = "/assets/icons/ios-appstore.webp";
 function Footer() {
   return (
     <FooterWrapper>
-      <Section>
-        <Heading>Company</Heading>
-        <AboutUs>About Us</AboutUs>
-        <Carreer>Careers</Carreer>
-        <Rights>© 2023 STAR. All Rights Reserved.</Rights>
-        <TermsWrapper>
-          <Text>Terms Of Use</Text>
-          <Text>Privacy Policy</Text>
-          <Text>FAQ</Text>
-        </TermsWrapper>
-      </Section>
-      <Section>
-        <Heading>View Website In</Heading>
-        <Language>
-          <StyledCheck />
-          English
-        </Language>
-      </Section>
-      <Section>
-        <Heading>Need Help?</Heading>
-        <AboutUs>Visit Help Center</AboutUs>
-        <Carreer>Share Feedback</Carreer>
-      </Section>
-      <Section>
-        <Heading>Connect with Us</Heading>
-        <IconWrapper>
-          <Icon src={facebook_icon} alt="facebook" width={28} height={28} />
-          <Icon src={twitter_icon} alt="twitter" width={28} height={28} />
-        </IconWrapper>
-      </Section>
+      <SectionWrapper>
+        <Section>
+          <Heading>Company</Heading>
+          <AboutUs>About Us</AboutUs>
+          <Carreer>Careers</Carreer>
+        </Section>
+        <Section>
+          <Heading>View Website In</Heading>
+          <Language>
+            <StyledCheck />
+            English
+          </Language>
+        </Section>
+        <Section>
+          <Heading>Need Help?</Heading>
+          <AboutUs>Visit Help Center</AboutUs>
+          <Carreer>Share Feedback</Carreer>
+        </Section>
+        <Section>
+          <Heading>Connect with Us</Heading>
+          <IconWrapper>
+            <Icon src={facebook_icon} alt="facebook" width={28} height={28} />
+            <Icon src={twitter_icon} alt="twitter" width={28} height={28} />
+          </IconWrapper>
+        </Section>
+      </SectionWrapper>
+      <SectionWrapper>
+        <LeftContainer>
+          <Rights>© 2023 STAR. All Rights Reserved.</Rights>
+          <TermsWrapper>
+            <Text>Terms Of Use</Text>
+            <Text>Privacy Policy</Text>
+            <Text>FAQ</Text>
+          </TermsWrapper>
+        </LeftContainer>
+        <RightContainer>
+          <PlayStore
+            src={playstore_icon}
+            width={140}
+            height={40}
+            alt="playstore"
+          />
+          <AppStore
+            src={appstore_icon}
+            width={140}
+            height={40}
+            alt="Appstore"
+          />
+        </RightContainer>
+      </SectionWrapper>
     </FooterWrapper>
   );
 }
@@ -45,10 +67,25 @@ export default Footer;
 
 const FooterWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-left: 6rem;
   padding-top: 9rem;
   padding-right: 4rem;
+`;
+const SectionWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const LeftContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+`;
+const RightContainer = styled.div`
+  display: flex;
+  align-items: column;
+  gap: 1rem;
 `;
 const Section = styled.div`
   display: flex;
@@ -122,3 +159,5 @@ const IconWrapper = styled.div`
   margin-top: 1.5rem;
 `;
 const Icon = styled(ImageView)``;
+const PlayStore = styled(ImageView)``;
+const AppStore = styled(ImageView)``;

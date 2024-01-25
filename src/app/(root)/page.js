@@ -6,6 +6,7 @@ import Logo from "../Components/Logo";
 import Banner from "../Components/Banner";
 import Home from "../views/Home";
 import Footer from "@/app/Components/Footer";
+import ProductionHouse from "../Components/ProductionHouse";
 
 const page = () => {
   return (

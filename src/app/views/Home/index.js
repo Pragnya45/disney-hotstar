@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCard";
+import ProductionHouse from "@/app/Components/ProductionHouse";
 
 function Home() {
   const releases = [
@@ -552,6 +553,7 @@ function Home() {
         data={releases}
         isSpan={false}
       />
+      <ProductionHouse />
     </Wrapper>
   );
 }
@@ -561,7 +563,6 @@ export default Home;
 const Wrapper = styled.div`
   min-height: 100vh;
   width: 100%;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   gap: 2rem;
