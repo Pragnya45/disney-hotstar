@@ -12,39 +12,41 @@ import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
 import MovieIcon from "@mui/icons-material/Movie";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import Link from "next/link";
+
 const disneyicon = "/assets/icons/disney.png";
 export default function Sidebar() {
   return (
     <SidebarWrapper>
-      <Button>
+      <Button href="my-page">
         <Image src={disneyicon} alt="disney" width={20} height={20} />
         <NavText>My Space </NavText>
       </Button>
-      <Button>
+      <Button href="explore">
         <Search />
         <NavText>Search</NavText>
       </Button>
-      <Button>
+      <Button href="/">
         <Home />
         <Homefilled />
         <NavText>Home</NavText>
       </Button>
-      <Button>
+      <Button href="/tv">
         <Tv />
         <Tvfilled />
         <NavText>Tv</NavText>
       </Button>
-      <Button>
+      <Button href="/movies">
         <Movie />
         <Moviefilled />
         <NavText>Movies</NavText>
       </Button>
-      <Button>
+      <Button href="/sports">
         <Sports />
         <Sportsfilled />
         <NavText>Sports</NavText>
       </Button>
-      <Button>
+      <Button href="/categories">
         <Category />
         <Categoryfilled />
         <NavText>Categories</NavText>
@@ -137,7 +139,7 @@ const SidebarWrapper = styled.div`
     }
   }
 `;
-const Button = styled.button`
+const Button = styled(Link)`
   margin-left: 32px;
   margin-right: 32px;
   outline: none;

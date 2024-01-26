@@ -144,8 +144,9 @@ export default SliderComponent;
 
 const Wrapper = styled.div`
   display: flex;
-  margin-left: 6rem;
+  padding-left: 6rem;
   flex-direction: column;
+  width: 100%;
 `;
 const SpanImage = styled(ImageView)`
   width: 2.5rem;
@@ -165,6 +166,7 @@ const CardWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
   margin-top: 1rem;
+  width: 100%;
   &:hover {
     .slick-next {
       opacity: 1;
@@ -226,13 +228,14 @@ const StyledSlider = styled(Slider)`
     width: 3rem;
     height: 100%;
     opacity: 0;
+    z-index: 1;
     position: absolute;
   }
 `;
 const HoverCard = styled.div`
   display: none;
-  width: 330px;
-  height: 395px;
+  width: 330px !important;
+  height: 395px !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -240,7 +243,7 @@ const HoverCard = styled.div`
   position: absolute;
   left: -35px;
   z-index: 8 !important;
-  animation: hoveranimation 0.2s ease-in forwards;
+  animation: hoveranimation 0.4s ease-in forwards;
   top: -45px;
 
   @keyframes hoveranimation {
@@ -258,9 +261,23 @@ const Card = styled.div`
   width: 12rem !important;
   height: 16rem !important;
   cursor: pointer;
+  transition: transform 0.7s ease-in-out;
   &:hover {
+    /* transform: scale(1.7, 1.3);
+    z-index: 8; */
+
+    /* ${CardWrapper}:hover & {
+      .slick-next,
+      .slick-prev {
+        opacity: 0;
+        z-index: -1 !important;
+      }
+    } */
+
     ${HoverCard} {
       display: block;
+      /* transform: scale(1.7, 1.3); */
+      z-index: 8;
     }
   }
 `;
