@@ -17,7 +17,9 @@ const page = () => {
         <Sidebar />
       </Nav>
       <Home />
-      <Footer />
+      <FooterWrapper>
+        <Footer />
+      </FooterWrapper>
     </Main>
   );
 };
@@ -47,4 +49,7 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
+`;
+const FooterWrapper = styled.div`
+  padding-left: 6rem;
 `;

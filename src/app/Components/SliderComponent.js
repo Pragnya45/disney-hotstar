@@ -68,14 +68,20 @@ function SliderComponent({ title, data, isSpan }) {
 
   return (
     <Wrapper>
-      {isSpan ? (
-        <Heading>
-          <SpanImage src={freeImg} alt="free" width={30} height={30} />
-          {title}
-        </Heading>
-      ) : (
-        <Heading>{title}</Heading>
-      )}
+      <HeaderWrapper>
+        {isSpan ? (
+          <Heading>
+            <SpanImage src={freeImg} alt="free" width={30} height={30} />
+            {title}
+          </Heading>
+        ) : (
+          <Heading>{title}</Heading>
+        )}
+        <ViewButton>
+          View all
+          <SideArrow />
+        </ViewButton>
+      </HeaderWrapper>
       <CardWrapper>
         <StyledSlider {...settings}>
           {data.map((release, index) => (
@@ -162,6 +168,31 @@ const Heading = styled.p`
   align-items: center;
   gap: 10px;
 `;
+const SideArrow = styled(ChevronRightIcon)`
+  width: 25px;
+  height: 25px;
+  color: var(--text-color1000);
+`;
+const ViewButton = styled.button`
+  opacity: 0;
+  display: flex;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-color1000);
+  margin-left: 0.5rem;
+  align-items: center;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding-right: 1rem;
+  &:hover {
+    color: var(--white_color);
+    ${SideArrow} {
+      color: var(--white_color);
+    }
+  }
+`;
 const CardWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
@@ -170,6 +201,9 @@ const CardWrapper = styled.div`
   &:hover {
     .slick-next {
       opacity: 1;
+    }
+    ${ViewButton} {
+      opacity: 1 !important;
     }
   }
 `;
@@ -413,4 +447,9 @@ const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   text-align: start;
+`;
+const HeaderWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 `;

@@ -90,7 +90,7 @@ const ProductionHouseWrapper = styled.div`
   flex-direction: row !important;
   gap: 0.5rem;
   width: 100%;
-  margin-left: 6rem;
+
   position: relative;
   justify-content: start;
   align-items: center;

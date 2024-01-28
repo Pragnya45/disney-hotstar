@@ -148,6 +148,7 @@ const Button = styled(Link)`
   display: flex;
   gap: 1rem;
   cursor: pointer;
+  text-decoration: none;
   animation: animationStart 0.1s ease-out, animationEnd 0.2s ease 0.1s;
   transition-duration: 0.15s;
   transition-property: all;

@@ -553,7 +553,9 @@ function Home() {
         data={releases}
         isSpan={false}
       />
-      <ProductionHouse />
+      <ProductionWrapper>
+        <ProductionHouse />
+      </ProductionWrapper>
     </Wrapper>
   );
 }
@@ -572,4 +574,7 @@ const Contentwrapper = styled.div`
   margin-left: 6rem;
   display: flex;
   flex-direction: column;
+`;
+const ProductionWrapper = styled.div`
+  padding-left: 6rem;
 `;
