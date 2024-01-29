@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
+import Footer from "@/app/Components/Footer";
 
 function Explore() {
   const [name, setName] = useState("");
@@ -337,6 +338,7 @@ function Explore() {
           ))}
         </CardWrapper>
       </PopularSearch>
+      <Footer />
     </Wrapper>
   );
 }

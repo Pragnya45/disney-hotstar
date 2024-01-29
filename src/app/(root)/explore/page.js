@@ -13,7 +13,6 @@ function Search() {
         <Sidebar />
       </Nav>
       <Explore />
-      <Footer />
     </Main>
   );
 }
