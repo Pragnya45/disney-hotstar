@@ -109,29 +109,7 @@ const ViewButton = styled.button`
     }
   }
 `;
-const CardWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.2rem;
-  margin-top: 1rem;
-  width: 100%;
-  &:hover {
-    .slick-next {
-      opacity: 1;
-    }
-    ${ViewButton} {
-      opacity: 1 !important;
-    }
-  }
-`;
 
-const CardImage = styled(ImageView)`
-  position: absolute;
-
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-`;
 const ArrowLeftIcon = styled(ChevronLeftIcon)`
   transition: all ease-in-out 0.5s;
   color: var(--text-color900);
@@ -140,42 +118,6 @@ const ArrowLeftIcon = styled(ChevronLeftIcon)`
 const ArrowRightIcon = styled(ChevronRightIcon)`
   transition: all ease-in-out 0.5s;
   color: var(--text-color900);
-`;
-const StyledSlider = styled(Slider)`
-  z-index: 2 !important;
-  width: 100%;
-  gap: 0.5rem;
-  position: relative;
-  .slick-disabled {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .slick-track {
-    display: flex;
-  }
-  .slick-list {
-    display: flex;
-    width: 100% !important;
-  }
-  .slick-prev {
-    padding: 0.1rem;
-    width: 3rem;
-    background: var(--bg_color-prev-gradient);
-    z-index: 1;
-    position: absolute;
-    height: 100%;
-  }
-  .slick-next {
-    right: 0;
-    top: 0;
-    padding: 0.1rem;
-    background: var(--bg_color-next-gradient);
-    width: 3rem;
-    height: 100%;
-    opacity: 0;
-    z-index: 1;
-    position: absolute;
-  }
 `;
 
 const ProductionHouseImg = styled(ImageView)`

@@ -107,6 +107,7 @@ const ImageWrapper = styled.div`
 
   &:hover {
     transform: scale(1.15);
+
     z-index: 2;
 
     ${Player} {

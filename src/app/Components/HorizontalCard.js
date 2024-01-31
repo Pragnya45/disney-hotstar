@@ -66,22 +66,21 @@ function HorizontalCard({ title, data }) {
     <Wrapper>
       <Heading>{title}</Heading>
 
-      <CardWrapper>
-        <StyledSlider {...settings}>
-          {data.map((release, index) => (
-            <ContentWrapper key={index}>
-              <Card>
-                <CardImage
-                  src={release.img}
-                  alt={release.title}
-                  width={100}
-                  height={100}
-                />
-                <PlayWrapper>
-                  <Play />
-                  <Duration>5m</Duration>
-                </PlayWrapper>
-                {release?.hovercardData?.map((hoverData, index) => (
+      <CardWrapper {...settings}>
+        {data.map((release, index) => (
+          <ContentWrapper key={index}>
+            <Card>
+              <CardImage
+                src={release.img}
+                alt={release.title}
+                width={100}
+                height={100}
+              />
+              <PlayWrapper>
+                <Play />
+                <Duration>5m</Duration>
+              </PlayWrapper>
+              {/* {release?.hovercardData?.map((hoverData, index) => (
                   <HoverCard key={index}>
                     <HoverContent>
                       <Hoverimg
@@ -126,12 +125,14 @@ function HorizontalCard({ title, data }) {
                       </BottomContentWrapper>
                     </HoverContent>
                   </HoverCard>
-                ))}
-              </Card>
+                ))} */}
+            </Card>
+            <TextContainer>
               <Title>{release.title}</Title>
-            </ContentWrapper>
-          ))}
-        </StyledSlider>
+              <Description>{release.description}</Description>
+            </TextContainer>
+          </ContentWrapper>
+        ))}
       </CardWrapper>
     </Wrapper>
   );
@@ -143,6 +144,7 @@ const Wrapper = styled.div`
   display: flex;
   margin-left: 6rem;
   flex-direction: column;
+  position: relative;
 `;
 const Title = styled.p`
   font-family: var(--FONT-FAMILY);
@@ -182,54 +184,26 @@ const Heading = styled.p`
   align-items: center;
   gap: 10px;
 `;
-const CardWrapper = styled.div`
+const CardWrapper = styled(Slider)`
   display: flex;
   gap: 0.2rem;
   margin-top: 1rem;
-  &:hover {
-    .slick-next {
-      opacity: 1;
-    }
-  }
-`;
-const ContentWrapper = styled.div`
-  display: flex !important;
-  flex-direction: column;
-  align-items: start;
-  gap: 0.5rem;
-  width: 16rem !important;
-`;
-
-const CardImage = styled(ImageView)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-`;
-const ArrowLeftIcon = styled(ChevronLeftIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
-`;
-
-const ArrowRightIcon = styled(ChevronRightIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
-`;
-const StyledSlider = styled(Slider)`
-  width: 98%;
-  z-index: 2 !important;
   position: relative;
+  align-items: center;
   .slick-disabled {
     opacity: 0;
     pointer-events: none;
   }
-  .slick-track {
+  .slick-slide {
     display: flex;
   }
+  .slick-track {
+    display: flex;
+    gap: 0.5rem;
+  }
   .slick-active {
-    /* width: 205px !important; */
+    width: 16rem !important;
+    height: 10rem;
   }
   .slick-slide:active {
   }
@@ -256,6 +230,73 @@ const StyledSlider = styled(Slider)`
     opacity: 0;
     position: absolute;
   }
+  &:hover {
+    .slick-next {
+      opacity: 1;
+    }
+  }
+`;
+const Description = styled.p`
+  font-family: var(--FONT-FAMILY) !important;
+  color: var(--text-color1000);
+  font-size: 14px;
+  font-weight: 400;
+  text-align: start;
+  display: none;
+  transition: display 0.3s ease-in;
+`;
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem;
+`;
+const ContentWrapper = styled.div`
+  display: flex !important;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: start;
+  width: 16rem !important;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out,
+    z-index 0.3s ease-in-out, top 0.3s ease-in-out; /* Include 'top' in the transition property */
+  z-index: 0;
+  transform-origin: bottom;
+  border-radius: 10px;
+
+  &:hover {
+    transform: scale(1.15) translateX(10px);
+    width: 18rem !important;
+    z-index: 2;
+    top: -50px;
+    background: var(--bg_color800);
+    box-shadow: var(--box-shadow900);
+    position: relative;
+    ${Description} {
+      display: block;
+    }
+  }
+`;
+
+const CardImage = styled(ImageView)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+`;
+const ArrowLeftIcon = styled(ChevronLeftIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+
+const ArrowRightIcon = styled(ChevronRightIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+const StyledSlider = styled(Slider)`
+  width: 98%;
 `;
 const HoverCard = styled.div`
   display: none;
@@ -283,7 +324,7 @@ const HoverCard = styled.div`
 `;
 const Card = styled.div`
   position: relative;
-  width: 16rem !important;
+  width: 100% !important;
   height: 10rem !important;
   cursor: pointer;
   &:hover {
@@ -416,12 +457,4 @@ const Text = styled.p`
   color: var(--white_color);
   font-size: 14px;
   font-weight: 600;
-`;
-const Description = styled.p`
-  margin-top: 0.7rem;
-  font-family: var(--FONT-FAMILY) !important;
-  color: var(--text-color1000);
-  font-size: 14px;
-  font-weight: 400;
-  text-align: start;
 `;
