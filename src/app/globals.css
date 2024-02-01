@@ -15,6 +15,12 @@
     #0f1014 0.62%,
     rgba(15, 16, 20, 0) 99.33%
   );
+  --horizontal-gradient-color: linear-gradient(
+    90deg,
+    rgba(112, 122, 148, 0),
+    #707a94 50%,
+    rgba(112, 122, 148, 0)
+  );
   --white_color: #ffffff;
   --white_color1000: rgba(229, 231, 235, 1);
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
