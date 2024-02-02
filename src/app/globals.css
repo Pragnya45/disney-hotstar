@@ -4,6 +4,7 @@
   --bg_color800: #16181f;
   --bg_color700: #252833;
   --bg_color600: hsla(0, 0%, 100%, 0.08);
+  --bg_color500: hsla(0, 0%, 100%, 0.3);
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-next-gradient: linear-gradient(
     269.25deg,
@@ -21,6 +22,7 @@
     #707a94 50%,
     rgba(112, 122, 148, 0)
   );
+  --button-gradieent-color: linear-gradient(93.87deg, #095ae6, #062794);
   --white_color: #ffffff;
   --white_color1000: rgba(229, 231, 235, 1);
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
@@ -28,6 +30,9 @@
   --text-color900: #e1e6f0;
   --text-color700: #3586f0;
   --text-color800: rgba(59, 130, 246, 0.5);
+  --text-color600: #d1e8ff;
+  --text-color500: #707a94;
+  --text-color400: #cad2e5;
   --gold-color: #ffcc75;
   --tw-shadow: hsla(0, 0%, 100%, 0.6);
   --box-shadow1000: 0 0 #0000;

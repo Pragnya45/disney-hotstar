@@ -142,7 +142,6 @@ export default HorizontalCard;
 
 const Wrapper = styled.div`
   display: flex;
-  margin-left: 6rem;
   flex-direction: column;
   position: relative;
 `;

@@ -150,7 +150,6 @@ export default SliderComponent;
 
 const Wrapper = styled.div`
   display: flex;
-  padding-left: 6rem;
   flex-direction: column;
   width: 100%;
 `;

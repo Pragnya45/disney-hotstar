@@ -519,41 +519,50 @@ function Home() {
       <Contentwrapper>
         <Banner />
       </Contentwrapper>
-      <SliderComponent title="Latest Releases" data={releases} isSpan={false} />
-      <HorizontalCard title="Best in Sports" data={cardData} />
-      <SliderComponent title="Newly Added" data={releases} isSpan={true} />
-      <SliderComponent title="Popular Shows" data={releases} isSpan={false} />
-      {/* <top10></top10> */}
-      <SliderComponent
-        title="Watch With Your Family"
-        data={releases}
-        isSpan={false}
-      />
-      <SliderComponent
-        title="Movies from the 2010s"
-        data={releases}
-        isSpan={false}
-      />
-      <HorizontalCard title="Param Bhakt Hanuman's Journey" data={cardData} />
-      {/* <watchlist></watchlist> */}
-      <SliderComponent title="Popular Movies" data={releases} isSpan={false} />
-      <SliderComponent
-        title="Hotstar Specials"
-        data={releases}
-        isSpan={false}
-      />
-      <SliderComponent title="Coming Soon" data={releases} isSpan={false} />
-      <SliderComponent
-        title="Best of Superheros"
-        data={releases}
-        isSpan={false}
-      />
-      <SliderComponent
-        title="Exclusive Indian Movies"
-        data={releases}
-        isSpan={false}
-      />
       <ProductionWrapper>
+        <SliderComponent
+          title="Latest Releases"
+          data={releases}
+          isSpan={false}
+        />
+        <HorizontalCard title="Best in Sports" data={cardData} />
+        <SliderComponent title="Newly Added" data={releases} isSpan={true} />
+        <SliderComponent title="Popular Shows" data={releases} isSpan={false} />
+        {/* <top10></top10> */}
+        <SliderComponent
+          title="Watch With Your Family"
+          data={releases}
+          isSpan={false}
+        />
+        <SliderComponent
+          title="Movies from the 2010s"
+          data={releases}
+          isSpan={false}
+        />
+        <HorizontalCard title="Param Bhakt Hanuman's Journey" data={cardData} />
+        {/* <watchlist></watchlist> */}
+        <SliderComponent
+          title="Popular Movies"
+          data={releases}
+          isSpan={false}
+        />
+        <SliderComponent
+          title="Hotstar Specials"
+          data={releases}
+          isSpan={false}
+        />
+        <SliderComponent title="Coming Soon" data={releases} isSpan={false} />
+        <SliderComponent
+          title="Best of Superheros"
+          data={releases}
+          isSpan={false}
+        />
+        <SliderComponent
+          title="Exclusive Indian Movies"
+          data={releases}
+          isSpan={false}
+        />
+
         <ProductionHouse />
       </ProductionWrapper>
     </Wrapper>
@@ -577,4 +586,7 @@ const Contentwrapper = styled.div`
 `;
 const ProductionWrapper = styled.div`
   padding-left: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
 `;
