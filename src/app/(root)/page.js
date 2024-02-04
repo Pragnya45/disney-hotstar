@@ -52,4 +52,5 @@ const Nav = styled.div`
 `;
 const FooterWrapper = styled.div`
   padding-left: 6rem;
+  padding-right: 3rem;
 `;

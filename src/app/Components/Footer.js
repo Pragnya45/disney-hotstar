@@ -69,7 +69,6 @@ const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 5rem;
-  padding-right: 4rem;
 `;
 const SectionWrapper = styled.div`
   display: flex;

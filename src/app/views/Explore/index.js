@@ -352,7 +352,7 @@ const Wrapper = styled.div`
   gap: 2rem;
   padding-left: 6rem;
   padding-top: 4rem;
-  padding-right: 8rem;
+  padding-right: 6rem;
 `;
 const SearchbarContainer = styled.div`
   display: flex;

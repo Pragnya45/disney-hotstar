@@ -2,7 +2,6 @@ import React from "react";
 import ProductionHouse from "@/app/Components/ProductionHouse";
 import PosterCard from "@/app/Components/PosterCard";
 import ImageView from "@/app/Components/Image";
-import Footer from "@/app/Components/Footer";
 import styled from "styled-components";
 
 const hindi = "/assets/images/hindi.webp";
@@ -275,7 +274,6 @@ function Category() {
       <PosterCard data={channels} title="Popular Channels" />
       <PosterCard data={genrs} title="Popular Geners" />
       <PosterCard data={sports} title="Popular Sports" />
-      <Footer />
     </Content>
   );
 }
