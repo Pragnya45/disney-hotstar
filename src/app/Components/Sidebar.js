@@ -13,40 +13,50 @@ import MovieIcon from "@mui/icons-material/Movie";
 import WidgetsOutlinedIcon from "@mui/icons-material/WidgetsOutlined";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
 const disneyicon = "/assets/icons/disney.png";
 export default function Sidebar() {
+  const pathname = usePathname();
   return (
     <SidebarWrapper>
-      <Button href="my-page">
+      <Button
+        href="/my-page"
+        className={pathname === "/my-page" ? "active" : ""}
+      >
         <Image src={disneyicon} alt="disney" width={20} height={20} />
         <NavText>My Space </NavText>
       </Button>
-      <Button href="explore">
+      <Button
+        href="/explore"
+        className={pathname === "/explore" ? "active" : ""}
+      >
         <Search />
         <NavText>Search</NavText>
       </Button>
-      <Button href="/">
+      <Button href="/" className={pathname === "/" ? "active" : ""}>
         <Home />
         <Homefilled />
         <NavText>Home</NavText>
       </Button>
-      <Button href="/tv">
+      <Button href="/tv" className={pathname === "/tv" ? "active" : ""}>
         <Tv />
         <Tvfilled />
         <NavText>Tv</NavText>
       </Button>
-      <Button href="/movies">
+      <Button href="/movies" className={pathname === "/movies" ? "active" : ""}>
         <Movie />
         <Moviefilled />
         <NavText>Movies</NavText>
       </Button>
-      <Button href="/sports">
+      <Button href="/sports" className={pathname === "/sports" ? "active" : ""}>
         <Sports />
         <Sportsfilled />
         <NavText>Sports</NavText>
       </Button>
-      <Button href="/categories">
+      <Button
+        href="/categories"
+        className={pathname === "/categories" ? "active" : ""}
+      >
         <Category />
         <Categoryfilled />
         <NavText>Categories</NavText>
@@ -139,6 +149,8 @@ const SidebarWrapper = styled.div`
     }
   }
 `;
+const Image = styled(ImageView)``;
+
 const Button = styled(Link)`
   margin-left: 32px;
   margin-right: 32px;
@@ -203,5 +215,25 @@ const Button = styled(Link)`
       border-color: var(--white_color1000);
     }
   }
+  &.active {
+    ${Search}, ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
+      display: block;
+      filter: drop-shadow(0 0 15px var(--tw-shadow));
+      color: var(--white_color);
+      fill: var(--white_color);
+      border-color: var(--white_color1000);
+    }
+    ${Image} {
+      filter: drop-shadow(0 0 15px var(--tw-shadow));
+    }
+    ${Home},${Tv},${Movie},${Sports},${Category} {
+      display: none;
+      fill: var(--white_color);
+    }
+    ${NavText} {
+      color: var(--white_color);
+      border-color: var(--white_color1000);
+      filter: drop-shadow(0 0 15px var(--tw-shadow));
+    }
+  }
 `;
-const Image = styled(ImageView)``;
