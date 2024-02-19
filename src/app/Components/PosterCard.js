@@ -59,38 +59,12 @@ function PosterCard({ title, data }) {
 }
 
 export default PosterCard;
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-const Player = styled(Video)`
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  object-fit: cover;
-  position: absolute;
-  transition: opacity 0.3s ease-in 0.3s;
-  border-radius: 4px;
-`;
-
-const Heading = styled.p`
-  font-family: var(--FONT-FAMILY);
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--text-color900);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
 const SideArrow = styled(ChevronRightIcon)`
   width: 25px;
-  height: 25px;
+  height: 22px;
   color: var(--text-color1000);
 `;
 const ViewButton = styled.button`
-  opacity: 0;
   display: flex;
   font-size: 17px;
   font-weight: 700;
@@ -101,6 +75,7 @@ const ViewButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  display: none;
   padding-right: 1rem;
   &:hover {
     color: var(--white_color);
@@ -109,25 +84,6 @@ const ViewButton = styled.button`
     }
   }
 `;
-
-const ArrowLeftIcon = styled(ChevronLeftIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
-`;
-
-const ArrowRightIcon = styled(ChevronRightIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
-`;
-
-const ProductionHouseImg = styled(ImageView)`
-  position: absolute;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
-  border-radius: 4px;
-  width: 100%;
-  height: 100%;
-`;
 const ProductionHouseWrapper = styled(Slider)`
   margin-top: 1rem;
   display: flex !important;
@@ -135,11 +91,14 @@ const ProductionHouseWrapper = styled(Slider)`
   position: relative;
   align-items: center;
   display: flex;
-  &:hover {
+  /* &:hover {
     .slick-next {
       opacity: 1;
     }
-  }
+    ${ViewButton} {
+      display: flex;
+    }
+  } */
   .slick-slide {
     display: flex;
   }
@@ -179,6 +138,58 @@ const ProductionHouseWrapper = styled(Slider)`
     position: absolute;
   }
 `;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &:hover {
+    .slick-next {
+      opacity: 1;
+    }
+    ${ViewButton} {
+      display: flex;
+    }
+  }
+`;
+const Player = styled(Video)`
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  object-fit: cover;
+  position: absolute;
+  transition: opacity 0.3s ease-in 0.3s;
+  border-radius: 4px;
+`;
+
+const Heading = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const ArrowLeftIcon = styled(ChevronLeftIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+
+const ArrowRightIcon = styled(ChevronRightIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+
+const ProductionHouseImg = styled(ImageView)`
+  position: absolute;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+`;
+
 const ImageWrapper = styled.div`
   position: relative;
   transition: 0.3s ease-in-out;

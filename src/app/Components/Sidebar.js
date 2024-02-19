@@ -134,7 +134,7 @@ const Categoryfilled = styled(WidgetsIcon)`
 `;
 
 const SidebarWrapper = styled.div`
-  padding-top: 12rem;
+  padding-top: 10rem;
   margin: auto;
   display: flex;
   background: none;
@@ -161,16 +161,17 @@ const Button = styled(Link)`
   gap: 1rem;
   cursor: pointer;
   text-decoration: none;
-  animation: animationStart 0.1s ease-out, animationEnd 0.2s ease 0.1s;
+  animation: animationStart 0.2s ease-out, animationEnd 0.2s ease 0.1s;
   transition-duration: 0.15s;
-  transition-property: all;
+  transition-property: transform;
+  transform-origin: left;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   @keyframes animationStart {
     0% {
       transform: scale(1);
     }
     100% {
-      transform: scale(0.96);
+      transform: scale(1.3);
     }
   }
 
@@ -200,6 +201,7 @@ const Button = styled(Link)`
       color: var(--white_color);
       fill: var(--white_color);
       border-color: var(--white_color1000);
+      transform: scale(1.08);
     }
     ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
       display: block;
@@ -208,11 +210,13 @@ const Button = styled(Link)`
       width: 22px;
       height: 22px;
       border-color: var(--white_color1000);
+      transform: scale(1.08);
     }
     ${NavText} {
       color: var(--white_color);
       font-size: 20px;
       border-color: var(--white_color1000);
+      transform: scale(1.08);
     }
   }
   &.active {
@@ -222,18 +226,22 @@ const Button = styled(Link)`
       color: var(--white_color);
       fill: var(--white_color);
       border-color: var(--white_color1000);
+      transform: scale(1.08);
     }
     ${Image} {
       filter: drop-shadow(0 0 15px var(--tw-shadow));
+      transform: scale(1.08);
     }
     ${Home},${Tv},${Movie},${Sports},${Category} {
       display: none;
       fill: var(--white_color);
+      transform: scale(1.08);
     }
     ${NavText} {
       color: var(--white_color);
       border-color: var(--white_color1000);
       filter: drop-shadow(0 0 15px var(--tw-shadow));
+      transform: scale(1.08);
     }
   }
 `;

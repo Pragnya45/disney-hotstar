@@ -484,6 +484,7 @@ const Plan = styled.p`
   color: var(--text-color500);
   font-size: 14px;
   font-weight: 400;
+  font-family: var(--FONT-FAMILY);
 `;
 const ProfileHeader = styled.div`
   display: flex;
@@ -553,6 +554,7 @@ const Username = styled.p`
   font-weight: 500;
   font-size: 16px;
   margin-top: 0.5rem;
+  font-family: var(--FONT-FAMILY);
 `;
 const SelectButton = styled.button`
   border-radius: 50%;

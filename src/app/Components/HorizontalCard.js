@@ -64,7 +64,14 @@ function HorizontalCard({ title, data }) {
 
   return (
     <Wrapper>
-      <Heading>{title}</Heading>
+      <HeaderWrapper>
+        <Heading>{title}</Heading>
+
+        <ViewButton>
+          View all
+          <SideArrow />
+        </ViewButton>
+      </HeaderWrapper>
 
       <CardWrapper {...settings}>
         {data.map((release, index) => (
@@ -140,48 +147,30 @@ function HorizontalCard({ title, data }) {
 
 export default HorizontalCard;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  position: relative;
+const SideArrow = styled(ChevronRightIcon)`
+  width: 25px;
+  height: 22px;
+  color: var(--text-color1000);
 `;
-const Title = styled.p`
-  font-family: var(--FONT-FAMILY);
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--text-color900);
-`;
-const PlayWrapper = styled.div`
-  position: absolute;
+const ViewButton = styled.button`
   display: flex;
-  width: 100%;
-  bottom: 0px;
-  padding: 15px 10px;
-  justify-content: space-between;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-color1000);
+  margin-left: 0.5rem;
   align-items: center;
-  background: var(--linear-gradient-color);
-`;
-const Play = styled(PlayArrowIcon)`
-  width: 35px;
-  height: 25px;
-  color: var(--text-color900);
-  border-radius: 6px;
-`;
-
-const Duration = styled.p`
-  font-family: var(--FONT-FAMILY);
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--tw-shadow);
-`;
-const Heading = styled.p`
-  font-family: var(--FONT-FAMILY);
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--text-color900);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: none;
+  padding-right: 1rem;
+  &:hover {
+    color: var(--white_color);
+    ${SideArrow} {
+      color: var(--white_color);
+    }
+  }
 `;
 const CardWrapper = styled(Slider)`
   display: flex;
@@ -229,12 +218,64 @@ const CardWrapper = styled(Slider)`
     opacity: 0;
     position: absolute;
   }
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
   &:hover {
     .slick-next {
       opacity: 1;
     }
+    ${ViewButton} {
+      display: flex;
+    }
   }
 `;
+const Title = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color900);
+`;
+const HeaderWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+const PlayWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  bottom: 0px;
+  padding: 15px 10px;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--linear-gradient-color);
+`;
+const Play = styled(PlayArrowIcon)`
+  width: 35px;
+  height: 25px;
+  color: var(--text-color900);
+  border-radius: 6px;
+`;
+
+const Duration = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--tw-shadow);
+`;
+const Heading = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 const Description = styled.p`
   font-family: var(--FONT-FAMILY) !important;
   color: var(--text-color1000);

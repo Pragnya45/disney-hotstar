@@ -148,32 +148,13 @@ function SliderComponent({ title, data, isSpan }) {
 
 export default SliderComponent;
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-const SpanImage = styled(ImageView)`
-  width: 2.5rem;
-  height: 1.8rem;
-`;
-
-const Heading = styled.p`
-  font-family: var(--FONT-FAMILY);
-  font-weight: 600;
-  font-size: 20px;
-  color: var(--text-color900);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`;
 const SideArrow = styled(ChevronRightIcon)`
   width: 25px;
-  height: 25px;
+  height: 22px;
   color: var(--text-color1000);
 `;
 const ViewButton = styled.button`
-  opacity: 0;
+  opacity: 1;
   display: flex;
   font-size: 17px;
   font-weight: 700;
@@ -185,44 +166,13 @@ const ViewButton = styled.button`
   outline: none;
   cursor: pointer;
   padding-right: 1rem;
+  display: none;
   &:hover {
     color: var(--white_color);
     ${SideArrow} {
       color: var(--white_color);
     }
   }
-`;
-const CardWrapper = styled.div`
-  display: flex;
-  gap: 0.2rem;
-  margin-top: 1rem;
-  width: 100%;
-  &:hover {
-    .slick-next {
-      opacity: 1;
-    }
-    ${ViewButton} {
-      opacity: 1 !important;
-    }
-  }
-`;
-
-const CardImage = styled(ImageView)`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 6px;
-`;
-const ArrowLeftIcon = styled(ChevronLeftIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
-`;
-
-const ArrowRightIcon = styled(ChevronRightIcon)`
-  transition: all ease-in-out 0.5s;
-  color: var(--text-color900);
 `;
 const StyledSlider = styled(Slider)`
   width: 98%;
@@ -265,6 +215,67 @@ const StyledSlider = styled(Slider)`
     position: absolute;
   }
 `;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &:hover {
+    .slick-next {
+      opacity: 1;
+    }
+    ${ViewButton} {
+      display: flex;
+    }
+  }
+`;
+const SpanImage = styled(ImageView)`
+  width: 2.5rem;
+  height: 1.8rem;
+`;
+
+const Heading = styled.p`
+  font-family: var(--FONT-FAMILY);
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const CardWrapper = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  margin-top: 1rem;
+  width: 100%;
+  &:hover {
+    .slick-next {
+      opacity: 1;
+    }
+    ${ViewButton} {
+      opacity: 1 !important;
+    }
+  }
+`;
+
+const CardImage = styled(ImageView)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+`;
+const ArrowLeftIcon = styled(ChevronLeftIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+
+const ArrowRightIcon = styled(ChevronRightIcon)`
+  transition: all ease-in-out 0.5s;
+  color: var(--text-color900);
+`;
+
 const HoverCard = styled.div`
   display: none;
   width: 330px !important;
