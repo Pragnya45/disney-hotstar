@@ -4,6 +4,7 @@ import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCard";
 import ProductionHouse from "@/app/Components/ProductionHouse";
+import BannerMovie from "@/app/Components/BannerMovie";
 
 function Home() {
   const releases = [
@@ -519,6 +520,7 @@ function Home() {
       <Contentwrapper>
         <Banner />
       </Contentwrapper>
+      <BannerMovie />
       <ProductionWrapper>
         <SliderComponent
           title="Latest Releases"

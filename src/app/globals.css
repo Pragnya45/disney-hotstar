@@ -22,9 +22,13 @@
     #707a94 50%,
     rgba(112, 122, 148, 0)
   );
+
   --button-gradieent-color: linear-gradient(93.87deg, #095ae6, #062794);
+
   --white_color: #ffffff;
   --white_color1000: rgba(229, 231, 235, 1);
+  --white_color900: hsla(0, 0%, 100%, 0.2);
+
   --text-color-gradient1000: linear-gradient(270deg, #ffcc75 44.93%, #ffe490);
   --text-color1000: #8f98b2;
   --text-color900: #e1e6f0;
