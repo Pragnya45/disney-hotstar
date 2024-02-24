@@ -4,6 +4,7 @@ import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCard";
 import PosterCard from "@/app/Components/PosterCard";
+import BannerMovie from "@/app/Components/BannerMovie";
 
 const starPlus = "/assets/images/star-plus.webp";
 const starTelugu = "/assets/images/star-telugu.webp";
@@ -575,6 +576,7 @@ function TvPage() {
       <Contentwrapper>
         <Banner />
       </Contentwrapper>
+      <BannerMovie />
       <ProductionWrapper>
         <SliderComponent title="StarPLus Shows" data={releases} />
         <HorizontalCard title="Thriller Shows" data={cardData} />

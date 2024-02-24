@@ -6,6 +6,7 @@ import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCard";
 import ProductionHouse from "@/app/Components/ProductionHouse";
 import PosterCard from "@/app/Components/PosterCard";
+import BannerMovie from "@/app/Components/BannerMovie";
 
 const cricket = "/assets/images/cricket.webp";
 const kabaddi = "/assets/images/kabaddi.webp";
@@ -439,6 +440,7 @@ export default function Sport() {
       <Contentwrapper>
         <Banner />
       </Contentwrapper>
+      <BannerMovie />
       <ProductionWrapper>
         <PosterCard data={sports} title="Popular Sports" />
 

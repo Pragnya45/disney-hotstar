@@ -4,6 +4,7 @@ import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCard";
 import ProductionHouse from "@/app/Components/ProductionHouse";
+import BannerMovie from "@/app/Components/BannerMovie";
 
 function MoviePage() {
   const releases = [
@@ -519,6 +520,7 @@ function MoviePage() {
       <Contentwrapper>
         <Banner />
       </Contentwrapper>
+      <BannerMovie />
       <ProductionWrapper>
         <SliderComponent title="Movies You Watched" data={releases} />
         <SliderComponent title="Top 10 Movies - Hindi" data={releases} />

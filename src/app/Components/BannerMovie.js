@@ -5,13 +5,20 @@ import ImageView from "./Image";
 import CircleIcon from "@mui/icons-material/Circle";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import AddIcon from "@mui/icons-material/Add";
+import { Tooltip } from "antd";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const arya = "/assets/videos/arya.mp4";
 const aryaImg = "/assets/images/aarya.webp";
 const aryaTitleImg = "/assets/images/aaryatitle.webp";
+
 function BannerMovie() {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
+  const [muted, setMuted] = useState(false);
   const contentRef = useRef();
 
   useEffect(() => {
@@ -43,7 +50,10 @@ function BannerMovie() {
     return () => clearTimeout(timer);
   }, []);
   const handleVideoEnd = () => {
-    setShowvideo(false);
+    setShowvideo(false); // Hide the video when it ends
+    setTimeout(() => {
+      setShowvideo(true); // Show the video again after a delay
+    }, 3000); // Adjust the delay as needed
   };
   const scrollLeft = () => {
     if (contentRef.current) {
@@ -78,6 +88,7 @@ function BannerMovie() {
           autoPlay
           playsInline
           onEnded={handleVideoEnd}
+          muted={muted}
         >
           <source src={arya} type="video/mp4" />
         </Player>
@@ -107,24 +118,49 @@ function BannerMovie() {
             <VerticalLine></VerticalLine>
             <Text>Crime</Text>
           </YearDetailsWrapper>
-          <Button onClick={scrollLeft}>
-            <ArrowLeftIcon />
-          </Button>
-          <LanguageWrapper id="Container" ref={contentRef}>
-            <LanguageButton>
-              Hindi<Original>original</Original>
-            </LanguageButton>
-            <LanguageButton>Telugu</LanguageButton>
-            <LanguageButton>Tamil</LanguageButton>
-            <LanguageButton>Bengali</LanguageButton>
-            <LanguageButton>Marathi</LanguageButton>
-            <LanguageButton>Malayalam</LanguageButton>
-            <LanguageButton>Kannada</LanguageButton>
-          </LanguageWrapper>
-          <Button onClick={scrollRight}>
-            <ArrowRightIcon />
-          </Button>
+          <SliderWrapper>
+            <Button onClick={scrollLeft}>
+              <ArrowLeftIcon />
+            </Button>
+            <LanguageWrapper id="Container" ref={contentRef}>
+              <LanguageButton>
+                Hindi<Original>original</Original>
+              </LanguageButton>
+              <LanguageButton>Telugu</LanguageButton>
+              <LanguageButton>Tamil</LanguageButton>
+              <LanguageButton>Bengali</LanguageButton>
+              <LanguageButton>Marathi</LanguageButton>
+              <LanguageButton>Malayalam</LanguageButton>
+              <LanguageButton>Kannada</LanguageButton>
+            </LanguageWrapper>
+            <Button onClick={scrollRight}>
+              <ArrowRightIcon />
+            </Button>
+          </SliderWrapper>
+          <WatchWrapper>
+            <WatchNowButton>
+              <StyleddPlay /> Watch Now
+            </WatchNowButton>
+            <Tooltip title="Watchlist">
+              <WatchListButton>
+                <StyleddPlus />
+              </WatchListButton>
+            </Tooltip>{" "}
+          </WatchWrapper>
         </LeftContainer>
+        <RightContainer>
+          <SoundWrapper>
+            {muted ? (
+              <Tooltip title="Mute Trailer">
+                <Sound onClick={() => setMuted(!muted)} />
+              </Tooltip>
+            ) : (
+              <Tooltip title="Unmute Trailer">
+                <Mute onClick={() => setMuted(!muted)} />
+              </Tooltip>
+            )}
+          </SoundWrapper>
+        </RightContainer>
       </ContentWrapper>
     </Wrapper>
   );
@@ -161,6 +197,7 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
   position: absolute;
   padding: 2rem 4rem 2rem 6rem;
+  width: 100%;
 `;
 const LeftContainer = styled.div`
   display: flex;
@@ -218,24 +255,23 @@ const VerticalLine = styled.div`
 const ArrowLeftIcon = styled(ChevronLeftIcon)`
   transition: all ease-in-out 0.5s;
   color: var(--text-color900);
-  position: absolute;
+  /* position: absolute;
   top: 90%;
-  left: 0;
+  left: 0; */
 `;
 
 const ArrowRightIcon = styled(ChevronRightIcon)`
   transition: all ease-in-out 0.5s;
   color: var(--text-color900);
-  position: absolute;
+  /* position: absolute;
   right: 28%;
-  top: 90%;
+  top: 90%; */
 `;
 const LanguageWrapper = styled.div`
   display: flex;
   align-items: center;
   max-width: 70%;
   overflow-x: scroll;
-  position: relative;
   gap: 1rem;
   margin-top: 0.3rem;
   &::-webkit-scrollbar {
@@ -260,10 +296,84 @@ const Original = styled.span`
   font-size: 17px;
   font-weight: 600;
 `;
+const SliderWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  max-width: 70%;
+`;
 const Button = styled.button`
   background: none;
   outline: none;
   border: none;
   cursor: pointer;
   z-index: 5;
+`;
+const WatchWrapper = styled.div`
+  display: flex;
+  padding-left: 0.2rem;
+  margin-top: 1rem;
+`;
+const WatchNowButton = styled.button`
+  font-family: var(--FONT-FAMILY);
+  background-color: var(--white_color900);
+  font-size: 19px;
+  color: var(--white_color);
+  font-weight: 700;
+  width: 19rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  padding: 0.9rem 2.5rem !important;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  &:hover {
+    background-color: var(--bg_color500);
+  }
+`;
+const WatchListButton = styled.button`
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.9rem 0.7rem;
+  margin-left: 0.8rem;
+  background: var(--white_color900);
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+const StyleddPlus = styled(AddIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const Mute = styled(VolumeOffIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const Sound = styled(VolumeUpIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const StyleddPlay = styled(PlayArrowIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const RightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: end;
+  margin-top: auto;
+`;
+const SoundWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
