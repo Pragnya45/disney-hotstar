@@ -265,9 +265,10 @@ function Home() {
     {
       title: "Pirates 34-31 Yoddhas",
       img: "/assets/images/pirates.webp",
+      description:
+        "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. ",
       hovercardData: [
         {
-          titleImg: "/assets/images/hanuman-title.webp",
           language: "Hindi",
           coverpic: "/assets/images/hovercard-hanuman.webp",
           video: "",
@@ -283,6 +284,8 @@ function Home() {
     {
       title: "Echo",
       img: "/assets/images/echo-2.jpg",
+      description:
+        "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. ",
       hovercardData: [
         {
           titleImg: "/assets/images/echo-title.webp",
@@ -301,6 +304,8 @@ function Home() {
     {
       title: "Periloor premium league",
       img: "/assets/images/telugu-2.jpg",
+      description:
+        "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. ",
       hovercardData: [
         {
           titleImg: "/assets/images/telugu-title.webp",
@@ -319,6 +324,8 @@ function Home() {
     {
       title: "The Hanuman of Legend",
       img: "/assets/images/Luke.jpg",
+      description:
+        "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. ",
       hovercardData: [
         {
           titleImg: "/assets/images/luke-title.webp",

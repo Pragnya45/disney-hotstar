@@ -158,7 +158,7 @@ const StyledSwiper = styled(Swiper)`
   .swiper-button-prev:after,
   .swiper-button-next:after {
     color: var(--white_color);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
   }
   .swiper-button-prev.swiper-button-disabled,
@@ -170,7 +170,7 @@ const StyledSwiper = styled(Swiper)`
     background: var(--bg_color-next-gradient) !important;
     width: 75px;
     height: 100%;
-    top: 8.7%;
+    top: 6%;
     right: 0;
     opacity: 0;
   }
@@ -190,9 +190,6 @@ const Wrapper = styled.div`
 
   padding-right: 1rem;
   &:hover {
-    .slick-next {
-      opacity: 1;
-    }
     ${ViewButton} {
       display: flex;
     }
@@ -274,7 +271,6 @@ const Card = styled.div`
   &:hover {
     ${HoverCard} {
       display: block;
-      /* transform: scale(1.7, 1.3); */
       z-index: 8;
     }
   }
@@ -285,7 +281,6 @@ const HoverContent = styled.div`
   box-shadow: var(--box-shadow900);
   height: 100%;
   margin: 0;
-
   position: relative;
   /* overflow: hidden; */
   padding: 0;

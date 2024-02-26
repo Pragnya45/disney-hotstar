@@ -301,7 +301,7 @@ const Original = styled.span`
 `;
 const SliderWrapper = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   max-width: 70%;
 `;
 const Button = styled.button`
