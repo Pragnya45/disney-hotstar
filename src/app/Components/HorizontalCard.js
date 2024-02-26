@@ -1,67 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
-import Slider from "react-slick";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 function HorizontalCard({ title, data }) {
-  function PrevArrow(props) {
-    const { className, onClick } = props;
-
-    return <ArrowLeftIcon className={className} onClick={onClick} />;
-  }
-
-  function NextArrow(props) {
-    const { className, onClick } = props;
-
-    return <ArrowRightIcon className={className} onClick={onClick} />;
-  }
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 7,
-    slidesToScroll: 7,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    responsive: [
-      {
-        breakpoint: 1440,
-        settings: {
-          slidesToShow: 6,
-          slidesToScroll: 6,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 4,
-          slidesToScroll: 4,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -72,74 +24,96 @@ function HorizontalCard({ title, data }) {
           <SideArrow />
         </ViewButton>
       </HeaderWrapper>
-
-      <CardWrapper {...settings}>
-        {data.map((release, index) => (
-          <ContentWrapper key={index}>
-            <Card>
-              <CardImage
-                src={release.img}
-                alt={release.title}
-                width={100}
-                height={100}
-              />
-              <PlayWrapper>
-                <Play />
-                <Duration>5m</Duration>
-              </PlayWrapper>
-              {/* {release?.hovercardData?.map((hoverData, index) => (
-                  <HoverCard key={index}>
-                    <HoverContent>
-                      <Hoverimg
-                        src={hoverData.coverpic}
-                        alt="hanuman"
-                        width={200}
-                        height={200}
-                      />
-                      <LanguageWrapper>
-                        {hoverData.language}
-                        <StyleddownArrow />
-                      </LanguageWrapper>
-                      <ImgOverlay> </ImgOverlay>I
-                      <HovercardTitleImg
-                        src={hoverData.titleImg}
-                        width={100}
-                        height={100}
-                        alt="hanuman-img"
-                      />
-                      <BottomContentWrapper>
-                        <WatchWrapper>
-                          <WatchNowBUtton>
-                            <StyleddPlay /> Watch Now
-                          </WatchNowBUtton>
-                          <WatchListButton>
-                            <StyleddPlus />
-                          </WatchListButton>
-                        </WatchWrapper>
-                        <YearDetailsWrapper>
-                          <Text>{hoverData.year}</Text>
-                          <StyledCircle />
-                          <Text>
-                            {hoverData.seasons}
-                            Seasons
-                          </Text>
-                          <StyledCircle />
-                          <Text>{hoverData.totalLanguage}Languages</Text>
-                          <StyledCircle />
-                          <Text>U/A{hoverData.ua}</Text>
-                        </YearDetailsWrapper>
-                        <Description>{hoverData.description}</Description>
-                      </BottomContentWrapper>
-                    </HoverContent>
-                  </HoverCard>
-                ))} */}
-            </Card>
-            <TextContainer>
-              <Title>{release.title}</Title>
-              <Description>{release.description}</Description>
-            </TextContainer>
-          </ContentWrapper>
-        ))}
+      <CardWrapper>
+        <StyledSwiper
+          centeredSlides={false}
+          slidesPerView={4}
+          loop={false}
+          spaceBetween={20}
+          navigation={true}
+          onSwiper={(swiper) => console.log(swiper)}
+          modules={[Navigation]}
+          breakpoints={{
+            1440: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+            },
+          }}
+          className="swiper-container"
+        >
+          {data.map((release, index) => (
+            <SwiperSlide key={index}>
+              <ContentWrapper>
+                <Card>
+                  <CardImage
+                    src={release.img}
+                    alt={release.title}
+                    width={100}
+                    height={100}
+                  />
+                  <PlayWrapper>
+                    <Play />
+                    <Duration>5m</Duration>
+                  </PlayWrapper>
+                  {/* {release?.hovercardData?.map((hoverData, index) => (
+                <HoverCard key={index}>
+                  <HoverContent>
+                    <Hoverimg
+                      src={hoverData.coverpic}
+                      alt="hanuman"
+                      width={200}
+                      height={200}
+                    />
+                    <LanguageWrapper>
+                      {hoverData.language}
+                      <StyleddownArrow />
+                    </LanguageWrapper>
+                    <ImgOverlay> </ImgOverlay>I
+                    <HovercardTitleImg
+                      src={hoverData.titleImg}
+                      width={100}
+                      height={100}
+                      alt="hanuman-img"
+                    />
+                    <BottomContentWrapper>
+                      <WatchWrapper>
+                        <WatchNowBUtton>
+                          <StyleddPlay /> Watch Now
+                        </WatchNowBUtton>
+                        <WatchListButton>
+                          <StyleddPlus />
+                        </WatchListButton>
+                      </WatchWrapper>
+                      <YearDetailsWrapper>
+                        <Text>{hoverData.year}</Text>
+                        <StyledCircle />
+                        <Text>
+                          {hoverData.seasons}
+                          Seasons
+                        </Text>
+                        <StyledCircle />
+                        <Text>{hoverData.totalLanguage}Languages</Text>
+                        <StyledCircle />
+                        <Text>U/A{hoverData.ua}</Text>
+                      </YearDetailsWrapper>
+                      <Description>{hoverData.description}</Description>
+                    </BottomContentWrapper>
+                  </HoverContent>
+                </HoverCard>
+              ))} */}
+                </Card>
+                <TextContainer>
+                  <Title>{release.title}</Title>
+                  <Description>{release.description}</Description>
+                </TextContainer>
+              </ContentWrapper>
+            </SwiperSlide>
+          ))}
+        </StyledSwiper>
       </CardWrapper>
     </Wrapper>
   );
@@ -172,53 +146,7 @@ const ViewButton = styled.button`
     }
   }
 `;
-const CardWrapper = styled(Slider)`
-  display: flex;
-  gap: 0.2rem;
-  margin-top: 1rem;
-  position: relative;
-  align-items: center;
-  .slick-disabled {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .slick-slide {
-    display: flex;
-  }
-  .slick-track {
-    display: flex;
-    gap: 0.5rem;
-  }
-  .slick-active {
-    width: 16rem !important;
-    height: 10rem;
-  }
-  .slick-slide:active {
-  }
-  .slick-slide {
-  }
 
-  .slick-list {
-  }
-  .slick-prev {
-    padding: 0.1rem;
-    width: 3rem;
-    background: var(--bg_color-prev-gradient);
-    z-index: 1;
-    position: absolute;
-    height: 100%;
-  }
-  .slick-next {
-    right: 0;
-    top: 0;
-    padding: 0.1rem;
-    background: var(--bg_color-next-gradient);
-    width: 3rem;
-    height: 100%;
-    opacity: 0;
-    position: absolute;
-  }
-`;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -305,10 +233,10 @@ const ContentWrapper = styled.div`
   border-radius: 10px;
 
   &:hover {
-    transform: scale(1.15) translateX(10px);
+    transform: scale(1);
     width: 18rem !important;
     z-index: 2;
-    top: -50px;
+    top: -20px;
     background: var(--bg_color800);
     box-shadow: var(--box-shadow900);
     position: relative;
@@ -318,10 +246,65 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const StyledSwiper = styled(Swiper)`
+  pointer-events: auto;
+  height: 18rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  .swiper-slide {
+    width: 16rem !important;
+    top: 2rem;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    color: var(--white_color);
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .swiper-button-prev.swiper-button-disabled,
+  .swiper-button-next.swiper-button-disabled {
+    opacity: 0;
+    cursor: pointer;
+  }
+  .swiper-button-next {
+    background: var(--bg_color-next-gradient) !important;
+    width: 75px;
+    height: 100%;
+    top: 3%;
+    right: 0;
+    opacity: 0;
+  }
+  .swiper-button-prev {
+    background: var(--bg_color-prev-gradient) !important;
+    width: 75px;
+    height: 100%;
+    top: 3%;
+    left: 0;
+  }
+`;
+const CardWrapper = styled.div`
+  display: flex;
+  gap: 0.2rem;
+  width: 100%;
+
+  &:hover {
+    ${ViewButton} {
+      opacity: 1 !important;
+    }
+    ${StyledSwiper} {
+      .swiper-button-next {
+        opacity: 1;
+      }
+    }
+  }
+`;
 const CardImage = styled(ImageView)`
   position: absolute;
   top: 0;
   left: 0;
+  object-fit: cover;
   width: 100%;
   height: 100%;
   border-radius: 6px;
@@ -335,13 +318,11 @@ const ArrowRightIcon = styled(ChevronRightIcon)`
   transition: all ease-in-out 0.5s;
   color: var(--text-color900);
 `;
-const StyledSlider = styled(Slider)`
-  width: 98%;
-`;
+
 const HoverCard = styled.div`
   display: none;
-  width: 330px;
-  height: 395px;
+  width: 20rem !important;
+  height: 24rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -358,7 +339,7 @@ const HoverCard = styled.div`
     }
     100% {
       opacity: 1;
-      transform: scaleX(1) scaleY(1);
+      transform: scaleX(0.9) scaleY(0.9);
     }
   }
 `;
@@ -391,6 +372,7 @@ const Hoverimg = styled(ImageView)`
   left: 0;
   width: 100%;
   height: 12rem;
+  object-fit: cover;
   border-radius: 6px;
 `;
 const HovercardTitleImg = styled(ImageView)`

@@ -18,7 +18,7 @@ const aryaTitleImg = "/assets/images/aaryatitle.webp";
 function BannerMovie() {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(true);
   const contentRef = useRef();
 
   useEffect(() => {
@@ -151,12 +151,12 @@ function BannerMovie() {
         <RightContainer>
           <SoundWrapper>
             {muted ? (
-              <Tooltip title="Mute Trailer">
-                <Sound onClick={() => setMuted(!muted)} />
+              <Tooltip title="Unmute Trailer">
+                <Mute onClick={() => setMuted(!muted)} />{" "}
               </Tooltip>
             ) : (
-              <Tooltip title="Unmute Trailer">
-                <Mute onClick={() => setMuted(!muted)} />
+              <Tooltip title="Mute Trailer">
+                <Sound onClick={() => setMuted(!muted)} />
               </Tooltip>
             )}
           </SoundWrapper>
@@ -179,7 +179,7 @@ const Wrapper = styled.div`
 
 const Player = styled(Video)`
   width: 100%;
-  height: 100%;
+  height: 88vh;
   object-fit: cover;
   position: absolute;
   transition: opacity 0.3s ease-in 0.3s;
@@ -190,6 +190,7 @@ const BannerImage = styled(ImageView)`
   width: 100%;
   height: 100%;
   opacity: 1;
+  object-fit: cover;
   opacity: ${(props) => (props.showvideo ? 0 : 1)};
 `;
 const ContentWrapper = styled.div`
@@ -203,9 +204,11 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 50%;
 `;
 const TitleImg = styled(ImageView)`
   width: 15rem;
+  object-fit: contain;
   height: 10rem;
 `;
 const YearDetailsWrapper = styled.div`

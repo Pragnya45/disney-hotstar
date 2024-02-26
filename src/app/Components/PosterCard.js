@@ -42,6 +42,7 @@ function PosterCard({ title, data }) {
           <SideArrow />
         </ViewButton>
       </HeaderWrapper>
+
       <ProductionHouseWrapper {...settings}>
         {data.map((item, index) => (
           <ImageWrapper key={index}>
@@ -106,10 +107,10 @@ const ProductionHouseWrapper = styled(Slider)`
     display: flex;
     gap: 0.5rem;
   }
-  /* .slick-disabled {
+  .slick-disabled {
     opacity: 0;
     pointer-events: none;
-  } */
+  }
   .slick-list {
     display: flex;
     width: 100% !important;
@@ -125,6 +126,7 @@ const ProductionHouseWrapper = styled(Slider)`
     z-index: 1;
     position: absolute;
     height: 100%;
+    cursor: pointer;
   }
   .slick-next {
     right: 0;
@@ -136,12 +138,15 @@ const ProductionHouseWrapper = styled(Slider)`
     opacity: 0;
     z-index: 1;
     position: absolute;
+    cursor: pointer;
   }
 `;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  overflow: hidden;
+  height: 11.5rem;
   &:hover {
     .slick-next {
       opacity: 1;
@@ -188,6 +193,7 @@ const ProductionHouseImg = styled(ImageView)`
   border-radius: 4px;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const ImageWrapper = styled.div`

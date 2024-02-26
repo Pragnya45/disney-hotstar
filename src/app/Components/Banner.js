@@ -67,12 +67,10 @@ const ImgWrapper = styled.div`
   height: 100%;
   width: 100%;
   position: absolute;
-  /* object-fit: fill; */
 `;
 const Image = styled(ImageView)`
-  /* object-fit: contain; */
+  object-fit: cover;
   width: 100%;
-
   height: 100%;
 `;
 const RightContainer = styled.div`
@@ -91,6 +89,7 @@ const BannerContentWrapper = styled.div`
 const Logo = styled(ImageView)`
   max-width: 48px;
   height: auto;
+  object-fit: cover;
   border-radius: 2px;
 `;
 const Content = styled.div`

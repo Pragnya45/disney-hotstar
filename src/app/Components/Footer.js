@@ -156,6 +156,12 @@ const IconWrapper = styled.div`
 
   margin-top: 1.5rem;
 `;
-const Icon = styled(ImageView)``;
-const PlayStore = styled(ImageView)``;
-const AppStore = styled(ImageView)``;
+const Icon = styled(ImageView)`
+  object-fit: cover;
+`;
+const PlayStore = styled(ImageView)`
+  object-fit: cover;
+`;
+const AppStore = styled(ImageView)`
+  object-fit: cover;
+`;

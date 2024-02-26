@@ -583,7 +583,6 @@ function TvPage() {
         <SliderComponent title="Comedy Shows" data={releases} />
         <SliderComponent title="Popular Shows" data={releases} />
         <PosterCard data={channels} title="Popular Channels" />
-
         <SliderComponent title="Kids Shows" data={releases} />
         <SliderComponent title="Action Shows" data={releases} />
         <SliderComponent title="Channel V Shows" data={releases} />
@@ -615,5 +614,4 @@ const ProductionWrapper = styled.div`
   padding-left: 6rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
 `;

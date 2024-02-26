@@ -50,6 +50,114 @@ function MyPage() {
         },
       ],
     },
+    {
+      title: "Taqdeer",
+      img: "/assets/images/taqdeer.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/taqdeer-title.webp",
+          language: "Hindi",
+          coverpic: "/assets/images/taqdeer-1.webp",
+          video: "",
+          year: "2024",
+          seasons: "3",
+          totalLanguage: "7",
+          ua: "7+",
+          description:
+            "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. Watch the  legendary hero and the demon king go head to  head in this ultimate war.",
+        },
+      ],
+    },
+    {
+      title: "Echo",
+      img: "/assets/images/ss-1.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/echo-title.webp",
+          language: "English",
+          coverpic: "/assets/images/ss.webp",
+          video: "",
+          year: "2024",
+          seasons: "1",
+          totalLanguage: "4",
+          ua: "16+",
+          description:
+            "Pursued by Fisk’s criminal empire, Maya journeys home where she confronts her own family and legacy.",
+        },
+      ],
+    },
+    {
+      title: "Taqdeer",
+      img: "/assets/images/taqdeer.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/taqdeer-title.webp",
+          language: "Hindi",
+          coverpic: "/assets/images/taqdeer-1.webp",
+          video: "",
+          year: "2024",
+          seasons: "3",
+          totalLanguage: "7",
+          ua: "7+",
+          description:
+            "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. Watch the  legendary hero and the demon king go head to  head in this ultimate war.",
+        },
+      ],
+    },
+    {
+      title: "Echo",
+      img: "/assets/images/ss-1.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/echo-title.webp",
+          language: "English",
+          coverpic: "/assets/images/ss.webp",
+          video: "",
+          year: "2024",
+          seasons: "1",
+          totalLanguage: "4",
+          ua: "16+",
+          description:
+            "Pursued by Fisk’s criminal empire, Maya journeys home where she confronts her own family and legacy.",
+        },
+      ],
+    },
+    {
+      title: "Taqdeer",
+      img: "/assets/images/taqdeer.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/taqdeer-title.webp",
+          language: "Hindi",
+          coverpic: "/assets/images/taqdeer-1.webp",
+          video: "",
+          year: "2024",
+          seasons: "3",
+          totalLanguage: "7",
+          ua: "7+",
+          description:
+            "Setting his mighty foot on Lanka, Hanuman  unleashes himself against Ravan. Watch the  legendary hero and the demon king go head to  head in this ultimate war.",
+        },
+      ],
+    },
+    {
+      title: "Echo",
+      img: "/assets/images/ss-1.jpg",
+      hovercardData: [
+        {
+          titleImg: "/assets/images/echo-title.webp",
+          language: "English",
+          coverpic: "/assets/images/ss.webp",
+          video: "",
+          year: "2024",
+          seasons: "1",
+          totalLanguage: "4",
+          ua: "16+",
+          description:
+            "Pursued by Fisk’s criminal empire, Maya journeys home where she confronts her own family and legacy.",
+        },
+      ],
+    },
   ];
   const cardData = [
     {
@@ -356,6 +464,7 @@ function MyPage() {
           <Username>Add</Username>
         </ProfileContent>
       </ProfileWrapper>
+      {/* <SliderComponent title="Watchlist" data={releases} /> */}
       <SliderComponent title="Watchlist" data={releases} />
       <HoriZontalWrapper>
         <HorizontalCard title="Continue Watching for You" data={cardData} />
@@ -373,7 +482,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 6rem;
-
   background: url(${star}) no-repeat;
   background-size: 100% auto;
   min-height: 100vh;

@@ -80,6 +80,7 @@ const Player = styled(Video)`
 const ProductionHouseImg = styled(ImageView)`
   width: 100%;
   height: 100%;
+  object-fit: cover;
   position: absolute;
   cursor: pointer;
   transition: 0.3s ease-in-out;
@@ -90,7 +91,7 @@ const ProductionHouseWrapper = styled.div`
   flex-direction: row !important;
   gap: 0.5rem;
   width: 100%;
-
+  padding-right: 2rem;
   position: relative;
   justify-content: start;
   align-items: center;

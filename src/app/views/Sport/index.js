@@ -443,12 +443,10 @@ export default function Sport() {
       <BannerMovie />
       <ProductionWrapper>
         <PosterCard data={sports} title="Popular Sports" />
-
         <HorizontalCard title="Best in Sports" data={cardData} />
         <HorizontalCardWrapper>
           <HorizontalCard title="ICC Men's U-19 CWC" data={iccMen} />
         </HorizontalCardWrapper>
-
         <PosterCard data={tournaments} title="Popular Tournaments" />
       </ProductionWrapper>
     </Wrapper>
@@ -472,7 +470,6 @@ const ProductionWrapper = styled.div`
   padding-left: 6rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
 `;
 const HorizontalCardWrapper = styled.div`
   padding-top: 3rem;

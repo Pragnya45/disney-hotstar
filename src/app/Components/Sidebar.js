@@ -149,7 +149,9 @@ const SidebarWrapper = styled.div`
     }
   }
 `;
-const Image = styled(ImageView)``;
+const Image = styled(ImageView)`
+  object-fit: cover;
+`;
 
 const Button = styled(Link)`
   margin-left: 32px;
