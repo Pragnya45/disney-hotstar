@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
-import HorizontalCard from "@/app/Components/HorizontalCard";
+import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import ProductionHouse from "@/app/Components/ProductionHouse";
 import BannerMovie from "@/app/Components/BannerMovie";
+import WatchedSlider from "@/app/Components/WatchedSlider";
 
 function Home() {
   const releases = [
@@ -529,6 +530,7 @@ function Home() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
+        <WatchedSlider title="Continue Watching for You" data={cardData} />
         <SliderComponent
           title="Latest Releases"
           data={releases}

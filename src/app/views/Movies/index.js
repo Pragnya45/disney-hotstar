@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
-import HorizontalCard from "@/app/Components/HorizontalCard";
+import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import ProductionHouse from "@/app/Components/ProductionHouse";
 import BannerMovie from "@/app/Components/BannerMovie";
 
