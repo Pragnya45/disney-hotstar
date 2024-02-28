@@ -5,7 +5,6 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ModeOutlinedIcon from "@mui/icons-material/ModeOutlined";
 import Footer from "@/app/Components/Footer";
 import SliderComponent from "@/app/Components/SliderComponent";
-import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import WatchedSlider from "@/app/Components/WatchedSlider";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import ImageView from "@/app/Components/Image";
