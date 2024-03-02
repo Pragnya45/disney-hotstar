@@ -20,11 +20,13 @@ export default Paywall;
 const Main = styled.div`
   background: var(--bg_color1000);
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   padding-bottom: 2rem;
 `;
 const FooterWrapper = styled.div`
   padding-left: 6rem;
   padding-right: 3rem;
+  padding-bottom: 2rem;
+  background: var(--bg_color1000);
   width: 100%;
 `;

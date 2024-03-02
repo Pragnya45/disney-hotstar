@@ -56,7 +56,21 @@
     rgba(22, 24, 31, 0.92) 82.94%,
     #16181f
   );
-  --overlay-color-2:linear-gradient(0deg, rgba(13, 17, 26, 0), rgba(13, 17, 25, .5) 28.62%, rgba(15, 16, 20, .7) 72.5%, #0f1014), linear-gradient(90deg, #16181f 1.48%, rgba(22, 24, 31, .8) 21.89%, rgba(15, 16, 20, .5) 36.68%, rgba(15, 16, 20, .9) 74.14%, #101115);
+  --overlay-color-2: linear-gradient(
+      0deg,
+      rgba(13, 17, 26, 0),
+      rgba(13, 17, 25, 0.5) 28.62%,
+      rgba(15, 16, 20, 0.7) 72.5%,
+      #0f1014
+    ),
+    linear-gradient(
+      90deg,
+      #16181f 1.48%,
+      rgba(22, 24, 31, 0.8) 21.89%,
+      rgba(15, 16, 20, 0.5) 36.68%,
+      rgba(15, 16, 20, 0.9) 74.14%,
+      #101115
+    );
   --linear-gradient-color: linear-gradient(
     180deg,
     rgba(15, 16, 20, 0),
@@ -77,7 +91,7 @@
       rgba(15, 16, 20, 0.12) 29.73%,
       rgba(15, 16, 20, 0) 40.59%
     );
-    --linear-gradient-color900:linear-gradient(180deg, #252833 0, #0f1014 100%);
+  --linear-gradient-color900: linear-gradient(180deg, #252833 0, #0f1014 100%);
 
   --sidenav-backdrop-color: linear-gradient(
     90.43deg,

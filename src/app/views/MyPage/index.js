@@ -9,10 +9,13 @@ import WatchedSlider from "@/app/Components/WatchedSlider";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import ImageView from "@/app/Components/Image";
 import DoneIcon from "@mui/icons-material/Done";
+import { useRouter } from "next/navigation";
+
 const star = "/assets/icons/stars.svg";
 const disney = "/assets/icons/disney.png";
 const kids = "/assets/icons/kids.png";
 function MyPage() {
+  const router = useRouter();
   const releases = [
     {
       title: "Taqdeer",
@@ -425,7 +428,9 @@ function MyPage() {
         </LeftContent>
         <RightContent>
           <SubscribeColumn>
-            <SubscribeButton>Subscribe</SubscribeButton>
+            <SubscribeButton onClick={() => router.push("/paywall")}>
+              Subscribe
+            </SubscribeButton>
             <Plan>Plans start at ₹299</Plan>
           </SubscribeColumn>
           <SettingButton>

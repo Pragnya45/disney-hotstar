@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
@@ -5,7 +6,6 @@ import ImageView from "@/app/Components/Image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DoneIcon from "@mui/icons-material/Done";
-import { Overlay } from "antd/es/popconfirm/PurePanel";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 
@@ -137,6 +137,86 @@ function Subscribe() {
       image: "/assets/images/subscribe-5.webp",
     },
   ];
+  const tableData = [
+    {
+      content: "All content",
+      subcontent: "Movies, Live sports, TV, Specials",
+      mblIcon: true,
+      superIcon: true,
+      premiumIcon: true,
+      mblcontent: "",
+      mblsubcontent: "",
+      supercontent: "",
+      supersubcontent: "",
+      premiumcontent: "",
+      premiumsubcontent: "",
+    },
+    {
+      content: "Watch on TV or Laptop",
+      subcontent: "",
+      mblIcon: false,
+      superIcon: true,
+      premiumIcon: true,
+      mblcontent: "",
+      mblsubcontent: "",
+      supercontent: "",
+      supersubcontent: "",
+      premiumcontent: "",
+      premiumsubcontent: "",
+    },
+    {
+      content: "Ads free movies and shows (except sports)",
+      subcontent: "",
+      mblIcon: false,
+      superIcon: false,
+      premiumIcon: true,
+      mblcontent: "",
+      mblsubcontent: "",
+      supercontent: "",
+      supersubcontent: "",
+      premiumcontent: "",
+      premiumsubcontent: "",
+    },
+    {
+      content: "Number of devices that can be logged in",
+      subcontent: "",
+      mblIcon: false,
+      superIcon: false,
+      premiumIcon: false,
+      mblcontent: "1",
+      mblsubcontent: "",
+      supercontent: "2",
+      supersubcontent: "",
+      premiumcontent: "4",
+      premiumsubcontent: "",
+    },
+    {
+      content: "Max video quality",
+      subcontent: "",
+      mblIcon: false,
+      superIcon: false,
+      premiumIcon: false,
+      mblcontent: "HD",
+      mblsubcontent: "720",
+      supercontent: "FULL HD",
+      supersubcontent: "1080P",
+      premiumcontent: "4K",
+      premiumsubcontent: "2160P",
+    },
+    {
+      content: "Max audio quality",
+      subcontent: "Atmos available on select titles only",
+      mblIcon: false,
+      superIcon: false,
+      premiumIcon: false,
+      mblcontent: "Stereo",
+      mblsubcontent: "",
+      supercontent: "Dolby Atmos",
+      supersubcontent: "",
+      premiumcontent: "Dolby Atmos",
+      premiumsubcontent: "",
+    },
+  ];
   const handleMenu = (e) => {
     e.stopPropagation();
     if (
@@ -210,31 +290,14 @@ function Subscribe() {
             </Instruction>
           </SubscribeTextContent>
         </LeftContent>
-        {/* <RightContent>
+        <RightContent>
           <Table>
-            <col
-              style={{
-                width: "30%",
-              }}
-            />
-            <col
-              style={{
-                width: "20%",
-                backgroundAttachment: "fixed",
-                background: "var(--linear-gradient-color900)",
-              }}
-            />
-            <col
-              style={{
-                width: "20%",
-              }}
-            />
-            <col
-              style={{
-                width: "20%",
-              }}
-            />
-
+            <ColGroup>
+              <ContentColumn />
+              <MobileColumn />
+              <SuperColumn />
+              <PremiumColumn />
+            </ColGroup>
             <TableHeader>
               <TableRow>
                 <Tablehead></Tablehead>
@@ -249,34 +312,70 @@ function Subscribe() {
                 </Tablehead>
               </TableRow>
             </TableHeader>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-            </tbody>
+            <TableBody>
+              {tableData.map((item, index) => (
+                <TableBodyrow key={index}>
+                  <TableData>
+                    <Content>{item.content}</Content>
+                    <br />
+                    <Subcontent>{item.subcontent}</Subcontent>
+                  </TableData>
+                  {item.mblcontent === "" ? (
+                    item.mblIcon ? (
+                      <TableData>
+                        <Avalable />
+                      </TableData>
+                    ) : (
+                      <TableData>
+                        <NotAvailable />
+                      </TableData>
+                    )
+                  ) : (
+                    <TableData>
+                      <RowContent>{item.mblcontent}</RowContent>
+                      <br />
+                      <RowsubContent>{item.mblsubcontent}</RowsubContent>
+                    </TableData>
+                  )}
+                  {item.supercontent === "" ? (
+                    item.superIcon ? (
+                      <TableData>
+                        <Avalable />
+                      </TableData>
+                    ) : (
+                      <TableData>
+                        <NotAvailable />
+                      </TableData>
+                    )
+                  ) : (
+                    <TableData>
+                      <RowContent>{item.supercontent}</RowContent>
+                      <br />
+                      <RowsubContent>{item.supersubcontent}</RowsubContent>
+                    </TableData>
+                  )}
+                  {item.premiumcontent === "" ? (
+                    item.premiumIcon ? (
+                      <TableData>
+                        <Avalable />
+                      </TableData>
+                    ) : (
+                      <TableData>
+                        <NotAvailable />
+                      </TableData>
+                    )
+                  ) : (
+                    <TableData>
+                      <RowContent>{item.premiumcontent}</RowContent>
+                      <br />
+                      <RowsubContent>{item.premiumsubcontent}</RowsubContent>
+                    </TableData>
+                  )}
+                </TableBodyrow>
+              ))}
+            </TableBody>
           </Table>
-        </RightContent> */}
+        </RightContent>
       </ContentWrapper>
     </Wrapper>
   );
@@ -284,11 +383,10 @@ function Subscribe() {
 
 export default Subscribe;
 const Wrapper = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
 `;
 const HeaderWrapper = styled.div`
   display: flex;
@@ -330,6 +428,20 @@ const Select = styled(DoneIcon)`
   height: 20px;
   cursor: pointer;
   opacity: ${(props) => (props.isSelected ? 1 : 0)};
+`;
+const Avalable = styled(DoneIcon)`
+  color: var(--text-color500);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  cursor: pointer;
+`;
+const NotAvailable = styled(CloseIcon)`
+  color: var(--text-color500);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
 `;
 const Image = styled(ImageView)`
   object-fit: contain;
@@ -415,7 +527,7 @@ const LeftContent = styled.div`
   position: relative;
   width: 40%;
   z-index: 1;
-  height: 40rem;
+  height: auto;
 `;
 const OverlayBg = styled.div`
   background: var(--overlay-color-2);
@@ -473,36 +585,89 @@ const Instruction = styled.p`
 `;
 const RightContent = styled.div`
   width: 60%;
-  margin-left: 6%;
+  margin-left: 9%;
   margin-right: 2rem;
 `;
 const Table = styled.table`
   width: 100%;
+  height: fit-content;
+  border-collapse: collapse;
 `;
-const Contentcolumn = styled.col`
-  width: 30%;
-`;
-const Mobilecolumn = styled.col`
-  width: 20%;
-  background-attachment: fixed;
-  background: var(--linear-gradient-color900);
-`;
-const Supercolumn = styled.col`
-  width: 20%;
-`;
-const Premuimcolumn = styled.col`
-  width: 20%;
-`;
+
 const TableHeader = styled.thead``;
 const TableRow = styled.tr``;
-const Tablehead = styled.thead`
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-  padding-top: 0.5rem;
-`;
 const Heading = styled.p`
   color: var(--text-color500);
   font-size: 18px;
   font-weight: 700;
   font-family: var(--FONT-FAMILY);
+`;
+const Tablehead = styled.th`
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  padding-top: 1rem;
+  &:nth-child(2) {
+    ${Heading} {
+      color: var(--gold-color);
+    }
+  }
+`;
+const TableBodyrow = styled.tr``;
+const TableBody = styled.tbody``;
+const ColGroup = styled.colgroup``;
+const MobileColumn = styled.col`
+  background: var(--linear-gradient-color900);
+  width: 12%;
+`;
+const ContentColumn = styled.col`
+  width: 33%;
+`;
+const SuperColumn = styled.col`
+  width: 12%;
+`;
+const PremiumColumn = styled.col`
+  width: 12%;
+`;
+const RowContent = styled.span`
+  color: var(--text-color500);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+`;
+const RowsubContent = styled.span`
+  color: var(--text-color500);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 0.5rem;
+`;
+
+const TableData = styled.td`
+  padding-top: 15px;
+  padding-bottom: 10px;
+  &:nth-child(2) {
+    ${Avalable},${NotAvailable}, ${RowContent},${RowsubContent} {
+      color: var(--white_color);
+    }
+  }
+  &:nth-child(2),
+  &:nth-child(3),
+  &:nth-child(4) {
+    text-align: center;
+  }
+`;
+const Content = styled.span`
+  color: var(--text-color900);
+  font-family: var(--FONT-FAMILY);
+  font-size: 18px;
+  font-weight: 400;
+  text-align: start !important;
+`;
+const Subcontent = styled.span`
+  color: var(--text-color500);
+  font-family: var(--FONT-FAMILY);
+  font-size: 16px;
+  font-weight: 400;
+  text-align: start !important;
+  margin-top: 1rem;
 `;

@@ -69,6 +69,7 @@ const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 5rem;
+  background: var(--bg_color1000);
 `;
 const SectionWrapper = styled.div`
   display: flex;
