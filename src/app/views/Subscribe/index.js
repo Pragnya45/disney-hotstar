@@ -5,6 +5,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ImageView from "@/app/Components/Image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import DoneIcon from "@mui/icons-material/Done";
 
 const logo = "/assets/icons/logo-d-plus.svg";
@@ -12,9 +13,17 @@ const logo = "/assets/icons/logo-d-plus.svg";
 function Subscribe() {
   const [opendropdown, setOpendropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("English");
+  const [selectedPlan, setSelectedPlan] = useState("Quarterly");
+  const [selectedType, setSelectedType] = useState("Mobile");
   const menuRef = useRef(null);
   const toggleDropdown = () => {
     setOpendropdown(!opendropdown);
+  };
+  const handlePlanChange = (plan) => {
+    setSelectedPlan(plan);
+  };
+  const handleTypeChange = (type) => {
+    setSelectedType(type);
   };
   const languageOptions = [
     {
@@ -217,6 +226,28 @@ function Subscribe() {
       premiumsubcontent: "",
     },
   ];
+  const planOptions = [
+    {
+      type: "Mobile",
+      quarterly: "149",
+      monthly: null,
+      yearly: "499",
+    },
+    {
+      type: "Super",
+      quarterly: "299",
+      quarterlyTime: "/3Month",
+      monthly: null,
+      yearly: "899",
+    },
+    {
+      type: "Premium",
+      quarterly: "499",
+      monthly: "299",
+      yearly: "1499",
+    },
+  ];
+  const planButtons = ["Quarterly", "Yearly", "Monthly"];
   const handleMenu = (e) => {
     e.stopPropagation();
     if (
@@ -294,9 +325,9 @@ function Subscribe() {
           <Table>
             <ColGroup>
               <ContentColumn />
-              <MobileColumn />
-              <SuperColumn />
-              <PremiumColumn />
+              <MobileColumn selectedType={selectedType === "Mobile"} />
+              <SuperColumn selectedType={selectedType === "Super"} />
+              <PremiumColumn selectedType={selectedType === "Premium"} />
             </ColGroup>
             <TableHeader>
               <TableRow>
@@ -375,6 +406,102 @@ function Subscribe() {
               ))}
             </TableBody>
           </Table>
+          <ChoosePlan>
+            {planButtons.map((button, index) => (
+              <PlanButton
+                selected={selectedPlan === button}
+                key={index}
+                onClick={() => handlePlanChange(button)}
+              >
+                {button}
+                {selectedPlan === button && (
+                  <IconWrapper>
+                    <Tick />
+                  </IconWrapper>
+                )}
+              </PlanButton>
+            ))}
+          </ChoosePlan>
+          <CustomPlan>
+            {planOptions.map((option, index) => (
+              <PlanOption
+                key={index}
+                disabled={
+                  selectedPlan === "Monthly"
+                    ? option.monthly !== null
+                      ? false
+                      : true
+                    : false
+                }
+                selectedoption={
+                  selectedPlan === "Monthly"
+                    ? option.monthly !== null
+                      ? selectedType === "Premium"
+                      : null
+                    : selectedType === option.type
+                }
+                onClick={() => handleTypeChange(option.type)}
+              >
+                <TickIconWrapper
+                  selectedoption={
+                    selectedPlan === "Monthly"
+                      ? option.monthly !== null
+                        ? selectedType === "Premium"
+                        : null
+                      : selectedType === option.type
+                  }
+                >
+                  <Tick />
+                </TickIconWrapper>
+
+                <PlanType
+                  selectedoption={
+                    selectedPlan === "Monthly"
+                      ? option.monthly !== null
+                        ? selectedType === "Premium"
+                        : null
+                      : selectedType === option.type
+                  }
+                  disabledcolor={
+                    selectedPlan === "Monthly" && option.monthly === null
+                  }
+                >
+                  {option.type}
+                </PlanType>
+                <Price>
+                  <SuperScript>
+                    {selectedPlan === "Monthly"
+                      ? option.monthly !== null
+                        ? "₹"
+                        : null
+                      : "₹"}
+                  </SuperScript>
+                  {selectedPlan === "Quarterly"
+                    ? option.quarterly
+                    : selectedPlan === "Monthly"
+                    ? option.monthly
+                    : selectedPlan === "Yearly"
+                    ? option.yearly
+                    : ""}
+                  <Timeline>
+                    {selectedPlan === "Quarterly"
+                      ? "/3Months"
+                      : selectedPlan === "Yearly"
+                      ? "/Year"
+                      : selectedPlan === "Monthly"
+                      ? option.monthly !== null
+                        ? "/Month"
+                        : null
+                      : ""}
+                  </Timeline>
+                </Price>
+              </PlanOption>
+            ))}
+          </CustomPlan>
+          <Continue>
+            Continue with {selectedType}
+            <Arrowleft />
+          </Continue>
         </RightContent>
       </ContentWrapper>
     </Wrapper>
@@ -422,6 +549,12 @@ const Arrowup = styled(KeyboardArrowUpIcon)`
   height: 30px;
   cursor: pointer;
 `;
+const Arrowleft = styled(KeyboardArrowRightIcon)`
+  color: var(--text-color600);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+`;
 const Select = styled(DoneIcon)`
   color: var(--text-color700);
   width: 20px;
@@ -433,6 +566,13 @@ const Avalable = styled(DoneIcon)`
   color: var(--text-color500);
   width: 30px;
   height: 30px;
+  text-align: center;
+  cursor: pointer;
+`;
+const Tick = styled(DoneIcon)`
+  color: var(--white_color);
+  width: 18px;
+  height: 18px;
   text-align: center;
   cursor: pointer;
 `;
@@ -586,7 +726,7 @@ const Instruction = styled.p`
 const RightContent = styled.div`
   width: 60%;
   margin-left: 9%;
-  margin-right: 2rem;
+  margin-right: 4.5rem;
 `;
 const Table = styled.table`
   width: 100%;
@@ -616,7 +756,8 @@ const TableBodyrow = styled.tr``;
 const TableBody = styled.tbody``;
 const ColGroup = styled.colgroup``;
 const MobileColumn = styled.col`
-  background: var(--linear-gradient-color900);
+  background: ${(props) =>
+    props.selectedType ? "var(--linear-gradient-color900)" : "none"};
   width: 12%;
 `;
 const ContentColumn = styled.col`
@@ -624,9 +765,13 @@ const ContentColumn = styled.col`
 `;
 const SuperColumn = styled.col`
   width: 12%;
+  background: ${(props) =>
+    props.selectedType ? "var(--linear-gradient-color900)" : "none"};
 `;
 const PremiumColumn = styled.col`
   width: 12%;
+  background: ${(props) =>
+    props.selectedType ? "var(--linear-gradient-color900)" : "none"};
 `;
 const RowContent = styled.span`
   color: var(--text-color500);
@@ -670,4 +815,125 @@ const Subcontent = styled.span`
   font-weight: 400;
   text-align: start !important;
   margin-top: 1rem;
+`;
+
+const ChoosePlan = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  width: fit-content;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.7rem 1rem;
+  background: var(--bg_color700);
+`;
+const PlanButton = styled.button`
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 1.2rem;
+  color: ${(props) =>
+    props.selected ? "var(--white_color)" : "var(--text-color500)"};
+  font-weight: 600;
+  display: flex;
+  cursor: pointer;
+`;
+const IconWrapper = styled.div`
+  border-radius: 50%;
+  padding: 0.8rem;
+  width: 2px;
+  height: 2px;
+  background: var(--linear-gradient-color800);
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const CustomPlan = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 1fr));
+  column-gap: 12px;
+  margin-top: 1rem;
+`;
+const PlanOption = styled.button`
+  border: 2px solid
+    ${(props) =>
+      props.selectedoption ? "var(--white_color)" : "var(--bg_color700)"};
+  width: 100%;
+  height: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  position: relative;
+  background: none;
+  outline: none;
+  cursor: pointer;
+`;
+const TickIconWrapper = styled.div`
+  background: var(--linear-gradient-color800);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  right: -3px;
+  border: 4px solid var(--bg_color1000);
+  place-items: center;
+  display: ${(props) => (props.selectedoption ? "flex" : "none")};
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px;
+`;
+const PlanType = styled.p`
+  font-size: 20px;
+  color: ${(props) =>
+    props.selectedoption
+      ? "var(--gold-color)"
+      : props.disabledcolor
+      ? "var(--text-color500)"
+      : "var(--white_color)"};
+  font-weight: 600;
+  font-family: var(--FONT-FAMILY);
+`;
+const Price = styled.p`
+  font-size: 30px;
+  color: var(--white_color);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  font-family: var(--FONT-FAMILY);
+`;
+const SuperScript = styled.sup`
+  font-size: 16px;
+  font-weight: 600;
+  font-family: var(--FONT-FAMILY);
+`;
+const Timeline = styled.span`
+  font-size: 14px;
+  font-style: 500;
+  font-family: var(--FONT-FAMILY);
+`;
+const Continue = styled.button`
+  border: none;
+  background: var(--button-gradieent-color);
+  width: 100%;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1rem;
+  color: var(--text-color600);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  transition-property: transform, background-color;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;

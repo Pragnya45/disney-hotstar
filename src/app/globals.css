@@ -92,6 +92,7 @@
       rgba(15, 16, 20, 0) 40.59%
     );
   --linear-gradient-color900: linear-gradient(180deg, #252833 0, #0f1014 100%);
+  --linear-gradient-color800: linear-gradient(93.87deg, #095ae6, #062794);
 
   --sidenav-backdrop-color: linear-gradient(
     90.43deg,
