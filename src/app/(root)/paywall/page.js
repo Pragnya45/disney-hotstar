@@ -21,6 +21,7 @@ const Main = styled.div`
   background: var(--bg_color1000);
   width: 100%;
   height: 100vh;
+  position: relative;
   padding-bottom: 2rem;
 `;
 const FooterWrapper = styled.div`

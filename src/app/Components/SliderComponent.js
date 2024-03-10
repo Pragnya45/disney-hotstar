@@ -1,20 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
+import Video from "./Video";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import CircleIcon from "@mui/icons-material/Circle";
 
 const freeImg = "/assets/images/free.webp";
 
-function SliderComponent({ title, data, isSpan }) {
+export default function SliderComponent({ title, data, isSpan }) {
+  const [showvideo, setShowvideo] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const pathname = usePathname();
+  console.log(pathname);
+  const router = useRouter();
+  const handleCardClick = (release, index) => {
+    if (pathname === "/") {
+      router.push(`/tv/${release.title}/${index}`);
+    } else {
+      router.push(`${pathname}/${release.title}/${index}`);
+    }
+  };
+
+  const handleHover = () => {
+    setTimeout(() => {
+      setShowvideo(true);
+    }, 3000);
+  };
+
+  const handleVideoEnd = () => {
+    setShowvideo(false);
+  };
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -54,7 +79,11 @@ function SliderComponent({ title, data, isSpan }) {
         >
           {data.map((release, index) => (
             <SwiperSlide key={index}>
-              <Card>
+              <Card
+                onClick={() => handleCardClick(release, index)}
+                onMouseEnter={handleHover}
+                onMouseLeave={handleVideoEnd}
+              >
                 <CardImage
                   src={release.img}
                   alt={release.title}
@@ -64,12 +93,26 @@ function SliderComponent({ title, data, isSpan }) {
                 {release?.hovercardData?.map((hoverData, index) => (
                   <HoverCard key={index}>
                     <HoverContent>
-                      <Hoverimg
-                        src={hoverData.coverpic}
-                        alt="hanuman"
-                        width={200}
-                        height={200}
-                      />
+                      {showvideo ? (
+                        <PlayerWrapper>
+                          <Player
+                            src={hoverData.video}
+                            controls={false}
+                            autoPlay
+                            playsInline
+                            onEnded={handleVideoEnd}
+                            muted={muted}
+                          />
+                        </PlayerWrapper>
+                      ) : (
+                        <Hoverimg
+                          src={hoverData.coverpic}
+                          showvideo={showvideo}
+                          alt="hanuman"
+                          width={200}
+                          height={200}
+                        />
+                      )}
                       <LanguageWrapper>
                         {hoverData.language}
                         <StyleddownArrow />
@@ -115,8 +158,6 @@ function SliderComponent({ title, data, isSpan }) {
     </Wrapper>
   );
 }
-
-export default SliderComponent;
 
 const SideArrow = styled(ChevronRightIcon)`
   width: 25px;
@@ -282,9 +323,15 @@ const HoverContent = styled.div`
   height: 100%;
   margin: 0;
   position: relative;
-  /* overflow: hidden; */
   padding: 0;
   width: 100%;
+`;
+const PlayerWrapper = styled.div`
+  width: 100%;
+  height: 12rem;
+  position: absolute;
+  top: 0;
+  line-height: 0;
 `;
 const Hoverimg = styled(ImageView)`
   position: absolute;
@@ -294,6 +341,15 @@ const Hoverimg = styled(ImageView)`
   height: 12rem;
   object-fit: cover;
   border-radius: 6px;
+`;
+const Player = styled(Video)`
+  width: 100%;
+  object-fit: cover;
+  line-height: 0;
+  transition: opacity 0.3s ease-in 0.3s;
+  border-radius: 6px;
+  outline: none;
+  height: 100%;
 `;
 const HovercardTitleImg = styled(ImageView)`
   position: absolute;

@@ -7,6 +7,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import DoneIcon from "@mui/icons-material/Done";
+import { useRouter } from "next/navigation";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 
@@ -16,11 +17,15 @@ function Subscribe() {
   const [selectedPlan, setSelectedPlan] = useState("Quarterly");
   const [selectedType, setSelectedType] = useState("Mobile");
   const menuRef = useRef(null);
+  const router = useRouter();
   const toggleDropdown = () => {
     setOpendropdown(!opendropdown);
   };
   const handlePlanChange = (plan) => {
     setSelectedPlan(plan);
+    if (plan === "Monthly") {
+      setSelectedType("Premium");
+    }
   };
   const handleTypeChange = (type) => {
     setSelectedType(type);
@@ -269,7 +274,7 @@ function Subscribe() {
     <Wrapper>
       <HeaderWrapper>
         <LogoWrapper>
-          <Close />
+          <Close onClick={() => router.push("/my-page")} />
           <Image src={logo} alt="disney-logo" width={81} height={70} />
         </LogoWrapper>
         <DropdownWrapper>
@@ -436,7 +441,7 @@ function Subscribe() {
                 selectedoption={
                   selectedPlan === "Monthly"
                     ? option.monthly !== null
-                      ? selectedType === "Premium"
+                      ? selectedType === option.type
                       : null
                     : selectedType === option.type
                 }
@@ -446,7 +451,7 @@ function Subscribe() {
                   selectedoption={
                     selectedPlan === "Monthly"
                       ? option.monthly !== null
-                        ? selectedType === "Premium"
+                        ? selectedType === option.type
                         : null
                       : selectedType === option.type
                   }
@@ -458,7 +463,7 @@ function Subscribe() {
                   selectedoption={
                     selectedPlan === "Monthly"
                       ? option.monthly !== null
-                        ? selectedType === "Premium"
+                        ? selectedType === option.type
                         : null
                       : selectedType === option.type
                   }
@@ -510,10 +515,11 @@ function Subscribe() {
 
 export default Subscribe;
 const Wrapper = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
+  background: var(--bg_color1000);
 `;
 const HeaderWrapper = styled.div`
   display: flex;
