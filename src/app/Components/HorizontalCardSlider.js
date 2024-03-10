@@ -271,6 +271,7 @@ const CardImage = styled(ImageView)`
   width: 100%;
   height: 100%;
   border-radius: 6px;
+  z-index: -1 !important;
 `;
 
 const HoverCard = styled.div`
@@ -289,6 +290,7 @@ const HoverCard = styled.div`
   animation: hoveranimation 0.2s ease-in forwards;
   top: -35px;
   border-radius: 6px;
+  z-index: 5 !important;
 
   @keyframes hoveranimation {
     0% {

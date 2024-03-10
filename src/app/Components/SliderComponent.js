@@ -14,6 +14,9 @@ import "swiper/css/pagination";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import CircleIcon from "@mui/icons-material/Circle";
+import { Tooltip } from "antd";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 const freeImg = "/assets/images/free.webp";
 
@@ -21,20 +24,20 @@ export default function SliderComponent({ title, data, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
   const [muted, setMuted] = useState(true);
   const pathname = usePathname();
-  console.log(pathname);
   const router = useRouter();
-  const handleCardClick = (release, index) => {
+  const handleCardClick = (release) => {
+    console.log(release);
     if (pathname === "/") {
-      router.push(`/tv/${release.title}/${index}`);
+      router.push(`/tv/${release.title}/${release.id}`);
     } else {
-      router.push(`${pathname}/${release.title}/${index}`);
+      router.push(`${pathname}/${release.title}/${release.id}`);
     }
   };
 
   const handleHover = () => {
     setTimeout(() => {
       setShowvideo(true);
-    }, 3000);
+    }, 5000);
   };
 
   const handleVideoEnd = () => {
@@ -63,7 +66,6 @@ export default function SliderComponent({ title, data, isSpan }) {
           loop={false}
           spaceBetween={20}
           navigation={true}
-          onSwiper={(swiper) => console.log(swiper)}
           modules={[Navigation]}
           breakpoints={{
             1440: {
@@ -77,10 +79,10 @@ export default function SliderComponent({ title, data, isSpan }) {
           }}
           className="swiper-container"
         >
-          {data.map((release, index) => (
-            <SwiperSlide key={index}>
+          {data.map((release) => (
+            <SwiperSlide key={release.id}>
               <Card
-                onClick={() => handleCardClick(release, index)}
+                onClick={() => handleCardClick(release)}
                 onMouseEnter={handleHover}
                 onMouseLeave={handleVideoEnd}
               >
@@ -117,13 +119,25 @@ export default function SliderComponent({ title, data, isSpan }) {
                         {hoverData.language}
                         <StyleddownArrow />
                       </LanguageWrapper>
-                      <ImgOverlay> </ImgOverlay>I
-                      <HovercardTitleImg
-                        src={hoverData.titleImg}
-                        width={100}
-                        height={100}
-                        alt="hanuman-img"
-                      />
+                      <ImgOverlay> </ImgOverlay>
+                      <SoundWrapper>
+                        <HovercardTitleImg
+                          src={hoverData.titleImg}
+                          width={100}
+                          height={100}
+                          alt="hanuman-img"
+                        />
+
+                        {muted ? (
+                          <Tooltip title="Unmute Trailer">
+                            <Mute onClick={() => setMuted(!muted)} />{" "}
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Mute Trailer">
+                            <Sound onClick={() => setMuted(!muted)} />
+                          </Tooltip>
+                        )}
+                      </SoundWrapper>
                       <BottomContentWrapper>
                         <WatchWrapper>
                           <WatchNowBUtton>
@@ -352,9 +366,6 @@ const Player = styled(Video)`
   height: 100%;
 `;
 const HovercardTitleImg = styled(ImageView)`
-  position: absolute;
-  top: 65px;
-  left: 10px;
   width: 7rem;
   height: 4rem;
   object-fit: contain;
@@ -468,4 +479,24 @@ const HeaderWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+`;
+const SoundWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  position: absolute;
+  top: 125px;
+  left: 10px;
+  padding-right: 20px;
+  align-items: end;
+  justify-content: space-between;
+`;
+const Mute = styled(VolumeOffIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const Sound = styled(VolumeUpIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
 `;
