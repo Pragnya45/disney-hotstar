@@ -1,7 +1,19 @@
+"use client";
 import React from "react";
+import Sportsdetails from "@/app/views/Sportsdetails";
+import styled from "styled-components";
 
-function page() {
-  return <div>page</div>;
+export default function Sports() {
+  return (
+    <Main>
+      <Sportsdetails />
+    </Main>
+  );
 }
 
-export default page;
+const Main = styled.div`
+  background: var(--bg_color1000);
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 2rem;
+`;

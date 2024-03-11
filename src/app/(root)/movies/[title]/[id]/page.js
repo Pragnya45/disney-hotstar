@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Sidebar from "@/app/Components/Sidebar";
 import Footer from "@/app/Components/Footer";
 
-function Movie() {
+export default function Movie() {
   return (
     <Main>
       <Nav>
@@ -19,8 +19,6 @@ function Movie() {
     </Main>
   );
 }
-
-export default Tv;
 
 const Main = styled.div`
   background: var(--bg_color1000);

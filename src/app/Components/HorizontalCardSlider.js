@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { useRouter, usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -10,6 +11,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 function HorizontalCard({ title, data }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const handleCardClick = (release) => {
+    console.log(release);
+    if (pathname === "/") {
+      router.push(`/tv/${release.title}/${release.id}`);
+    } else {
+      router.push(`${pathname}/${release.title}/${release.id}`);
+    }
+  };
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -26,7 +37,6 @@ function HorizontalCard({ title, data }) {
           loop={false}
           spaceBetween={20}
           navigation={true}
-          onSwiper={(swiper) => console.log(swiper)}
           modules={[Navigation]}
           breakpoints={{
             1440: {
@@ -43,7 +53,7 @@ function HorizontalCard({ title, data }) {
           {data.map((release, index) => (
             <SwiperSlide key={index}>
               <ContentWrapper>
-                <Card>
+                <Card onClick={() => handleCardClick(release)}>
                   <CardImage
                     src={release.img}
                     alt={release.title}
@@ -69,7 +79,7 @@ function HorizontalCard({ title, data }) {
                         </HoverPlayWrapper>
                         <BottomContentWrapper>
                           <Title>{release.title}</Title>
-                          <Description>{release.description}</Description>
+                          <Description>{hoverData.description}</Description>
                         </BottomContentWrapper>
                       </HoverContent>
                     </HoverCard>
