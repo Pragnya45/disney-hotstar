@@ -106,18 +106,14 @@ const HoverCard = styled.div`
 `;
 const CardContainer = styled.div`
   position: relative;
-  max-width: 11.7rem !important;
-  width: 100%;
-  height: 15.2rem !important;
+  width: 11.7rem;
+  height: 15.2rem;
   cursor: pointer;
   transition: transform 0.7s ease-in-out;
   &:hover {
     ${HoverCard} {
       display: block;
     }
-  }
-  @media screen and (min-width: 960px) and (max-width: 1281px) {
-    height: 11rem !important;
   }
 `;
 const HoverContent = styled.div`

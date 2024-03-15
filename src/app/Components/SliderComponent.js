@@ -61,7 +61,7 @@ export default function SliderComponent({ title, data, isSpan }) {
       <CardWrapper>
         <StyledSwiper
           centeredSlides={false}
-          slidesPerView={7}
+          slidesPerView={"auto"}
           loop={false}
           spaceBetween={20}
           navigation={true}

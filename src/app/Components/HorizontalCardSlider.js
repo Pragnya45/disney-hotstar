@@ -33,7 +33,7 @@ function HorizontalCard({ title, data }) {
       <CardWrapper>
         <StyledSwiper
           centeredSlides={false}
-          slidesPerView={4}
+          slidesPerView={"auto"}
           loop={false}
           spaceBetween={20}
           navigation={true}

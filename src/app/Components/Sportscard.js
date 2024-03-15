@@ -46,7 +46,6 @@ export default function Sportscard({ release }) {
 const CardWrapper = styled.div`
   display: flex;
   gap: 0.2rem;
-  width: 100%;
   flex-direction: column;
 `;
 
@@ -86,7 +85,7 @@ const CardImage = styled(ImageView)`
 `;
 const Card = styled.div`
   position: relative;
-  width: 100% !important;
+  width: 16rem !important;
   height: 10rem !important;
   cursor: pointer;
   &:hover {

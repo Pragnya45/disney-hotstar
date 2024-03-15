@@ -108,7 +108,6 @@ const HoverCard = styled.div`
 `;
 const Card = styled.div`
   position: relative;
-  max-width: 16rem !important;
   width: 100%;
   height: 10rem !important;
   cursor: pointer;

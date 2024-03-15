@@ -33,7 +33,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   padding-left: 6rem;
   padding-top: 3rem;
-  padding-right: 5rem;
+  padding-right: 3rem;
   gap: 2rem;
   align-items: center;
 `;
@@ -47,12 +47,9 @@ const Heading = styled.p`
   gap: 10px;
 `;
 const CardWrapper = styled.div`
-  display: grid;
-  gap: 0.5rem;
-  grid-template-columns: ${(props) =>
-    props.istrue
-      ? "repeat(5, minmax(91px, 1fr))"
-      : "repeat(7, minmax(91px, 1fr))"};
+  gap: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
   row-gap: 1rem;
   margin-top: 1rem;
   width: 100%;
