@@ -4,6 +4,7 @@ import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -11,9 +12,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 function WatchedSlider({ title, data }) {
+  const router = useRouter();
+
   return (
     <Wrapper>
-      <HeaderWrapper>
+      <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
         <Heading>{title}</Heading>
         <ViewButton>
           View all

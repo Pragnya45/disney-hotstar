@@ -23,7 +23,7 @@ function HorizontalCard({ title, data }) {
   };
   return (
     <Wrapper>
-      <HeaderWrapper>
+      <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
         <Heading>{title}</Heading>
         <ViewButton>
           View all

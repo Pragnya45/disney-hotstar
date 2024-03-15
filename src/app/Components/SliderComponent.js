@@ -11,7 +11,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useRouter,usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import CircleIcon from "@mui/icons-material/Circle";
 import { Tooltip } from "antd";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
@@ -44,7 +44,7 @@ export default function SliderComponent({ title, data, isSpan }) {
   };
   return (
     <Wrapper>
-      <HeaderWrapper>
+      <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
         {isSpan ? (
           <Heading>
             <SpanImage src={freeImg} alt="free" width={30} height={30} />
@@ -126,7 +126,6 @@ export default function SliderComponent({ title, data, isSpan }) {
                           height={100}
                           alt="hanuman-img"
                         />
-
                         {muted ? (
                           <Tooltip title="Unmute Trailer">
                             <Mute onClick={() => setMuted(!muted)} />{" "}
@@ -478,6 +477,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  cursor: pointer;
 `;
 const SoundWrapper = styled.div`
   width: 100%;
