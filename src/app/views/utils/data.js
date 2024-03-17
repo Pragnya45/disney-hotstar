@@ -27,7 +27,7 @@ const releases = [
         titleImg: "/assets/images/echo-title.webp",
         language: "English",
         coverpic: "/assets/images/echo.webp",
-        video: "/assets/videos/Blender.mp4",
+        video: "/assets/videos/arya.mp4",
         year: "2024",
         seasons: "1",
         totalLanguage: "4",

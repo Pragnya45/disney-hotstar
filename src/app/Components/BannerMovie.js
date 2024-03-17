@@ -10,6 +10,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { Tooltip } from "antd";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import { releases } from "../views/utils/data";
 
 const arya = "/assets/videos/arya.mp4";
 const aryaImg = "/assets/images/aarya.webp";
@@ -19,6 +25,7 @@ function BannerMovie() {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const contentRef = useRef();
 
   useEffect(() => {
@@ -42,6 +49,10 @@ function BannerMovie() {
       }
     };
   }, [scrolling]);
+  // useEffect(() => {
+  //   // Play the first video when component mounts
+  //   playVideo(currentVideoIndex);
+  // }, []);
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowvideo(true);
@@ -50,10 +61,23 @@ function BannerMovie() {
     return () => clearTimeout(timer);
   }, []);
   const handleVideoEnd = () => {
-    setShowvideo(false); // Hide the video when it ends
-    setTimeout(() => {
-      setShowvideo(true); // Show the video again after a delay
-    }, 3000); // Adjust the delay as needed
+    console.log("called");
+    // setShowvideo(false); // Hide the video when it ends
+    // setTimeout(() => {
+    //   setShowvideo(true); // Show the video again after a delay
+    // }, 3000); // Adjust the delay as needed
+    if (currentVideoIndex < releases.length - 1) {
+      setCurrentVideoIndex(currentVideoIndex + 1);
+    }
+  };
+  const playVideo = (index) => {
+    // Play the video at the specified index
+    // You need to adapt this code to your specific video player library
+    // This is just a conceptual representation
+    const videoUrl = releases[index].hovercardData[0]?.coverpic;
+    // Here, you would update the video source in your player component
+    // Example:
+    // setVideoSource(videoUrl);
   };
   const scrollLeft = () => {
     if (contentRef.current) {
@@ -75,7 +99,7 @@ function BannerMovie() {
   return (
     <Wrapper>
       <BannerImage
-        src={aryaImg}
+        src={releases[currentVideoIndex]?.hovercardData[0]?.coverpic}
         showvideo={showvideo}
         alt="bannerImg"
         width={200}
@@ -83,11 +107,11 @@ function BannerMovie() {
       />
       {showvideo && (
         <Player
-          src={arya}
+          src={releases[currentVideoIndex]?.hovercardData[0]?.video}
           controls={false}
           autoPlay
           playsInline
-          onEnded={handleVideoEnd}
+          onEnded={() => handleVideoEnd()}
           muted={muted}
         >
           <source src={arya} type="video/mp4" />
@@ -95,19 +119,29 @@ function BannerMovie() {
       )}
       <ContentWrapper>
         <LeftContainer>
-          <TitleImg src={aryaTitleImg} width={200} height={200} />
+          <TitleImg
+            src={releases[currentVideoIndex]?.hovercardData[0]?.titleImg}
+            width={200}
+            height={200}
+          />
           <YearDetailsWrapper>
-            <Text>2024</Text>
+            <Text>{releases[currentVideoIndex]?.hovercardData[0]?.year}</Text>
             <StyledCircle />
-            <Text>3 Seasons</Text>
+            <Text>
+              {releases[currentVideoIndex]?.hovercardData[0]?.seasons}Seasons
+            </Text>
             <StyledCircle />
-            <Text>7 Languages</Text>
+            <Text>
+              {releases[currentVideoIndex]?.hovercardData[0]?.totalLanguage}
+              Languages
+            </Text>
             <StyledCircle />
-            <AgeRestriction>U/A 16+</AgeRestriction>
+            <AgeRestriction>
+              U/A {releases[currentVideoIndex]?.hovercardData[0]?.ua}
+            </AgeRestriction>
           </YearDetailsWrapper>
           <Description>
-            PART 2 - ANTIM VAAR OUT. The Sherni is back again,
-            <br /> and she is all set to end it all. Will she succeed?
+            {releases[currentVideoIndex]?.hovercardData[0]?.description}
           </Description>
           <YearDetailsWrapper>
             <Text>Drama</Text>
@@ -160,6 +194,34 @@ function BannerMovie() {
               </Tooltip>
             )}
           </SoundWrapper>
+          <SwiperWrapper>
+            <StyledSwiper
+              centeredSlides={false}
+              slidesPerView={"auto"}
+              direction={"horizontal"}
+              loop={false}
+              spaceBetween={10}
+              navigation={true}
+              modules={[Navigation]}
+              className="swiper-container"
+            >
+              {releases?.map((release, index) => (
+                <SwiperSlide key={release.id}>
+                  <Card
+                    onClick={() => setCurrentVideoIndex(index)}
+                    selected={index === currentVideoIndex}
+                  >
+                    <CardImg
+                      src={release.hovercardData[0]?.coverpic}
+                      alt="image"
+                      width={98}
+                      height={30}
+                    />
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </StyledSwiper>
+          </SwiperWrapper>
         </RightContainer>
       </ContentWrapper>
     </Wrapper>
@@ -204,7 +266,7 @@ const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 50%;
+  width: 45%;
 `;
 const TitleImg = styled(ImageView)`
   width: 15rem;
@@ -370,13 +432,76 @@ const StyleddPlay = styled(PlayArrowIcon)`
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 2rem;
+  width: 50%;
   height: 100%;
-  align-items: end;
+  /* align-items: end; */
   margin-top: auto;
 `;
 const SoundWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+`;
+const Card = styled.div`
+  width: 78px;
+  height: 40px;
+  opacity: ${(props) => (props.selected ? 1 : 0.7)};
+  border: ${(props) => (props.selected ? "1px solid #fff" : "none")};
+  border-radius: 5px;
+  &:hover {
+    transform: ${(props) => (props.selected ? `scale(1.2)` : "none")};
+  }
+`;
+const CardImg = styled(ImageView)`
+  object-fit: cover;
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+`;
+const StyledSwiper = styled(Swiper)`
+  pointer-events: auto;
+  height: 100%;
+  justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  .swiper-slide {
+    width: 80px !important;
+    top: 0.5rem;
+  }
+  .swiper-slide-active {
+    /* border: 1px solid #fff;
+    border-radius: 5px; */
+  }
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    color: var(--white_color);
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .swiper-button-prev.swiper-button-disabled,
+  .swiper-button-next.swiper-button-disabled {
+    opacity: 0;
+    cursor: pointer;
+  }
+  .swiper-button-next {
+    background: var(--bg_color-next-gradient) !important;
+    width: 50px;
+    height: 80%;
+    bottom: 40px;
+    right: 0;
+  }
+  .swiper-button-prev {
+    background: var(--bg_color-prev-gradient) !important;
+    width: 50px;
+    height: 80%;
+    bottom: 40px;
+    left: 0;
+  }
+`;
+const SwiperWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 3.5rem;
+  position: relative;
 `;
