@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -13,7 +13,16 @@ import "swiper/css/pagination";
 
 function WatchedSlider({ title, data }) {
   const router = useRouter();
-
+  const [isFirstChild, setIsFirstChild] = useState(false);
+  const [isLastChild, setIsLastChild] = useState(false);
+  const handleHover = (index) => {
+    setIsFirstChild(index === 0);
+    setIsLastChild(index === data.length - 1);
+  };
+  const handleVideoEnd = (index) => {
+    setIsFirstChild(index);
+    setIsLastChild(index);
+  };
   return (
     <Wrapper>
       <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
@@ -27,27 +36,21 @@ function WatchedSlider({ title, data }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
+          slidesPerGroup={4}
           loop={false}
           spaceBetween={20}
           navigation={true}
           onSwiper={(swiper) => console.log(swiper)}
           modules={[Navigation]}
-          breakpoints={{
-            1440: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-          }}
           className="swiper-container"
         >
           {data.map((release, index) => (
             <SwiperSlide key={index}>
               <ContentWrapper>
-                <Card>
+                <Card
+                  onMouseEnter={() => handleHover(index)}
+                  onMouseLeave={() => handleVideoEnd(null)}
+                >
                   <CardImage
                     src={release.img}
                     alt={release.title}
@@ -63,7 +66,11 @@ function WatchedSlider({ title, data }) {
                     </Track>
                   </TrackWrapper>
                   {release?.hovercardData?.map((hoverData, index) => (
-                    <HoverCard key={index}>
+                    <HoverCard
+                      key={index}
+                      isFirstChild={isFirstChild}
+                      isLastChild={isLastChild}
+                    >
                       <HoverContent>
                         <Close />
                         <Hoverimg
@@ -330,7 +337,8 @@ const HoverCard = styled.div`
   position: absolute;
   background: var(--bg_color800);
   box-shadow: var(--box-shadow900);
-  left: -35px;
+  left: ${(props) =>
+    props.isFirstChild ? "0px" : props.isLastChild ? "-90px" : "-35px"};
   z-index: 8 !important;
   animation: hoveranimation 0.2s ease-in forwards;
   top: -35px;

@@ -22,25 +22,32 @@ const freeImg = "/assets/images/free.webp";
 export default function SliderComponent({ title, data, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [isFirstChild, setIsFirstChild] = useState(false);
+  const [isLastChild, setIsLastChild] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  const handleCardClick = (release) => {
-    console.log(release);
-    if (pathname === "/") {
-      router.push(`/tv/${release.title}/${release.id}`);
-    } else {
-      router.push(`${pathname}/${release.title}/${release.id}`);
-    }
-  };
+  // const handleCardClick = (release) => {
+  //   console.log(release);
+  //   if (pathname === "/") {
+  //     router.push(`/tv/${release.title}/${release.id}`);
+  //   } else {
+  //     router.push(`${pathname}/${release.title}/${release.id}`);
+  //   }
+  // };
 
-  const handleHover = () => {
+  const handleHover = (index) => {
+    setIsFirstChild(index === 0);
+    setIsLastChild(index === data.length - 1);
+
     setTimeout(() => {
       setShowvideo(true);
     }, 5000);
   };
 
-  const handleVideoEnd = () => {
+  const handleVideoEnd = (index) => {
     setShowvideo(false);
+    setIsFirstChild(index);
+    setIsLastChild(index);
   };
   return (
     <Wrapper>
@@ -62,28 +69,19 @@ export default function SliderComponent({ title, data, isSpan }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
+          slidesPerGroup={4}
           loop={false}
           spaceBetween={20}
           navigation={true}
           modules={[Navigation]}
-          breakpoints={{
-            1440: {
-              slidesPerView: 6,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-          }}
           className="swiper-container"
         >
-          {data.map((release) => (
+          {data.map((release, index) => (
             <SwiperSlide key={release.id}>
               <Card
                 onClick={() => handleCardClick(release)}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleVideoEnd}
+                onMouseEnter={() => handleHover(index)}
+                onMouseLeave={() => handleVideoEnd(null)}
               >
                 <CardImage
                   src={release.img}
@@ -92,7 +90,11 @@ export default function SliderComponent({ title, data, isSpan }) {
                   height={100}
                 />
                 {release?.hovercardData?.map((hoverData, index) => (
-                  <HoverCard key={index}>
+                  <HoverCard
+                    key={index}
+                    isFirstChild={isFirstChild}
+                    isLastChild={isLastChild}
+                  >
                     <HoverContent>
                       {showvideo ? (
                         <PlayerWrapper>
@@ -300,7 +302,10 @@ const HoverCard = styled.div`
   opacity: 0;
   orphans: 10;
   position: absolute;
-  left: -35px;
+  left: ${(props) =>
+    props.isFirstChild ? "0px" : props.isLastChild ? "-90px" : "-35px"};
+
+  /* left: -35px; */
   z-index: 8 !important;
   animation: hoveranimation 0.4s ease-in forwards;
   top: -45px;

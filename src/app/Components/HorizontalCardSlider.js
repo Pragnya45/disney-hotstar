@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -13,6 +13,8 @@ import "swiper/css/pagination";
 function HorizontalCard({ title, data }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [isFirstChild, setIsFirstChild] = useState(false);
+  const [isLastChild, setIsLastChild] = useState(false);
   const handleCardClick = (release) => {
     console.log(release);
     if (pathname === "/") {
@@ -20,6 +22,14 @@ function HorizontalCard({ title, data }) {
     } else {
       router.push(`${pathname}/${release.title}/${release.id}`);
     }
+  };
+  const handleHover = (index) => {
+    setIsFirstChild(index === 0);
+    setIsLastChild(index === data.length - 1);
+  };
+  const handleVideoEnd = (index) => {
+    setIsFirstChild(index);
+    setIsLastChild(index);
   };
   return (
     <Wrapper>
@@ -34,26 +44,21 @@ function HorizontalCard({ title, data }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
+          slidesPerGroup={4}
           loop={false}
           spaceBetween={20}
           navigation={true}
           modules={[Navigation]}
-          breakpoints={{
-            1440: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 20,
-            },
-          }}
           className="swiper-container"
         >
           {data.map((release, index) => (
             <SwiperSlide key={index}>
               <ContentWrapper>
-                <Card onClick={() => handleCardClick(release)}>
+                <Card
+                  onClick={() => handleCardClick(release)}
+                  onMouseEnter={() => handleHover(index)}
+                  onMouseLeave={() => handleVideoEnd(null)}
+                >
                   <CardImage
                     src={release.img}
                     alt={release.title}
@@ -65,7 +70,11 @@ function HorizontalCard({ title, data }) {
                     <Duration>5m</Duration>
                   </PlayWrapper>
                   {release?.hovercardData?.map((hoverData, index) => (
-                    <HoverCard key={index}>
+                    <HoverCard
+                      key={index}
+                      isFirstChild={isFirstChild}
+                      isLastChild={isLastChild}
+                    >
                       <HoverContent>
                         <Hoverimg
                           src={hoverData.coverpic}
@@ -163,7 +172,7 @@ const HoverPlayWrapper = styled.div`
   position: absolute;
   display: flex;
   width: 100%;
-  bottom: 112px;
+  bottom: 128px;
   padding: 15px 10px;
   justify-content: space-between;
   align-items: center;
@@ -209,11 +218,11 @@ const TextContainer = styled.div`
   padding: 0.5rem;
 `;
 const ContentWrapper = styled.div`
-  display: flex !important;
+  display: flex;
   cursor: pointer;
   flex-direction: column;
   align-items: start;
-  width: 16rem !important;
+  width: 16rem;
   z-index: 0;
   transform-origin: top;
   border-radius: 10px;
@@ -286,8 +295,8 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: 23rem !important;
-  height: 19rem !important;
+  width: 23rem;
+  height: 20rem;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -295,7 +304,8 @@ const HoverCard = styled.div`
   position: absolute;
   background: var(--bg_color800);
   box-shadow: var(--box-shadow900);
-  left: -35px;
+  left: ${(props) =>
+    props.isFirstChild ? "0px" : props.isLastChild ? "-90px" : "-35px"};
   z-index: 8 !important;
   animation: hoveranimation 0.2s ease-in forwards;
   top: -35px;
@@ -314,8 +324,8 @@ const HoverCard = styled.div`
 `;
 const Card = styled.div`
   position: relative;
-  width: 100% !important;
-  height: 10rem !important;
+  width: 100%;
+  height: 10rem;
   cursor: pointer;
   &:hover {
     ${HoverCard} {
@@ -343,4 +353,5 @@ const BottomContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.5rem;
+  height: fit-content;
 `;
