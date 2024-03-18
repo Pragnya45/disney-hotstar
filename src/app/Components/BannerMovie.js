@@ -49,10 +49,7 @@ function BannerMovie() {
       }
     };
   }, [scrolling]);
-  // useEffect(() => {
-  //   // Play the first video when component mounts
-  //   playVideo(currentVideoIndex);
-  // }, []);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowvideo(true);
@@ -62,23 +59,15 @@ function BannerMovie() {
   }, []);
   const handleVideoEnd = () => {
     console.log("called");
-    // setShowvideo(false); // Hide the video when it ends
-    // setTimeout(() => {
-    //   setShowvideo(true); // Show the video again after a delay
-    // }, 3000); // Adjust the delay as needed
+    setShowvideo(false);
+    setTimeout(() => {
+      setShowvideo(true);
+    }, 3000);
     if (currentVideoIndex < releases.length - 1) {
       setCurrentVideoIndex(currentVideoIndex + 1);
     }
   };
-  const playVideo = (index) => {
-    // Play the video at the specified index
-    // You need to adapt this code to your specific video player library
-    // This is just a conceptual representation
-    const videoUrl = releases[index].hovercardData[0]?.coverpic;
-    // Here, you would update the video source in your player component
-    // Example:
-    // setVideoSource(videoUrl);
-  };
+
   const scrollLeft = () => {
     if (contentRef.current) {
       contentRef.current.scrollBy({
@@ -109,13 +98,12 @@ function BannerMovie() {
         <Player
           src={releases[currentVideoIndex]?.hovercardData[0]?.video}
           controls={false}
+          loop={false}
           autoPlay
           playsInline
           onEnded={() => handleVideoEnd()}
           muted={muted}
-        >
-          <source src={arya} type="video/mp4" />
-        </Player>
+        />
       )}
       <ContentWrapper>
         <LeftContainer>
