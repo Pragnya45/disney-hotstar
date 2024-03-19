@@ -4,7 +4,7 @@ import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import CloseIcon from "@mui/icons-material/Close";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -12,16 +12,28 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 function WatchedSlider({ title, data }) {
+  const pathname = usePathname();
   const router = useRouter();
   const [isFirstChild, setIsFirstChild] = useState(false);
   const [isLastChild, setIsLastChild] = useState(false);
+
   const handleHover = (index) => {
     setIsFirstChild(index === 0);
     setIsLastChild(index === data.length - 1);
   };
+
   const handleVideoEnd = (index) => {
     setIsFirstChild(index);
     setIsLastChild(index);
+  };
+
+  const handleCardClick = (release) => {
+    console.log(release);
+    if (pathname === "/") {
+      router.push(`/tv/watch/${release.title}/${release.id}`);
+    } else {
+      router.push(`${pathname}/watch/${release.title}/${release.id}`);
+    }
   };
   return (
     <Wrapper>
@@ -48,6 +60,7 @@ function WatchedSlider({ title, data }) {
             <SwiperSlide key={index}>
               <ContentWrapper>
                 <Card
+                  onClick={() => handleCardClick(release)}
                   onMouseEnter={() => handleHover(index)}
                   onMouseLeave={() => handleVideoEnd(null)}
                 >

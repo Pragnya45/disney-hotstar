@@ -26,14 +26,14 @@ export default function SliderComponent({ title, data, isSpan }) {
   const [isLastChild, setIsLastChild] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
-  // const handleCardClick = (release) => {
-  //   console.log(release);
-  //   if (pathname === "/") {
-  //     router.push(`/tv/${release.title}/${release.id}`);
-  //   } else {
-  //     router.push(`${pathname}/${release.title}/${release.id}`);
-  //   }
-  // };
+  const handleCardClick = (release) => {
+    console.log(release);
+    if (pathname === "/") {
+      router.push(`/tv/${release.title}/${release.id}`);
+    } else {
+      router.push(`${pathname}/${release.title}/${release.id}`);
+    }
+  };
 
   const handleHover = (index) => {
     setIsFirstChild(index === 0);

@@ -96,9 +96,7 @@ export default function DetailedView({ details }) {
           playsInline
           onEnded={handleVideoEnd}
           muted={muted}
-        >
-          <source src={arya} type="video/mp4" />
-        </Player>
+        />
       )}
       <ContentWrapper>
         <LeftContainer>
