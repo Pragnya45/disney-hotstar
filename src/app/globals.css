@@ -7,6 +7,8 @@
   --bg_color500: hsla(0, 0%, 100%, 0.3);
   --bg_color400: #095ae5;
   --bg_color300: #0f0f14;
+  --bg_color200: rgba(0,0,0,.64);
+
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-next-gradient: linear-gradient(
     269.25deg,
@@ -117,6 +119,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Inter", sans-serif;
 }
 
 html,

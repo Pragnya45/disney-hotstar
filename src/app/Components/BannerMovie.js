@@ -11,7 +11,8 @@ import { Tooltip } from "antd";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Mousewheel } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
+import "swiper/css/autoplay";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -49,7 +50,7 @@ function BannerMovie() {
       }
     };
   }, [scrolling]);
-  
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowvideo(true);
@@ -85,6 +86,12 @@ function BannerMovie() {
       });
     }
   };
+  const swiperRef = useRef();
+  useEffect(() => {
+    if (swiperRef.current && currentVideoIndex < 5) {
+      swiperRef.current.swiper.autoplay.stop();
+    }
+  }, [currentVideoIndex]);
   return (
     <Wrapper>
       <BannerImage
@@ -190,12 +197,12 @@ function BannerMovie() {
               loop={false}
               spaceBetween={10}
               navigation={true}
-              mousewheel={{
-                forceToAxis: true,
-                sensitivity: 1,
-                releaseOnEdges: true,
+              ref={swiperRef}
+              autoplay={{
+                delay: 100,
+                disableOnInteraction: false,
               }}
-              modules={[Navigation, Mousewheel]}
+              modules={[Navigation, Autoplay]}
               className="swiper-container"
             >
               {releases?.map((release, index) => (

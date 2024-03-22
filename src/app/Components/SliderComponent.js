@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
@@ -24,15 +25,22 @@ export default function SliderComponent({ title, data, isSpan }) {
   const [muted, setMuted] = useState(true);
   const [isFirstChild, setIsFirstChild] = useState(false);
   const [isLastChild, setIsLastChild] = useState(false);
+  const [clicked, setClicked] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
-  const handleCardClick = (release) => {
-    console.log(release);
-    if (pathname === "/") {
-      router.push(`/tv/${release.title}/${release.id}`);
+  console.log(clicked);
+  const handleCardClick = ({ release, e }) => {
+    e.preventDefault();
+    const newPath =
+      pathname === "/"
+        ? `/tv/${release.title}/${release.id}`
+        : `${pathname}/${release.title}/${release.id}`;
+    if (clicked) {
+      router.push(newPath);
     } else {
-      router.push(`${pathname}/${release.title}/${release.id}`);
+      router.replace(`${pathname}`);
     }
+    setClicked(false);
   };
 
   const handleHover = (index) => {
@@ -79,7 +87,9 @@ export default function SliderComponent({ title, data, isSpan }) {
           {data.map((release, index) => (
             <SwiperSlide key={release.id}>
               <Card
-                onClick={() => handleCardClick(release)}
+                onClick={(e) => {
+                  handleCardClick({ release, e });
+                }}
                 onMouseEnter={() => handleHover(index)}
                 onMouseLeave={() => handleVideoEnd(null)}
               >
