@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "next/navigation";
 import Video from "./Video";
@@ -11,17 +11,33 @@ import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
 import { PiSkipForwardBold } from "react-icons/pi";
 import { BsChatSquareText } from "react-icons/bs";
 import { PiChatCenteredTextBold } from "react-icons/pi";
+import { Tooltip } from "antd";
 import { MdDone } from "react-icons/md";
 import { PiWarningBold } from "react-icons/pi";
+import { FaAnglesLeft } from "react-icons/fa6";
+import { FaAnglesRight } from "react-icons/fa6";
+import { FaPlay } from "react-icons/fa";
+import { CgMaximize } from "react-icons/cg";
+import { CgMinimize } from "react-icons/cg";
+import { Slider } from "antd";
+import VolumeOffIcon from "@mui/icons-material/VolumeOff";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+
+import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 
 export default function WatchedDetailedView() {
   const { id } = useParams();
   const details = cardData.find((release) => release.id === id);
   const [showvideo, setShowvideo] = useState(false);
-  const [showQualityMenu, setShowQualityMenu] = useState(false);
+  const [showSoundslider, setShowSoundslider] = useState(false);
   const [showAudioMenu, setShowAudioMenu] = useState(false);
+  const [videoduration, setVideoduration] = useState();
+  const [videoProgress, setVideoProgress] = useState();
   const [selectedQuality, setSelectedQuality] = useState("Auto");
+  const [selectedSubtitle, setSelectedSubtitle] = useState("Off");
   const [muted, setMuted] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const videoRef = useRef(null);
   const QualityData = [
     {
       quality: "Auto",
@@ -57,6 +73,9 @@ export default function WatchedDetailedView() {
   const handleSelectQuality = (option) => {
     setSelectedQuality(option);
   };
+  const handleSelectSubtitle = (option) => {
+    setSelectedSubtitle(option);
+  };
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowvideo(true);
@@ -64,13 +83,31 @@ export default function WatchedDetailedView() {
 
     return () => clearTimeout(timer);
   }, []);
-  const handleVideoEnd = () => {
-    setShowvideo(false);
-    setTimeout(() => {
-      setShowvideo(true);
-    }, 3000);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      setVideoduration(video.duration);
+    }
+  }, []);
+  const togglePlayPause = async (control) => {
+    const video = videoRef.current;
+    console.log("called");
+    console.log(video);
+    if (control === "play") {
+      setIsPaused(false);
+      video.play();
+    } else {
+      setIsPaused(true);
+      video.pause();
+    }
   };
-  console.log(details?.hovercardData[0]?.video);
+  const fastForward = () => {
+    videoRef.current.currentTime += 10;
+  };
+
+  const revert = () => {
+    videoRef.current.currentTime -= 10;
+  };
   return (
     <Wrapper>
       <BannerImage
@@ -83,12 +120,13 @@ export default function WatchedDetailedView() {
       {showvideo && (
         <Player
           src={details?.hovercardData[0]?.video}
-          controls={false}
           autoPlay
           playsInline
-          onEnded={handleVideoEnd}
           muted={muted}
-        />
+          ref={videoRef}
+        >
+          <source src={details?.hovercardData[0]?.video} type="video/mp4" />
+        </Player>
       )}
       <HeaderWrapper>
         <TitleWrapper>
@@ -96,95 +134,147 @@ export default function WatchedDetailedView() {
           {details?.title}
         </TitleWrapper>
         <SettingsWrapper>
-          <QualityButton
-            onMouseOver={() => setShowQualityMenu(true)}
-            onMouseLeave={() => setShowQualityMenu(false)}
-          >
-            <Play />
-            Quality <SelectedQuality>{selectedQuality}</SelectedQuality>
-            {showQualityMenu ? (
-              <QualityDropdown>
-                {QualityData.map((option, index) => (
-                  <QualityOption
-                    key={index}
-                    onClick={() => handleSelectQuality(option.quality)}
-                  >
-                    {selectedQuality === option.quality ? (
+          <DropdownWrapper>
+            <QualityButton>
+              <Play />
+              Quality <SelectedQuality>{selectedQuality}</SelectedQuality>
+            </QualityButton>
+            <QualityDropdown>
+              {QualityData.map((option, index) => (
+                <QualityOption
+                  key={index}
+                  onClick={() => handleSelectQuality(option.quality)}
+                >
+                  {selectedQuality === option.quality ? (
+                    <MdDone size={15} color="#3586f0" />
+                  ) : (
+                    <MdDone size={15} color="transparent" />
+                  )}
+
+                  {option.quality}
+                  {option.subscribe ? <Subscribe>SUBSCRIBE</Subscribe> : null}
+                </QualityOption>
+              ))}
+              <Border></Border>
+              <ReportButton>
+                {" "}
+                <PiWarningBold size={20} color="hsla(0, 0%, 100%, 0.6)" />
+                Report an issue
+              </ReportButton>
+            </QualityDropdown>
+          </DropdownWrapper>
+          <AudioButtonWrapper>
+            <AudioButton>
+              <PiChatCenteredTextBold size={22} color="#fff" />
+              Audio & Subtitles
+            </AudioButton>
+            <QualityDropdown>
+              <AudioWrapper>
+                <AudioOptionWrapper>
+                  <OptionHeading>Audio</OptionHeading>
+
+                  {AudioData.map((option, index) => (
+                    <QualityOption key={index}>
                       <MdDone size={15} color="#3586f0" />
-                    ) : (
-                      <MdDone size={15} color="transparent" />
-                    )}
+                      {option.audio}
+                    </QualityOption>
+                  ))}
+                </AudioOptionWrapper>
+                <SubtitleWrapper>
+                  <OptionHeading>Subtitle</OptionHeading>
+                  {SubtitleData.map((option, index) => (
+                    <QualityOption
+                      key={index}
+                      onClick={() => handleSelectSubtitle(option.subtitle)}
+                    >
+                      {selectedSubtitle === option.subtitle ? (
+                        <MdDone size={15} color="#3586f0" />
+                      ) : (
+                        <MdDone size={15} color="transparent" />
+                      )}
 
-                    {option.quality}
-                    {option.subscribe ? <Subscribe>SUBSCRIBE</Subscribe> : null}
-                  </QualityOption>
-                ))}
-                <Border></Border>
-                <ReportButton>
-                  {" "}
-                  <PiWarningBold size={20} color="hsla(0, 0%, 100%, 0.6)" />
-                  Report an issue
-                </ReportButton>
-              </QualityDropdown>
-            ) : null}
-          </QualityButton>
-          <AudioButton onMouseOver={() => setShowAudioMenu(true)}>
-            <PiChatCenteredTextBold size={22} color="#fff" />
-            Audio & Subtitles
-            {showAudioMenu ? (
-              <QualityDropdown>
-                <AudioWrapper>
-                  <AudioOptionWrapper>
-                    <OptionHeading>Audio</OptionHeading>
-
-                    {AudioData.map((option, index) => (
-                      <QualityOption
-                        key={index}
-                        onClick={() => handleSelectQuality(option.audio)}
-                      >
-                        {selectedQuality === option.audio ? (
-                          <MdDone size={15} color="#3586f0" />
-                        ) : (
-                          <MdDone size={15} color="transparent" />
-                        )}
-
-                        {option.audio}
-                      </QualityOption>
-                    ))}
-                  </AudioOptionWrapper>
-                  <SubtitleWrapper>
-                    <OptionHeading>Subtitle</OptionHeading>
-                    {SubtitleData.map((option, index) => (
-                      <QualityOption
-                        key={index}
-                        onClick={() => handleSelectQuality(option.subtitle)}
-                      >
-                        {selectedQuality === option.subtitle ? (
-                          <MdDone size={15} color="#3586f0" />
-                        ) : (
-                          <MdDone size={15} color="transparent" />
-                        )}
-
-                        {option.subtitle}
-                      </QualityOption>
-                    ))}
-                  </SubtitleWrapper>
-                </AudioWrapper>
-                <Border></Border>
-                <ReportButton>
-                  {" "}
-                  <PiWarningBold size={20} color="hsla(0, 0%, 100%, 0.6)" />
-                  Report an issue
-                </ReportButton>
-              </QualityDropdown>
-            ) : null}
-          </AudioButton>
+                      {option.subtitle}
+                    </QualityOption>
+                  ))}
+                </SubtitleWrapper>
+              </AudioWrapper>
+              <Border></Border>
+              <ReportButton>
+                {" "}
+                <PiWarningBold size={20} color="hsla(0, 0%, 100%, 0.6)" />
+                Report an issue
+              </ReportButton>
+            </QualityDropdown>
+          </AudioButtonWrapper>
           <EpButton>
             <PiSkipForwardBold size={22} color="#fff" />
             Next Episode
           </EpButton>
         </SettingsWrapper>
       </HeaderWrapper>
+      <ControllerWrapper>
+        <SliderDurationWrapper>
+          <CustomSlider
+            tooltip={{
+              formatter: null,
+            }}
+          />
+          <SliderDuration>
+            {Math.floor(videoduration / 60) +
+              ":" +
+              ("0" + Math.floor(videoduration % 60)).slice(-2)}
+          </SliderDuration>
+        </SliderDurationWrapper>
+        <Controller>
+          <PlayController>
+            <ControllerButton onClick={() => revert()}>
+              <FaAnglesLeft size={22} color="#FFF" />
+              10
+            </ControllerButton>
+            <ControllerButton>
+              {isPaused ? (
+                <FaPlay
+                  size={35}
+                  color="#FFF"
+                  onClick={() => {
+                    togglePlayPause("play");
+                  }}
+                />
+              ) : (
+                <PauseRoundedIcon
+                  style={{ fontSize: 50 }}
+                  color="#FFF"
+                  onClick={() => {
+                    togglePlayPause("pause");
+                  }}
+                />
+              )}
+            </ControllerButton>
+            <ControllerButton onClick={() => fastForward()}>
+              10
+              <FaAnglesRight size={22} color="#FFF" />
+            </ControllerButton>
+            <ControllerButton onMouseEnter={() => setShowSoundslider(true)}>
+              {muted ? (
+                <Mute onClick={() => setMuted(!muted)} />
+              ) : (
+                <Sound onClick={() => setMuted(!muted)} />
+              )}
+              {showSoundslider ? (
+                <SoundSlider
+                  tooltip={{
+                    formatter: null,
+                  }}
+                />
+              ) : null}
+            </ControllerButton>
+          </PlayController>
+          <ControllerButton>
+            <CgMaximize size={22} color="#FFF" />{" "}
+            <CgMinimize size={22} color="#FFF" />
+          </ControllerButton>
+        </Controller>
+      </ControllerWrapper>
     </Wrapper>
   );
 }
@@ -202,7 +292,7 @@ const Wrapper = styled.div`
   margin: auto;
   /* padding: 0rem 3rem 0 3rem; */
 `;
-const Player = styled(Video)`
+const Player = styled.video`
   width: 90%;
   height: 100%;
   object-fit: cover;
@@ -254,36 +344,86 @@ const SubtitleIcon = styled(SubtitlesOutlinedIcon)`
 `;
 const SettingsWrapper = styled.div`
   display: flex;
+  gap: 2rem;
+`;
+const QualityDropdown = styled.div`
+  position: absolute;
+  top: 30px;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: var(--bg_color200);
+  backdrop-filter: blur(10px);
+  width: 13.5rem;
+  height: fit-content;
+  border-radius: 8px;
+  display: none !important;
+  flex-direction: column;
   gap: 1rem;
 `;
-
-const QualityButton = styled.button`
+const DropdownWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  height: fit-content;
+  &:hover {
+    ${QualityDropdown} {
+      display: flex !important;
+    }
+    transition-delay: 2s;
+  }
+`;
+const AudioButton = styled.div`
   display: flex;
   align-items: center;
   gap: 0.7rem;
   outline: none;
   border: none;
-  width: 12rem;
+  background: none;
+  color: var(--white_color);
+  font-weight: 700;
+  font-size: 1rem;
+  width: fit-content;
+  &:hover {
+    transform: scaleX(1.1);
+  }
+`;
+const AudioButtonWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  height: fit-content;
+  &:hover {
+    ${QualityDropdown} {
+      display: flex !important;
+    }
+    transition-delay: 2s;
+  }
+`;
+const AudioDropdownWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  height: fit-content;
+  &:hover {
+    ${QualityDropdown} {
+      display: flex !important;
+    }
+    transition-delay: 2s;
+  }
+`;
+
+const QualityButton = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: fit-content;
   background: none;
   color: var(--white_color);
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  /* &:hover {
-    transform: scale(1.02);
-  } */
+  &:hover {
+    transform: scaleX(1.1);
+  }
 `;
-const AudioButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  outline: none;
-  border: none;
-  background: none;
-  color: var(--white_color);
-  font-weight: 700;
-  font-size: 1rem;
-`;
+
 const EpButton = styled.button`
   display: flex;
   align-items: center;
@@ -294,24 +434,15 @@ const EpButton = styled.button`
   color: var(--white_color);
   font-weight: 500;
   font-size: 1rem;
+  width: fit-content;
+  &:hover {
+    transform: scaleX(1.1);
+  }
 `;
 const SelectedQuality = styled.span`
   color: var(--tw-shadow);
 `;
-const QualityDropdown = styled.div`
-  position: absolute;
-  top: 100px;
-  padding: 1rem;
-  border-radius: 12px;
-  background-color: var(--bg_color200);
-  backdrop-filter: blur(10px);
-  width: 13.5rem;
-  height: fit-content;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
+
 const QualityOption = styled.button`
   width: 100%;
   font-weight: 500;
@@ -374,4 +505,102 @@ const AudioOptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`;
+const ControllerWrapper = styled.div`
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  flex-direction: column;
+`;
+const Controller = styled.div`
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+`;
+const PlayController = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+`;
+const ControllerButton = styled.button`
+  background: none;
+  outline: none;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--white_color);
+  z-index: 5;
+  font-size: 1rem;
+  font-weight: 600;
+  width: fit-content;
+`;
+const CustomSlider = styled(Slider)`
+  z-index: 5;
+  width: 100%;
+  &:hover {
+    .ant-slider-rail {
+      height: 8px !important;
+    }
+    .ant-slider-track {
+      height: 8px !important;
+    }
+    .ant-slider-handle::after {
+      box-shadow: 0 0 0 6px #ffffff !important;
+    }
+  }
+  .ant-slider-rail {
+    background-color: var(--white_color900) !important;
+  }
+  .ant-slider-track {
+    background-color: var(--bg_color400) !important;
+    &:hover {
+      background-color: var(--bg_color400) !important;
+    }
+  }
+  .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px #ffffff !important;
+  }
+`;
+const SoundSlider = styled(Slider)`
+  width: 8rem;
+  z-index: 5;
+  .ant-slider-rail {
+    background-color: var(--white_color900) !important;
+  }
+  .ant-slider-track {
+    background-color: var(--bg_color400) !important;
+    &:hover {
+      background-color: var(--bg_color400) !important;
+    }
+  }
+  .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px #ffffff !important;
+  }
+`;
+
+const Mute = styled(VolumeOffIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const Sound = styled(VolumeUpIcon)`
+  width: 32px;
+  height: 25px;
+  color: var(--white_color);
+`;
+const SliderDurationWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  z-index: 5;
+`;
+const SliderDuration = styled.p`
+  color: var(--white_color);
+  font-size: 12px;
 `;
