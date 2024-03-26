@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Video from "./Video";
 import ImageView from "./Image";
 import { cardData } from "../views/utils/data";
@@ -31,13 +31,20 @@ export default function WatchedDetailedView() {
   const [showvideo, setShowvideo] = useState(false);
   const [showSoundslider, setShowSoundslider] = useState(false);
   const [showAudioMenu, setShowAudioMenu] = useState(false);
-  const [videoduration, setVideoduration] = useState();
-  const [videoProgress, setVideoProgress] = useState();
+  const [videoduration, setVideoduration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [snapshotImage, setSnapshotImage] = useState("");
+  const [volume, setVolume] = useState(50);
   const [selectedQuality, setSelectedQuality] = useState("Auto");
   const [selectedSubtitle, setSelectedSubtitle] = useState("Off");
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const videoRef = useRef(null);
+  const secondvideoRef = useRef(null);
+  const animationRef = useRef(null);
+  const snapShotRef = useRef(null);
+  const router = useRouter();
   const QualityData = [
     {
       quality: "Auto",
@@ -70,6 +77,32 @@ export default function WatchedDetailedView() {
       subtitle: "English",
     },
   ];
+  const handleToggleFullscreen = () => {
+    if (!isFullscreen) {
+      // Enter fullscreen mode
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        /* Safari */
+        document.documentElement.webkitRequestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        /* IE11 */
+        document.documentElement.msRequestFullscreen();
+      }
+    } else {
+      // Exit fullscreen mode
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        /* Safari */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        /* IE11 */
+        document.msExitFullscreen();
+      }
+    }
+    setIsFullscreen(!isFullscreen); // Toggle the fullscreen state
+  };
   const handleSelectQuality = (option) => {
     setSelectedQuality(option);
   };
@@ -84,15 +117,19 @@ export default function WatchedDetailedView() {
     return () => clearTimeout(timer);
   }, []);
   useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      setVideoduration(video.duration);
+    if (muted) {
+      setVolume(0);
+    } else {
+      setVolume(50);
     }
-  }, []);
+  }, [muted]);
+  useEffect(() => {
+    if (isPaused) {
+      cancelAnimationFrame(animationRef.current);
+    }
+  }, [isPaused]);
   const togglePlayPause = async (control) => {
     const video = videoRef.current;
-    console.log("called");
-    console.log(video);
     if (control === "play") {
       setIsPaused(false);
       video.play();
@@ -108,6 +145,47 @@ export default function WatchedDetailedView() {
   const revert = () => {
     videoRef.current.currentTime -= 10;
   };
+  const handleChange = (value) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = value;
+      setCurrentTime(value);
+    }
+  };
+  const handleVolumeChange = (value) => {
+    if (videoRef.current) {
+      const newVolume = value / 100;
+      videoRef.current.volume = newVolume;
+      setVolume(value);
+      if (value === 0) {
+        setMuted(true);
+      } else if (value >= 1) {
+        setMuted(false);
+      }
+    }
+  };
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+  const handleVideoMetadata = () => {
+    setVideoduration(videoRef.current.duration);
+  };
+  const handleTimeUpdate = () => {
+    setCurrentTime(videoRef.current.currentTime);
+    animationRef.current = requestAnimationFrame(handleTimeUpdate);
+  };
+  const handleVolume = () => {
+    console.log(videoRef.current);
+    setVolume(videoRef.current.volume / 100);
+  };
+  const onSliderhover = () => {
+    let hoverTime = currentTime;
+    if (hoverTime < 0) {
+      hoverTime = 0;
+    }
+  };
+
   return (
     <Wrapper>
       <BannerImage
@@ -124,13 +202,15 @@ export default function WatchedDetailedView() {
           playsInline
           muted={muted}
           ref={videoRef}
+          onLoadedMetadata={handleVideoMetadata}
+          onTimeUpdate={handleTimeUpdate}
         >
           <source src={details?.hovercardData[0]?.video} type="video/mp4" />
         </Player>
       )}
       <HeaderWrapper>
         <TitleWrapper>
-          <SideArrow color="#fff" />
+          <SideArrow color="#fff" onClick={() => router.back()} />
           {details?.title}
         </TitleWrapper>
         <SettingsWrapper>
@@ -212,17 +292,27 @@ export default function WatchedDetailedView() {
           </EpButton>
         </SettingsWrapper>
       </HeaderWrapper>
-      <ControllerWrapper>
+      <ControllerWrapper
+        onMouseMove={() => onSliderhover()}
+        onMouseLeave={() => setSnapshotImage("")}
+      >
+        <SnapShotContainer ref={snapShotRef}>
+          <SnapshotImage src={snapshotImage} alt="" width={220} height={220} />
+          <SnapshotDuration>{formatTime(currentTime)}</SnapshotDuration>
+        </SnapShotContainer>
         <SliderDurationWrapper>
           <CustomSlider
-            tooltip={{
-              formatter: null,
-            }}
+            // tooltip={{
+            //   formatter: null,
+            // }}
+            min={0}
+            max={videoduration}
+            step={0.1} // Adjust the step size as needed
+            value={currentTime}
+            onChange={handleChange}
           />
           <SliderDuration>
-            {Math.floor(videoduration / 60) +
-              ":" +
-              ("0" + Math.floor(videoduration % 60)).slice(-2)}
+            {formatTime(videoduration - currentTime)}
           </SliderDuration>
         </SliderDurationWrapper>
         <Controller>
@@ -234,7 +324,7 @@ export default function WatchedDetailedView() {
             <ControllerButton>
               {isPaused ? (
                 <FaPlay
-                  size={35}
+                  size={30}
                   color="#FFF"
                   onClick={() => {
                     togglePlayPause("play");
@@ -242,7 +332,7 @@ export default function WatchedDetailedView() {
                 />
               ) : (
                 <PauseRoundedIcon
-                  style={{ fontSize: 50 }}
+                  style={{ width: "40px", height: "30px" }}
                   color="#FFF"
                   onClick={() => {
                     togglePlayPause("pause");
@@ -254,7 +344,12 @@ export default function WatchedDetailedView() {
               10
               <FaAnglesRight size={22} color="#FFF" />
             </ControllerButton>
-            <ControllerButton onMouseEnter={() => setShowSoundslider(true)}>
+            <ControllerButton
+              onMouseEnter={() => setShowSoundslider(true)}
+              onMouseLeave={() =>
+                setTimeout(() => setShowSoundslider(false), 1000)
+              }
+            >
               {muted ? (
                 <Mute onClick={() => setMuted(!muted)} />
               ) : (
@@ -262,16 +357,23 @@ export default function WatchedDetailedView() {
               )}
               {showSoundslider ? (
                 <SoundSlider
+                  min={0}
+                  max={100}
                   tooltip={{
                     formatter: null,
                   }}
+                  value={volume}
+                  onChange={handleVolumeChange}
                 />
               ) : null}
             </ControllerButton>
           </PlayController>
-          <ControllerButton>
-            <CgMaximize size={22} color="#FFF" />{" "}
-            <CgMinimize size={22} color="#FFF" />
+          <ControllerButton onClick={handleToggleFullscreen}>
+            {isFullscreen ? (
+              <CgMinimize size={22} color="#FFF" />
+            ) : (
+              <CgMaximize size={22} color="#FFF" />
+            )}
           </ControllerButton>
         </Controller>
       </ControllerWrapper>
@@ -333,6 +435,7 @@ const TitleWrapper = styled.button`
 const SideArrow = styled(KeyboardBackspaceIcon)`
   width: 30px;
   height: 30px;
+  cursor: pointer;
 `;
 const Play = styled(SmartDisplayOutlinedIcon)`
   width: 27px;
@@ -512,13 +615,17 @@ const ControllerWrapper = styled.div`
   display: flex;
   width: 100%;
   padding: 2rem;
+  padding-top: 2.5rem;
   flex-direction: column;
+  gap: 1rem;
+  z-index: 5;
 `;
 const Controller = styled.div`
   width: 100%;
   justify-content: space-between;
   align-items: center;
   display: flex;
+  height: 3.5rem;
 `;
 const PlayController = styled.div`
   display: flex;
@@ -603,4 +710,22 @@ const SliderDurationWrapper = styled.div`
 const SliderDuration = styled.p`
   color: var(--white_color);
   font-size: 12px;
+`;
+const SnapshotDuration = styled.p`
+  color: var(--white_color);
+  font-size: 12px;
+  position: absolute;
+  bottom: 20px;
+`;
+const SnapShotContainer = styled.div`
+  width: 17rem;
+  height: 10rem;
+  border: 1px solid var(--white_color);
+  border-radius: 4px;
+  position: relative;
+`;
+const SnapshotImage = styled(ImageView)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

@@ -52,7 +52,6 @@ function WatchedSlider({ title, data }) {
           loop={false}
           spaceBetween={20}
           navigation={true}
-          onSwiper={(swiper) => console.log(swiper)}
           modules={[Navigation]}
           className="swiper-container"
         >

@@ -28,7 +28,6 @@ export default function SliderComponent({ title, data, isSpan }) {
   const [clicked, setClicked] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
-  console.log(clicked);
   const handleCardClick = ({ release, e }) => {
     e.preventDefault();
     const newPath =
