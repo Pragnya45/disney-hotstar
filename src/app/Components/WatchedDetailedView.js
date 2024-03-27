@@ -30,7 +30,7 @@ export default function WatchedDetailedView() {
   const details = cardData.find((release) => release.id === id);
   const [showvideo, setShowvideo] = useState(false);
   const [showSoundslider, setShowSoundslider] = useState(false);
-  const [showAudioMenu, setShowAudioMenu] = useState(false);
+  const [showSnapImg, setShowSnapImg] = useState(false);
   const [videoduration, setVideoduration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [snapshotImage, setSnapshotImage] = useState("");
@@ -38,6 +38,7 @@ export default function WatchedDetailedView() {
   const [selectedQuality, setSelectedQuality] = useState("Auto");
   const [selectedSubtitle, setSelectedSubtitle] = useState("Off");
   const [muted, setMuted] = useState(false);
+  const [hoversecond, setHoversecond] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const videoRef = useRef(null);
@@ -45,6 +46,7 @@ export default function WatchedDetailedView() {
   const animationRef = useRef(null);
   const snapShotRef = useRef(null);
   const router = useRouter();
+
   const QualityData = [
     {
       quality: "Auto",
@@ -175,17 +177,35 @@ export default function WatchedDetailedView() {
     setCurrentTime(videoRef.current.currentTime);
     animationRef.current = requestAnimationFrame(handleTimeUpdate);
   };
-  const handleVolume = () => {
-    console.log(videoRef.current);
-    setVolume(videoRef.current.volume / 100);
-  };
-  const onSliderhover = () => {
-    let hoverTime = currentTime;
+  const onSliderhover = (e) => {
+    let hoverTime = (
+      ((e.clientX - e.target.offsetLeft) / e.target.clientWidth) *
+      videoduration
+    ).toFixed(2);
+    hoverTime = parseFloat(hoverTime);
     if (hoverTime < 0) {
       hoverTime = 0;
     }
+    if (!isNaN(hoverTime) && isFinite(hoverTime)) {
+      secondvideoRef.current.currentTime = hoverTime;
+      shoot(secondvideoRef?.current);
+      setHoversecond(formatTime(hoverTime));
+    }
   };
-
+  const shoot = (video) => {
+    let canvas = capture(video);
+    setSnapshotImage(canvas.toDataURL());
+  };
+  const capture = (video) => {
+    let w = video.videoWidth;
+    let h = video.videoHeight;
+    let canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    let ctx = canvas.getContext("2d");
+    ctx?.drawImage(video, 0, 0, w, h);
+    return canvas;
+  };
   return (
     <Wrapper>
       <BannerImage
@@ -293,18 +313,29 @@ export default function WatchedDetailedView() {
         </SettingsWrapper>
       </HeaderWrapper>
       <ControllerWrapper
-        onMouseMove={() => onSliderhover()}
+        onMouseMove={(e) => onSliderhover(e)}
         onMouseLeave={() => setSnapshotImage("")}
       >
-        <SnapShotContainer ref={snapShotRef}>
-          <SnapshotImage src={snapshotImage} alt="" width={220} height={220} />
-          <SnapshotDuration>{formatTime(currentTime)}</SnapshotDuration>
-        </SnapShotContainer>
-        <SliderDurationWrapper>
+        {showSnapImg && (
+          <SnapShotContainer ref={snapShotRef}>
+            <SnapshotImage
+              src={snapshotImage}
+              alt=""
+              width={220}
+              height={220}
+            />
+            <SnapshotDuration>{hoversecond}</SnapshotDuration>
+          </SnapShotContainer>
+        )}
+
+        <SliderDurationWrapper
+          onMouseEnter={() => setShowSnapImg(true)}
+          onMouseLeave={() => setShowSnapImg(false)}
+        >
           <CustomSlider
-            // tooltip={{
-            //   formatter: null,
-            // }}
+            tooltip={{
+              formatter: null,
+            }}
             min={0}
             max={videoduration}
             step={0.1} // Adjust the step size as needed
@@ -377,6 +408,15 @@ export default function WatchedDetailedView() {
           </ControllerButton>
         </Controller>
       </ControllerWrapper>
+      <SecondPlayer
+        src={details?.hovercardData[0]?.video}
+        autoPlay
+        playsInline
+        muted={true}
+        ref={secondvideoRef}
+      >
+        <source src={details?.hovercardData[0]?.video} type="video/mp4" />
+      </SecondPlayer>
     </Wrapper>
   );
 }
@@ -610,8 +650,8 @@ const AudioOptionWrapper = styled.div`
   gap: 1rem;
 `;
 const ControllerWrapper = styled.div`
-  position: absolute;
-  bottom: 30px;
+  position: relative;
+  bottom: 180px;
   display: flex;
   width: 100%;
   padding: 2rem;
@@ -645,6 +685,15 @@ const ControllerButton = styled.button`
   font-size: 1rem;
   font-weight: 600;
   width: fit-content;
+`;
+const SnapShotContainer = styled.div`
+  width: 17rem;
+  height: 10rem;
+  position: absolute;
+  bottom: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const CustomSlider = styled(Slider)`
   z-index: 5;
@@ -713,19 +762,17 @@ const SliderDuration = styled.p`
 `;
 const SnapshotDuration = styled.p`
   color: var(--white_color);
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
-  bottom: 20px;
+  font-weight: 600;
+  bottom: 15px;
 `;
-const SnapShotContainer = styled.div`
-  width: 17rem;
-  height: 10rem;
-  border: 1px solid var(--white_color);
-  border-radius: 4px;
-  position: relative;
-`;
+
 const SnapshotImage = styled(ImageView)`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+const SecondPlayer = styled.video`
+  display: none;
 `;
