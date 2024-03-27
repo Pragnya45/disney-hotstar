@@ -20,6 +20,7 @@ import { FaPlay } from "react-icons/fa";
 import { CgMaximize } from "react-icons/cg";
 import { CgMinimize } from "react-icons/cg";
 import { Slider } from "antd";
+import { TbPlayerPauseFilled } from "react-icons/tb";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
@@ -126,6 +127,11 @@ export default function WatchedDetailedView() {
     }
   }, [muted]);
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.volume = 50;
+    }
+  }, []);
+  useEffect(() => {
     if (isPaused) {
       cancelAnimationFrame(animationRef.current);
     }
@@ -190,6 +196,9 @@ export default function WatchedDetailedView() {
       secondvideoRef.current.currentTime = hoverTime;
       shoot(secondvideoRef?.current);
       setHoversecond(formatTime(hoverTime));
+      if (snapShotRef.current) {
+        snapShotRef.current.style.left = e.clientX - 135 + "px";
+      }
     }
   };
   const shoot = (video) => {
@@ -362,8 +371,8 @@ export default function WatchedDetailedView() {
                   }}
                 />
               ) : (
-                <PauseRoundedIcon
-                  style={{ width: "40px", height: "30px" }}
+                <TbPlayerPauseFilled
+                  size={30}
                   color="#FFF"
                   onClick={() => {
                     togglePlayPause("pause");
