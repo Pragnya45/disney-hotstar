@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";

@@ -2,33 +2,23 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "@/app/Components/Sidebar";
-import Footer from "@/app/Components/Footer";
 import Browse from "@/app/views/Browse";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 function BrowsePage() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Sidebar />
       </Nav>
       <Browse />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
 }
 
 export default BrowsePage;
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 2rem;
-`;
+
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;
@@ -46,8 +36,4 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
 `;

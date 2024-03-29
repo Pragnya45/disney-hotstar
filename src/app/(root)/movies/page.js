@@ -3,33 +3,24 @@ import styled from "styled-components";
 import React from "react";
 import Sidebar from "@/app/Components/Sidebar";
 import Logo from "@/app/Components/Logo";
-import Footer from "@/app/Components/Footer";
 import MoviePage from "@/app/views/Movies";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 const movies = () => {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Logo />
         <Sidebar />
       </Nav>
       <MoviePage />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
 };
 
 export default movies;
 
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;
@@ -47,8 +38,4 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
 `;

@@ -1,34 +1,25 @@
 "use client";
 import React from "react";
 import styled from "styled-components";
-import Footer from "@/app/Components/Footer";
 import Logo from "@/app/Components/Logo";
 import Sidebar from "@/app/Components/Sidebar";
 import Sport from "@/app/views/Sport";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 function Sports() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Logo />
         <Sidebar />
       </Nav>
       <Sport />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
 }
 
 export default Sports;
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
 
 const BackdropWidth = styled.div`
   height: 100vh;
@@ -47,8 +38,4 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
 `;

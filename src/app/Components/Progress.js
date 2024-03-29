@@ -1,4 +1,4 @@
-import { Flex, Progress } from "antd";
+import { Progress } from "antd";
 import React from "react";
 
 export default function ProgressBar() {

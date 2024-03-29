@@ -1,6 +1,5 @@
-import React from "react";
 import ImageView from "./Image";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import HomeIcon from "@mui/icons-material/Home";

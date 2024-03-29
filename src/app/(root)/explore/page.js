@@ -2,28 +2,23 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "@/app/Components/Sidebar";
-import Footer from "@/app/Components/Footer";
 import Explore from "@/app/views/Explore";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 function Search() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Sidebar />
       </Nav>
       <Explore />
-    </Main>
+    </BaseLayout>
   );
 }
 
 export default Search;
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
+
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;

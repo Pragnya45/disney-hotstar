@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageView from "@/app/Components/Image";

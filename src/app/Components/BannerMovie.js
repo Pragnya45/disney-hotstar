@@ -18,10 +18,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { releases } from "../views/utils/data";
 
-const arya = "/assets/videos/arya.mp4";
-const aryaImg = "/assets/images/aarya.webp";
-const aryaTitleImg = "/assets/images/aaryatitle.webp";
-
 function BannerMovie() {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);

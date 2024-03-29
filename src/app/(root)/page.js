@@ -3,35 +3,22 @@ import styled from "styled-components";
 import React from "react";
 import Sidebar from "../Components/Sidebar";
 import Logo from "../Components/Logo";
-import Banner from "../Components/Banner";
 import Home from "../views/Home";
-import Footer from "@/app/Components/Footer";
-import ProductionHouse from "../Components/ProductionHouse";
+import BaseLayout from "../Components/BaseLayout";
 
-const page = () => {
+export default function Homepage() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Logo />
         <Sidebar />
       </Nav>
       <Home />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
-};
+}
 
-export default page;
-
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;
@@ -49,8 +36,4 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
 `;

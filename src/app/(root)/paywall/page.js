@@ -1,33 +1,11 @@
 "use client";
-import React from "react";
-import styled from "styled-components";
-import Footer from "@/app/Components/Footer";
 import Subscribe from "@/app/views/Subscribe";
+import BaseLayout from "@/app/Components/BaseLayout";
 
-function Paywall() {
+export default function Paywall() {
   return (
-    <Main>
+    <BaseLayout>
       <Subscribe />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
 }
-
-export default Paywall;
-
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  padding-bottom: 2rem;
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
-  padding-bottom: 2rem;
-  background: var(--bg_color1000);
-  width: 100%;
-`;

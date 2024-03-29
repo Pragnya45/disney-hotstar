@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { useParams } from "next/navigation";
 import SliderComponent from "@/app/Components/SliderComponent";

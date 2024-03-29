@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React, { useState } from "react";
 import ImageView from "./Image";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";

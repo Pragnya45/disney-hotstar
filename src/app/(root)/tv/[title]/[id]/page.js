@@ -3,31 +3,22 @@ import React from "react";
 import Tvdetails from "@/app/views/Tvdetails";
 import styled from "styled-components";
 import Sidebar from "@/app/Components/Sidebar";
-import Footer from "@/app/Components/Footer";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 function Tv() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Sidebar />
       </Nav>
       <Tvdetails />
-      <FooterWrapper>
-        <Footer />
-      </FooterWrapper>
-    </Main>
+    </BaseLayout>
   );
 }
 
 export default Tv;
 
-const Main = styled.div`
-  background: var(--bg_color1000);
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;
@@ -45,8 +36,4 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
-`;
-const FooterWrapper = styled.div`
-  padding-left: 6rem;
-  padding-right: 3rem;
 `;

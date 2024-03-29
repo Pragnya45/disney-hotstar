@@ -1,7 +1,6 @@
 import React from "react";
 import ProductionHouse from "@/app/Components/ProductionHouse";
 import PosterCard from "@/app/Components/PosterCard";
-import ImageView from "@/app/Components/Image";
 import styled from "styled-components";
 
 const hindi = "/assets/images/hindi.webp";

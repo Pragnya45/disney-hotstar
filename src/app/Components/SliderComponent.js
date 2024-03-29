@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
