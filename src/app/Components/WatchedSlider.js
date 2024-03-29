@@ -48,7 +48,7 @@ function WatchedSlider({ title, data }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
-          slidesPerGroup={4}
+          slidesPerGroup={2}
           loop={false}
           spaceBetween={20}
           navigation={true}
@@ -149,6 +149,9 @@ const ViewButton = styled.button`
       color: var(--white_color);
     }
   }
+  @media (max-width: 600px) {
+    font-size: 0px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -169,6 +172,10 @@ const Title = styled.p`
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    font-size: 13px;
+    font-weight: 500;
+  }
 `;
 const HeaderWrapper = styled.div`
   display: flex;
@@ -217,17 +224,11 @@ const Heading = styled.p`
   display: flex;
   align-items: center;
   gap: 10px;
+  @media (max-width: 600px) {
+    font-size: 17px;
+  }
 `;
 
-const Description = styled.p`
-  font-family: var(--FONT-FAMILY) !important;
-  color: var(--text-color1000);
-  font-size: 16px;
-  font-weight: 400;
-  text-align: start;
-  margin-top: 1rem;
-  transition: display 0.3s ease-in;
-`;
 const TimeLeft = styled.p`
   font-family: var(--FONT-FAMILY) !important;
   color: var(--text-color1000);
@@ -241,6 +242,10 @@ const TimeLeft = styled.p`
   overflow: hidden;
   overflow-wrap: break-word;
   -webkit-line-clamp: 1;
+  @media (max-width: 600px) {
+    font-size: 10px;
+    margin-top: 0.2rem;
+  }
 `;
 const ViewMore = styled.button`
   width: 100%;
@@ -262,6 +267,9 @@ const TextContainer = styled.div`
   gap: 0.5rem;
   width: 100%;
   padding: 0.5rem;
+  @media (max-width: 600px) {
+    gap: 0;
+  }
 `;
 const ContentWrapper = styled.div`
   display: flex !important;
@@ -272,6 +280,10 @@ const ContentWrapper = styled.div`
   z-index: 0;
   transform-origin: top;
   border-radius: 10px;
+  @media (max-width: 600px) {
+    width: 10rem !important;
+    border-radius: 4px;
+  }
 `;
 
 const StyledSwiper = styled(Swiper)`
@@ -280,9 +292,17 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: start;
+  @media (max-width: 600px) {
+    height: 11rem !important;
+  }
   .swiper-slide {
     width: 16rem !important;
     top: 2rem;
+    @media (max-width: 600px) {
+      width: 10rem !important;
+      top: 1rem;
+      margin-right: 10px !important;
+    }
   }
 
   .swiper-button-prev:after,
@@ -290,6 +310,9 @@ const StyledSwiper = styled(Swiper)`
     color: var(--white_color);
     font-size: 16px;
     font-weight: 700;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev.swiper-button-disabled,
   .swiper-button-next.swiper-button-disabled {
@@ -303,6 +326,9 @@ const StyledSwiper = styled(Swiper)`
     top: 3%;
     right: 0;
     opacity: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev {
     background: var(--bg_color-prev-gradient) !important;
@@ -310,6 +336,9 @@ const StyledSwiper = styled(Swiper)`
     height: 100%;
     top: 3%;
     left: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 const CardWrapper = styled.div`
@@ -336,6 +365,9 @@ const CardImage = styled(ImageView)`
   width: 100%;
   height: 100%;
   border-radius: 6px;
+  @media (max-width: 600px) {
+    border-radius: 3px;
+  }
 `;
 
 const HoverCard = styled.div`
@@ -365,6 +397,9 @@ const HoverCard = styled.div`
       transform: scaleX(0.9) scaleY(0.9);
     }
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const Card = styled.div`
   position: relative;
@@ -375,6 +410,9 @@ const Card = styled.div`
     ${HoverCard} {
       display: block;
     }
+  }
+  @media (max-width: 600px) {
+    height: 6rem !important;
   }
 `;
 const HoverContent = styled.div`

@@ -76,7 +76,7 @@ export default function SliderComponent({ title, data, isSpan }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
-          slidesPerGroup={4}
+          slidesPerGroup={2}
           loop={false}
           spaceBetween={20}
           navigation={true}
@@ -207,6 +207,9 @@ const ViewButton = styled.button`
       color: var(--white_color);
     }
   }
+  @media (max-width: 600px) {
+    font-size: 0px;
+  }
 `;
 
 const StyledSwiper = styled(Swiper)`
@@ -215,15 +218,26 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: start;
+  @media (max-width: 600px) {
+    height: 11rem !important;
+  }
   .swiper-slide {
     width: 12rem !important;
     top: 2rem;
+    @media (max-width: 600px) {
+      width: 8rem !important;
+      top: 0.5rem;
+      margin-right: 10px !important;
+    }
   }
   .swiper-button-prev:after,
   .swiper-button-next:after {
     color: var(--white_color);
     font-size: 16px;
     font-weight: 700;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev.swiper-button-disabled,
   .swiper-button-next.swiper-button-disabled {
@@ -237,6 +251,9 @@ const StyledSwiper = styled(Swiper)`
     top: 6%;
     right: 0;
     opacity: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev {
     background: var(--bg_color-prev-gradient) !important;
@@ -244,6 +261,9 @@ const StyledSwiper = styled(Swiper)`
     height: 100%;
     top: 8.7%;
     left: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 
@@ -257,6 +277,9 @@ const Wrapper = styled.div`
     ${ViewButton} {
       display: flex;
     }
+  }
+  @media (max-width: 600px) {
+    padding-right: 0rem;
   }
 `;
 const SpanImage = styled(ImageView)`
@@ -273,6 +296,9 @@ const Heading = styled.p`
   display: flex;
   align-items: center;
   gap: 10px;
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
 `;
 
 const CardWrapper = styled.div`
@@ -300,6 +326,9 @@ const CardImage = styled(ImageView)`
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
+  @media (max-width: 600px) {
+    border-radius: 2px;
+  }
 `;
 
 const HoverCard = styled.div`
@@ -328,6 +357,9 @@ const HoverCard = styled.div`
       transform: scaleX(0.9) scaleY(0.9);
     }
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const Card = styled.div`
   position: relative;
@@ -339,6 +371,16 @@ const Card = styled.div`
     ${HoverCard} {
       display: block;
       z-index: 8;
+    }
+  }
+  @media (max-width: 600px) {
+    width: 8rem !important;
+    height: 10rem !important;
+    &:hover {
+      ${HoverCard} {
+        display: none;
+        z-index: 8;
+      }
     }
   }
 `;

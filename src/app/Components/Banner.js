@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 const banner = "/assets/images/Banner-karma.jpg";
@@ -10,7 +9,7 @@ function Banner() {
         <LeftContainer>
           <GradientContainer></GradientContainer>
           <ImgWrapper>
-            <Image src={banner} alt="disney" width={590} height={320} />
+            <Image src={banner} alt="disney" width={590} height={620} />
           </ImgWrapper>
         </LeftContainer>
         <RightContainer>
@@ -36,6 +35,10 @@ const Bannerwrapper = styled.div`
   position: relative;
   width: 100%;
   padding-right: 30px;
+  @media (max-width: 600px) {
+    margin: 0;
+    padding: 0;
+  }
 `;
 const Bannercontainer = styled.div`
   background: var(--bg_color800);
@@ -45,12 +48,21 @@ const Bannercontainer = styled.div`
   position: relative;
   width: 100%;
   height: 16rem;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    height: fit-content;
+  }
 `;
 const LeftContainer = styled.div`
   height: 100%;
   max-width: 592px;
   position: relative;
   width: 64%;
+  @media (max-width: 600px) {
+    width: 100%;
+    max-width: 100%;
+    height: 10rem;
+  }
 `;
 const GradientContainer = styled.div`
   background: var(--linear-gradientColor1);
@@ -64,14 +76,20 @@ const GradientContainer = styled.div`
 const ImgWrapper = styled.div`
   left: 0;
   top: 0;
-  height: 100%;
+  height: 100% !important;
   width: 100%;
   position: absolute;
+  @media (max-width: 600px) {
+    height: 10rem !important;
+  }
 `;
 const Image = styled(ImageView)`
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 100% !important;
+  @media (max-width: 600px) {
+    height: 10rem !important;
+  }
 `;
 const RightContainer = styled.div`
   background: var(--bg_color-gradient);
@@ -80,6 +98,11 @@ const RightContainer = styled.div`
   justify-content: space-between;
   padding: 32px 8px;
   width: 36%;
+  @media (max-width: 600px) {
+    width: 100%;
+    flex-direction: row;
+    padding: 8px;
+  }
 `;
 const BannerContentWrapper = styled.div`
   display: flex;
@@ -91,12 +114,19 @@ const Logo = styled(ImageView)`
   height: auto;
   object-fit: cover;
   border-radius: 2px;
+  @media (max-width: 600px) {
+    max-width: 28px;
+    max-height: 28px;
+  }
 `;
 const Content = styled.div`
   display: flex;
   align-items: start;
   flex-direction: column;
   gap: 0.3rem;
+  @media (max-width: 600px) {
+    justify-content: center;
+  }
 `;
 const Title = styled.p`
   font-family: var(--FONT-FAMILY);
@@ -104,6 +134,10 @@ const Title = styled.p`
   font-weight: 500;
   line-height: 24px;
   color: var(--white_color);
+  @media (max-width: 600px) {
+    font-size: 12px;
+    line-height: 12px;
+  }
 `;
 const StreamingDate = styled.p`
   font-family: var(--FONT-FAMILY);
@@ -111,6 +145,10 @@ const StreamingDate = styled.p`
   font-weight: 400;
   line-height: 20px;
   color: var(--text-color1000);
+  @media (max-width: 600px) {
+    font-size: 12px;
+    line-height: 12px;
+  }
 `;
 const Button = styled.button`
   color: var(--white_color);
@@ -124,4 +162,10 @@ const Button = styled.button`
   width: 170px;
   cursor: pointer;
   padding: 18px 3px;
+  @media (max-width: 600px) {
+    width: 70px;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
 `;

@@ -233,6 +233,9 @@ const Wrapper = styled.div`
   overflow: hidden;
   width: 100%;
   height: 88vh;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const Player = styled(Video)`

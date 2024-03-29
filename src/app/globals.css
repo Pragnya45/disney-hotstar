@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 :root {
   --bg_color1000: #0f1014;
   --bg_color900: rgba(255, 204, 117, 0.1);
@@ -7,7 +8,7 @@
   --bg_color500: hsla(0, 0%, 100%, 0.3);
   --bg_color400: #095ae5;
   --bg_color300: #0f0f14;
-  --bg_color200: rgba(0,0,0,.64);
+  --bg_color200: rgba(0, 0, 0, 0.64);
 
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-next-gradient: linear-gradient(
@@ -49,6 +50,8 @@
 
   --box-shadow1000: 0 0 #0000;
   --box-shadow900: 1px 31px 23px 1px rgba(0, 0, 0, 0.57);
+
+  --border-color1000: #1b1c1e;
   --text-shadow: 0 0 10px #000;
   --overlay-color: linear-gradient(
     180deg,

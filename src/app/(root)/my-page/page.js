@@ -3,16 +3,17 @@ import React from "react";
 import styled from "styled-components";
 import Sidebar from "@/app/Components/Sidebar";
 import MyPage from "@/app/views/MyPage";
+import BaseLayout from "@/app/Components/BaseLayout";
 
 function MySpace() {
   return (
-    <Main>
+    <BaseLayout>
       <Nav>
         <BackdropWidth></BackdropWidth>
         <Sidebar />
       </Nav>
       <MyPage />
-    </Main>
+    </BaseLayout>
   );
 }
 
@@ -46,5 +47,8 @@ const Nav = styled.div`
   z-index: 20;
   &:hover {
     width: 20%;
+  }
+  @media (max-width: 600px) {
+    display: none;
   }
 `;

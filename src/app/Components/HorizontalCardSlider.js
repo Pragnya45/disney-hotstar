@@ -44,7 +44,7 @@ function HorizontalCard({ title, data }) {
         <StyledSwiper
           centeredSlides={false}
           slidesPerView={"auto"}
-          slidesPerGroup={4}
+          slidesPerGroup={2}
           loop={false}
           spaceBetween={20}
           navigation={true}
@@ -132,6 +132,9 @@ const ViewButton = styled.button`
       color: var(--white_color);
     }
   }
+  @media (max-width: 600px) {
+    font-size: 0px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -152,6 +155,10 @@ const Title = styled.p`
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    font-size: 13px;
+    font-weight: 500;
+  }
 `;
 const HeaderWrapper = styled.div`
   display: flex;
@@ -199,6 +206,9 @@ const Heading = styled.p`
   display: flex;
   align-items: center;
   gap: 10px;
+  @media (max-width: 600px) {
+    font-size: 17px;
+  }
 `;
 
 const Description = styled.p`
@@ -226,6 +236,10 @@ const ContentWrapper = styled.div`
   z-index: 0;
   transform-origin: top;
   border-radius: 10px;
+  @media (max-width: 600px) {
+    width: 10rem !important;
+    border-radius: 4px;
+  }
 `;
 
 const StyledSwiper = styled(Swiper)`
@@ -234,9 +248,17 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: start;
+  @media (max-width: 600px) {
+    height: 11rem !important;
+  }
   .swiper-slide {
     width: 16rem !important;
     top: 2rem;
+    @media (max-width: 600px) {
+      width: 10rem !important;
+      top: 1rem;
+      margin-right: 10px !important;
+    }
   }
 
   .swiper-button-prev:after,
@@ -244,6 +266,9 @@ const StyledSwiper = styled(Swiper)`
     color: var(--white_color);
     font-size: 16px;
     font-weight: 700;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev.swiper-button-disabled,
   .swiper-button-next.swiper-button-disabled {
@@ -257,6 +282,9 @@ const StyledSwiper = styled(Swiper)`
     top: 3%;
     right: 0;
     opacity: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .swiper-button-prev {
     background: var(--bg_color-prev-gradient) !important;
@@ -264,6 +292,9 @@ const StyledSwiper = styled(Swiper)`
     height: 100%;
     top: 3%;
     left: 0;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 `;
 const CardWrapper = styled.div`
@@ -291,6 +322,9 @@ const CardImage = styled(ImageView)`
   height: 100%;
   border-radius: 6px;
   z-index: -1 !important;
+  @media (max-width: 600px) {
+    border-radius: 3px;
+  }
 `;
 
 const HoverCard = styled.div`
@@ -330,6 +364,14 @@ const Card = styled.div`
   &:hover {
     ${HoverCard} {
       display: block;
+    }
+  }
+  @media (max-width: 600px) {
+    height: 6rem !important;
+    &:hover {
+      ${HoverCard} {
+        display: none;
+      }
     }
   }
 `;

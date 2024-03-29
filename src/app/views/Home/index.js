@@ -73,15 +73,23 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  @media (max-width: 600px) {
+    gap: 0.5rem;
+  }
 `;
 const Contentwrapper = styled.div`
   padding-right: 6rem;
-  margin-left: 6rem;
-  display: flex;
-  flex-direction: column;
+  padding-left: 6rem;
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
 `;
 const ProductionWrapper = styled.div`
   display: flex;
   padding-left: 6rem;
   flex-direction: column;
+  @media (max-width: 600px) {
+    padding: 0rem 1rem;
+    gap: 0.5rem;
+  }
 `;

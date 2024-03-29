@@ -23,6 +23,9 @@ const LogoWrapper = styled.div`
   gap: 0.5rem;
   position: fixed;
   padding: 32px 32px 32px 5px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const Image = styled(ImageView)``;
 

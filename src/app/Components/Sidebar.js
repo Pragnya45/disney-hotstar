@@ -141,6 +141,9 @@ const SidebarWrapper = styled.div`
   gap: 2.5rem;
   cursor: pointer;
   position: absolute;
+  @media (max-width: 600px) {
+    display: none;
+  }
 
   &:hover {
     ${NavText} {

@@ -90,18 +90,24 @@ const ProductionHouseWrapper = styled.div`
   display: flex !important;
   flex-direction: row !important;
   gap: 0.5rem;
-  width: 100%;
+  /* width: 100%; */
   padding-right: 2rem;
-  position: relative;
   justify-content: start;
   align-items: center;
+  @media (max-width: 600px) {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0rem;
+    height: fit-content;
+    margin-bottom: 3rem;
+  }
 `;
 const ImageWrapper = styled.div`
   position: relative;
   transition: 0.3s ease-in-out;
   cursor: pointer;
-  width: 220px;
-  height: 110px;
+  width: 18rem;
+  height: 7rem;
   border-radius: 4px;
   transition: transform 0.3s ease-in 0.3s, z-index 0.3s ease-in 0.3s;
   z-index: 0;
@@ -114,5 +120,9 @@ const ImageWrapper = styled.div`
     ${Player} {
       opacity: 1;
     }
+  }
+  @media (max-width: 600px) {
+    width: auto;
+    height: 4rem;
   }
 `;
