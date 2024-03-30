@@ -99,6 +99,10 @@ const Wrapper = styled.div`
   padding-left: 6rem;
   padding-top: 4rem;
   padding-right: 6rem;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    padding-bottom: 5rem;
+  }
 `;
 const SearchbarContainer = styled.div`
   display: flex;
@@ -109,11 +113,21 @@ const SearchbarContainer = styled.div`
   width: 100%;
   height: 4rem;
   background-color: var(--bg_color700);
+  @media (max-width: 600px) {
+    background-color: var(--white_color);
+    height: 2.5rem;
+    padding: 0 1rem;
+  }
 `;
 const Search = styled(SearchIcon)`
   width: 40px;
   height: 40px;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    color: var(--black_color);
+    width: 25px;
+    height: 25px;
+  }
 `;
 const Feild = styled.input`
   color: var(--text-color900);
@@ -127,6 +141,14 @@ const Feild = styled.input`
   font-weight: 500;
   &::placeholder {
     color: var(--text-color1000);
+  }
+  @media (max-width: 600px) {
+    color: var(--black_color);
+    font-size: 16px;
+    padding: 10px;
+    &::placeholder {
+      color: var(--text-color1000);
+    }
   }
 `;
 const PopularSearch = styled.div`
@@ -142,11 +164,16 @@ const Heading = styled.p`
 `;
 const CardWrapper = styled.div`
   display: flex;
+  /* grid-template-columns: repeat(auto-fit, minmax(11.1rem, 1fr)); */
+  /* grid-template-columns: repeat(7, 1fr); */
   flex-wrap: wrap;
-  gap: 0.5rem;
+  column-gap: 0.5rem;
   row-gap: 2rem;
   margin-top: 1rem;
   width: 100%;
+  @media (max-width: 600px) {
+    /* grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); */
+  }
 `;
 const CardImage = styled(ImageView)`
   position: absolute;
@@ -154,6 +181,7 @@ const CardImage = styled(ImageView)`
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
   border-radius: 6px;
 `;
 const HoverCard = styled.div`
@@ -182,14 +210,18 @@ const HoverCard = styled.div`
 `;
 const Card = styled.div`
   position: relative;
-  width: 11.1rem !important;
-  height: 15.2rem !important;
+  width: 11.1rem;
+  height: 15.2rem;
   cursor: pointer;
   transition: transform 0.7s ease-in-out;
   &:hover {
     ${HoverCard} {
       display: block;
     }
+  }
+  @media (max-width: 600px) {
+    width: 8rem;
+    height: 10rem;
   }
 `;
 const HoverContent = styled.div`
