@@ -413,7 +413,7 @@ export default function WatchedDetailedView() {
             <SnapShotContainer ref={snapShotRef}>
               <SnapshotImage
                 src={snapshotImage}
-                alt=""
+                alt="snapshot"
                 width={220}
                 height={220}
               />

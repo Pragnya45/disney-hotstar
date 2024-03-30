@@ -23,8 +23,8 @@ const freeImg = "/assets/images/free.webp";
 export default function SliderComponent({ title, data, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
   const [muted, setMuted] = useState(true);
-  const [isFirstChild, setIsFirstChild] = useState(false);
-  const [isLastChild, setIsLastChild] = useState(false);
+  const [isFirstchild, setIsFirstchild] = useState(false);
+  const [islastchild, setIslastchild] = useState(false);
   const [clicked, setClicked] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
@@ -43,8 +43,8 @@ export default function SliderComponent({ title, data, isSpan }) {
   };
 
   const handleHover = (index) => {
-    setIsFirstChild(index === 0);
-    setIsLastChild(index === data.length - 1);
+    setIsFirstchild(index === 0);
+    setIslastchild(index === data.length - 1);
 
     setTimeout(() => {
       setShowvideo(true);
@@ -53,8 +53,8 @@ export default function SliderComponent({ title, data, isSpan }) {
 
   const handleVideoEnd = (index) => {
     setShowvideo(false);
-    setIsFirstChild(index);
-    setIsLastChild(index);
+    setIsFirstchild(index);
+    setIslastchild(index);
   };
   return (
     <Wrapper>
@@ -81,6 +81,13 @@ export default function SliderComponent({ title, data, isSpan }) {
           spaceBetween={20}
           navigation={true}
           modules={[Navigation]}
+          loopfillgroupwithblank={false}
+          breakpoints={{
+            320: {
+              spaceBetween: 10,
+              loopfillgroupwithblank: false,
+            },
+          }}
           className="swiper-container"
         >
           {data.map((release, index) => (
@@ -94,15 +101,15 @@ export default function SliderComponent({ title, data, isSpan }) {
               >
                 <CardImage
                   src={release.img}
-                  alt={release.title}
+                  alt={release?.title}
                   width={100}
                   height={100}
                 />
                 {release?.hovercardData?.map((hoverData, index) => (
                   <HoverCard
                     key={index}
-                    isFirstChild={isFirstChild}
-                    isLastChild={isLastChild}
+                    isFirstchild={isFirstchild}
+                    islastchild={islastchild}
                   >
                     <HoverContent>
                       {showvideo ? (
@@ -216,6 +223,7 @@ const StyledSwiper = styled(Swiper)`
   pointer-events: auto;
   height: 22rem;
   display: flex;
+  width: auto;
   align-items: center;
   justify-content: start;
   @media (max-width: 600px) {
@@ -227,7 +235,6 @@ const StyledSwiper = styled(Swiper)`
     @media (max-width: 600px) {
       width: 8rem !important;
       top: 0.5rem;
-      margin-right: 10px !important;
     }
   }
   .swiper-button-prev:after,
@@ -341,7 +348,7 @@ const HoverCard = styled.div`
   orphans: 10;
   position: absolute;
   left: ${(props) =>
-    props.isFirstChild ? "0px" : props.isLastChild ? "-90px" : "-35px"};
+    props.isFirstchild ? "0px" : props.islastchild ? "-90px" : "-35px"};
 
   /* left: -35px; */
   z-index: 8 !important;

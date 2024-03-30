@@ -68,7 +68,7 @@ export default Footer;
 const FooterWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 5rem;
+  padding: 5rem 3rem 0rem 6rem;
   background: var(--bg_color1000);
 `;
 const SectionWrapper = styled.div`

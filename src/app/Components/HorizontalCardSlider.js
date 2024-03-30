@@ -13,8 +13,8 @@ import "swiper/css/pagination";
 function HorizontalCard({ title, data }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [isFirstChild, setIsFirstChild] = useState(false);
-  const [isLastChild, setIsLastChild] = useState(false);
+  const [isFirstchild, setIsFirstchild] = useState(false);
+  const [islastchild, setIslastchild] = useState(false);
   const handleCardClick = (release) => {
     console.log(release);
     if (pathname === "/") {
@@ -24,12 +24,12 @@ function HorizontalCard({ title, data }) {
     }
   };
   const handleHover = (index) => {
-    setIsFirstChild(index === 0);
-    setIsLastChild(index === data.length - 1);
+    setIsFirstchild(index === 0);
+    setIslastchild(index === data.length - 1);
   };
   const handleVideoEnd = (index) => {
-    setIsFirstChild(index);
-    setIsLastChild(index);
+    setIsFirstchild(index);
+    setIslastchild(index);
   };
   return (
     <Wrapper>
@@ -50,6 +50,12 @@ function HorizontalCard({ title, data }) {
           navigation={true}
           modules={[Navigation]}
           className="swiper-container"
+          breakpoints={{
+            320: {
+              spaceBetween: 10,
+              loopfillgroupwithblank: false,
+            },
+          }}
         >
           {data.map((release, index) => (
             <SwiperSlide key={index}>
@@ -61,7 +67,7 @@ function HorizontalCard({ title, data }) {
                 >
                   <CardImage
                     src={release.img}
-                    alt={release.title}
+                    alt={release?.title}
                     width={100}
                     height={100}
                   />
@@ -72,8 +78,8 @@ function HorizontalCard({ title, data }) {
                   {release?.hovercardData?.map((hoverData, index) => (
                     <HoverCard
                       key={index}
-                      isFirstChild={isFirstChild}
-                      isLastChild={isLastChild}
+                      isFirstchild={isFirstchild}
+                      islastchild={islastchild}
                     >
                       <HoverContent>
                         <Hoverimg
@@ -257,7 +263,6 @@ const StyledSwiper = styled(Swiper)`
     @media (max-width: 600px) {
       width: 10rem !important;
       top: 1rem;
-      margin-right: 10px !important;
     }
   }
 
@@ -339,7 +344,7 @@ const HoverCard = styled.div`
   background: var(--bg_color800);
   box-shadow: var(--box-shadow900);
   left: ${(props) =>
-    props.isFirstChild ? "0px" : props.isLastChild ? "-90px" : "-35px"};
+    props.isFirstchild ? "0px" : props.islastchild ? "-90px" : "-35px"};
   z-index: 8 !important;
   animation: hoveranimation 0.2s ease-in forwards;
   top: -35px;

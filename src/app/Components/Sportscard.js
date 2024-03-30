@@ -8,7 +8,7 @@ export default function Sportscard({ release }) {
       <Card>
         <CardImage
           src={release.img}
-          alt={release.title}
+          alt={release?.title}
           width={100}
           height={100}
         />
