@@ -178,18 +178,31 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  @media (max-width: 600px) {
+    gap: 1rem;
+  }
 `;
 const Contentwrapper = styled.div`
   padding-right: 6rem;
   margin-left: 6rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    margin: 0;
+  }
 `;
 const ProductionWrapper = styled.div`
   padding-left: 6rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 600px) {
+    padding: 0rem 1rem 2rem 1rem;
+  }
 `;
 const HorizontalCardWrapper = styled.div`
   padding-top: 3rem;
+  @media (max-width: 600px) {
+    padding-top: 0rem;
+  }
 `;

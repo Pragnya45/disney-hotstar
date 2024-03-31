@@ -68,6 +68,9 @@ const ContentWrapper = styled.div`
   z-index: 0;
   transform-origin: top;
   border-radius: 10px;
+  @media (max-width: 600px) {
+    width: 10rem !important;
+  }
 `;
 const CardImage = styled(ImageView)`
   position: absolute;
@@ -115,6 +118,9 @@ const Card = styled.div`
     ${HoverCard} {
       display: block;
     }
+  }
+  @media (max-width: 600px) {
+    height: 6rem !important;
   }
 `;
 const HoverContent = styled.div`
@@ -207,6 +213,10 @@ const Title = styled.p`
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    font-size: 13px;
+    font-weight: 500;
+  }
 `;
 const TimeLeft = styled.p`
   font-family: var(--FONT-FAMILY) !important;
@@ -221,6 +231,10 @@ const TimeLeft = styled.p`
   overflow: hidden;
   overflow-wrap: break-word;
   -webkit-line-clamp: 1;
+  @media (max-width: 600px) {
+    font-size: 10px;
+    margin-top: 0.2rem;
+  }
 `;
 const ViewMore = styled.button`
   width: 100%;
@@ -242,4 +256,7 @@ const TextContainer = styled.div`
   gap: 0.5rem;
   width: 100%;
   padding: 0.5rem;
+  @media (max-width: 600px) {
+    gap: 0;
+  }
 `;

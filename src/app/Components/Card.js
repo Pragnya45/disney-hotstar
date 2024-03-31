@@ -114,6 +114,10 @@ const CardContainer = styled.div`
       display: block;
     }
   }
+  @media (max-width: 600px) {
+    width: 8rem !important;
+    height: 10rem !important;
+  }
 `;
 const HoverContent = styled.div`
   background: var(--bg_color800);

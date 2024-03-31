@@ -9,9 +9,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import SmartDisplayOutlinedIcon from "@mui/icons-material/SmartDisplayOutlined";
 import SubtitlesOutlinedIcon from "@mui/icons-material/SubtitlesOutlined";
 import { PiSkipForwardBold } from "react-icons/pi";
-import { BsChatSquareText } from "react-icons/bs";
 import { PiChatCenteredTextBold } from "react-icons/pi";
-import { Tooltip } from "antd";
 import { MdDone } from "react-icons/md";
 import { PiWarningBold } from "react-icons/pi";
 import { FaAnglesLeft } from "react-icons/fa6";
@@ -23,8 +21,6 @@ import { Slider } from "antd";
 import { TbPlayerPauseFilled } from "react-icons/tb";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
-
-import PauseRoundedIcon from "@mui/icons-material/PauseRounded";
 
 export default function WatchedDetailedView() {
   const { id } = useParams();

@@ -36,4 +36,7 @@ const Nav = styled.div`
   &:hover {
     width: 20%;
   }
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;

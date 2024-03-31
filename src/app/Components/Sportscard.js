@@ -93,6 +93,10 @@ const Card = styled.div`
       display: block;
     }
   }
+  @media (max-width: 600px) {
+    height: 6rem !important;
+    width: 10rem !important;
+  }
 `;
 const HoverContent = styled.div`
   border-radius: 8px;
@@ -170,6 +174,10 @@ const Title = styled.p`
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    font-size: 13px;
+    font-weight: 500;
+  }
 `;
 const Description = styled.p`
   font-family: var(--FONT-FAMILY) !important;
