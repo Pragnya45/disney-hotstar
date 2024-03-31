@@ -18,19 +18,7 @@ function MySpace() {
 }
 
 export default MySpace;
-const Main = styled.div`
-  background: linear-gradient(
-    180deg,
-    #081734,
-    #0d1628 73px,
-    #0e1420 168px,
-    #0f1014 256px,
-    #0f1014
-  );
-  width: 100%;
-  min-height: 100vh;
-  padding-bottom: 2rem;
-`;
+
 const BackdropWidth = styled.div`
   height: 100vh;
   width: 100%;

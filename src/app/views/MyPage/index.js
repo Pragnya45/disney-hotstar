@@ -10,6 +10,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useRouter } from "next/navigation";
 import { releases, cardData } from "../utils/data";
 
+const logo = "/assets/icons/logo-d-plus.svg";
 const star = "/assets/icons/stars.svg";
 const disney = "/assets/icons/disney.png";
 const kids = "/assets/icons/kids.png";
@@ -19,6 +20,7 @@ function MyPage() {
     <Wrapper>
       <SubscribeWrapper>
         <LeftContent>
+          <ImageView src={logo} alt="disney-logo" width={51} height={40} />
           <SubscribeText>
             Subscribe to enjoy Disney+ Hotstar
             <SideArrow />
@@ -86,6 +88,10 @@ const Wrapper = styled.div`
   background: url(${star}) no-repeat;
   background-size: 100% auto;
   min-height: 100vh;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    padding-bottom: 3rem;
+  }
 `;
 const SubscribeWrapper = styled.div`
   padding-top: 5rem;
@@ -94,6 +100,11 @@ const SubscribeWrapper = styled.div`
   align-items: center;
   padding-bottom: 3rem;
   padding-right: 3rem;
+  @media (max-width: 600px) {
+    padding: 0;
+    padding-bottom: 1.5rem;
+    gap: 2rem;
+  }
 `;
 const HoriZontalLine = styled.div`
   background: var(--horizontal-gradient-color);
@@ -114,6 +125,9 @@ const SubscribeColumn = styled.div`
 const RightContent = styled.div`
   display: flex;
   align-items: start;
+  @media (max-width: 600px) {
+    flex-direction: column-reverse;
+  }
 `;
 const SubscribeText = styled.button`
   display: flex;
@@ -125,12 +139,22 @@ const SubscribeText = styled.button`
   background: none;
   border: none;
   outline: none;
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 500;
+    align-items: start;
+    text-align: left;
+    margin-top: 1.3rem;
+  }
 `;
 const SideArrow = styled(ChevronRightIcon)`
   width: 30px;
   height: 25px;
   margin-left: 0.3rem;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    margin-left: 0rem;
+  }
 `;
 
 const Settings = styled(SettingsOutlinedIcon)`
@@ -138,12 +162,22 @@ const Settings = styled(SettingsOutlinedIcon)`
   height: 25px;
   margin-right: 0.3rem;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    margin-right: 0rem;
+    width: 20px;
+    height: 20px;
+  }
 `;
 const Edit = styled(ModeOutlinedIcon)`
   width: 22px;
   height: 22px;
   margin-right: 0.3rem;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    width: 17px;
+    height: 17px;
+    margin-right: 0.1rem;
+  }
 `;
 
 const SubscribeNumber = styled.p`
@@ -151,6 +185,11 @@ const SubscribeNumber = styled.p`
   margin-top: 0.5rem;
   font-size: 18px;
   font-weight: 600;
+  @media (max-width: 600px) {
+    font-size: 14px;
+    color: var(--tw-shadow);
+    font-weight: 500;
+  }
 `;
 const SubscribeButton = styled.button`
   background: var(--button-gradieent-color);
@@ -166,6 +205,12 @@ const SubscribeButton = styled.button`
   transition: all 0.3s ease-in-out;
   &:hover {
     transform: scale(1.02);
+  }
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 24px;
+    margin-top: 0.5rem;
   }
 `;
 const SettingButton = styled.button`
@@ -187,6 +232,14 @@ const SettingButton = styled.button`
     background: var(--bg_color500);
     transform: scale(1.02);
   }
+  @media (max-width: 600px) {
+    background: none;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 0px 0px 8px 0;
+    margin-left: 0rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 const Plan = styled.p`
   margin-top: 4px;
@@ -194,6 +247,9 @@ const Plan = styled.p`
   font-size: 14px;
   font-weight: 400;
   font-family: var(--FONT-FAMILY);
+  @media (max-width: 600px) {
+    font-size: 11px;
+  }
 `;
 const ProfileHeader = styled.div`
   display: flex;
@@ -201,11 +257,18 @@ const ProfileHeader = styled.div`
   width: 100%;
   margin-top: 2rem;
   padding-right: 3rem;
+  @media (max-width: 600px) {
+    padding-right: 0rem;
+  }
 `;
 const Header = styled.p`
   color: var(--text-color900);
   font-size: 20px;
   font-weight: 600;
+  @media (max-width: 600px) {
+    font-size: 17px;
+    font-weight: 500;
+  }
 `;
 const EditButton = styled.button`
   color: var(--text-color900);
@@ -217,6 +280,10 @@ const EditButton = styled.button`
   background: none;
   display: flex;
   align-items: center;
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 500;
+  }
 `;
 const ProfileWrapper = styled.div`
   display: flex;
@@ -224,6 +291,11 @@ const ProfileWrapper = styled.div`
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 3rem;
+  @media (max-width: 600px) {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    align-items: flex-start;
+  }
 `;
 const ProfileContent = styled.div`
   display: flex;
@@ -238,6 +310,11 @@ const ProfileContent = styled.div`
   &:hover {
     transform: scale(1.08);
   }
+  @media (max-width: 600px) {
+    margin-right: 10px;
+    width: 4rem;
+    height: fit-content;
+  }
 `;
 const ProfileContainer = styled.div`
   position: relative;
@@ -251,12 +328,20 @@ const PlusContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 600px) {
+    width: 4rem;
+    height: 4rem;
+  }
 `;
 const Profile = styled(ImageView)`
   width: 6rem;
   height: 6rem;
   border-radius: 50%;
   border: 2px solid var(--text-color900);
+  @media (max-width: 600px) {
+    width: 4rem;
+    height: 4rem;
+  }
 `;
 const Username = styled.p`
   color: var(--text-color400);
@@ -276,6 +361,9 @@ const SelectButton = styled.button`
   right: 7px;
   bottom: 3px;
   background-color: var(--text-color900);
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const Select = styled(DoneIcon)`
   width: 18px;
