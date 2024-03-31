@@ -26,6 +26,33 @@ function PosterCard({ title, data }) {
     slidesToScroll: 5,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 3,
+          speed: 700,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          initialSlide: 2,
+          speed: 700,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          speed: 700,
+        },
+      },
+    ],
   };
 
   return (
@@ -80,6 +107,11 @@ const ViewButton = styled.button`
       color: var(--white_color);
     }
   }
+  @media (max-width: 600px) {
+    font-size: 0px;
+    &:hover {
+    }
+  }
 `;
 const ProductionHouseWrapper = styled(Slider)`
   margin-top: 1rem;
@@ -88,20 +120,15 @@ const ProductionHouseWrapper = styled(Slider)`
   position: relative;
   align-items: center;
   display: flex;
-  /* &:hover {
-    .slick-next {
-      opacity: 1;
-    }
-    ${ViewButton} {
-      display: flex;
-    }
-  } */
   .slick-slide {
     display: flex;
   }
   .slick-track {
     display: flex;
     gap: 0.5rem;
+    @media (max-width: 600px) {
+      gap: 0.3rem;
+    }
   }
   .slick-disabled {
     opacity: 0;
@@ -114,6 +141,11 @@ const ProductionHouseWrapper = styled(Slider)`
   .slick-active {
     width: 250px !important;
     height: 130px !important;
+    @media (max-width: 600px) {
+      width: 130px !important;
+      height: 80px !important;
+      border-radius: 6px;
+    }
   }
   .slick-prev {
     padding: 0.1rem;
@@ -123,6 +155,9 @@ const ProductionHouseWrapper = styled(Slider)`
     position: absolute;
     height: 100%;
     cursor: pointer;
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
   .slick-next {
     right: 0;
@@ -135,6 +170,13 @@ const ProductionHouseWrapper = styled(Slider)`
     z-index: 1;
     position: absolute;
     cursor: pointer;
+    @media (max-width: 600px) {
+      display: none;
+    }
+    @media (max-width: 600px) {
+      margin-top: 0rem;
+      gap: 0.3rem;
+    }
   }
 `;
 const Wrapper = styled.div`
@@ -151,15 +193,14 @@ const Wrapper = styled.div`
       display: flex;
     }
   }
-`;
-const Player = styled(Video)`
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  object-fit: cover;
-  position: absolute;
-  transition: opacity 0.3s ease-in 0.3s;
-  border-radius: 4px;
+  @media (max-width: 600px) {
+    height: 8.5rem;
+    &:hover {
+      ${ViewButton} {
+        display: flex;
+      }
+    }
+  }
 `;
 
 const Heading = styled.p`
@@ -170,6 +211,9 @@ const Heading = styled.p`
   display: flex;
   align-items: center;
   gap: 10px;
+  @media (max-width: 600px) {
+    font-size: 16px;
+  }
 `;
 
 const ArrowLeftIcon = styled(ChevronLeftIcon)`
@@ -190,6 +234,10 @@ const ProductionHouseImg = styled(ImageView)`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  @media (max-width: 600px) {
+    object-fit: contain;
+    border-radius: 8px;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -198,7 +246,6 @@ const ImageWrapper = styled.div`
   cursor: pointer;
   width: 250px !important;
   height: 130px !important;
-
   border-radius: 4px;
   transition: transform 0.3s ease-in 0.3s, z-index 0.3s ease-in 0.3s;
   z-index: 0;
@@ -206,6 +253,15 @@ const ImageWrapper = styled.div`
   &:hover {
     transform: scale(1.15);
     z-index: 2;
+  }
+  @media (max-width: 600px) {
+    width: 130px !important;
+    height: 80px !important;
+    border-radius: 6px;
+    &:hover {
+      transform: none;
+      z-index: 2;
+    }
   }
 `;
 

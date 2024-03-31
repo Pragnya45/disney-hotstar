@@ -285,4 +285,8 @@ const Content = styled.div`
   padding-left: 6rem;
   padding-top: 3rem;
   gap: 2rem;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    gap: 0rem;
+  }
 `;

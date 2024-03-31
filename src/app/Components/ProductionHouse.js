@@ -99,7 +99,7 @@ const ProductionHouseWrapper = styled.div`
     grid-template-columns: repeat(3, 1fr);
     padding: 0rem;
     height: fit-content;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 `;
 const ImageWrapper = styled.div`
