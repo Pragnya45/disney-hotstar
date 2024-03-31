@@ -34,7 +34,10 @@ export default function MobileNavbar() {
         />
         <NavText>New & Hot</NavText>
       </Button>
-      <Button href="/" className={pathname === "/downloads" ? "active" : ""}>
+      <Button
+        href="/downloads"
+        className={pathname === "/downloads" ? "active" : ""}
+      >
         <RiDownloadLine
           size={19}
           color={
