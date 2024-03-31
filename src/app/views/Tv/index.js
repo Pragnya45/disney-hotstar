@@ -101,9 +101,17 @@ const Contentwrapper = styled.div`
   margin-left: 6rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    margin: 0;
+  }
 `;
 const ProductionWrapper = styled.div`
   padding-left: 6rem;
   display: flex;
   flex-direction: column;
+  @media (max-width: 600px) {
+    padding: 1rem;
+    padding-bottom: 2rem;
+  }
 `;
