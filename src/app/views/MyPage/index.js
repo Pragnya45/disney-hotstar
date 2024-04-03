@@ -34,7 +34,7 @@ function MyPage() {
             </SubscribeButton>
             <Plan>Plans start at ₹299</Plan>
           </SubscribeColumn>
-          <SettingButton>
+          <SettingButton onClick={() => router.push("/settings")}>
             <Settings /> Help & Settings
           </SettingButton>
         </RightContent>
@@ -239,6 +239,10 @@ const SettingButton = styled.button`
     padding: 0px 0px 8px 0;
     margin-left: 0rem;
     margin-bottom: 0.5rem;
+    &:hover {
+      background: none;
+      transform: none;
+    }
   }
 `;
 const Plan = styled.p`

@@ -11,6 +11,11 @@
   --bg_color200: rgba(0, 0, 0, 0.64);
 
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
+  --bg_color-gradient1000: linear-gradient(
+    140.15deg,
+    rgba(36, 81, 194, 0.1) -4.73%,
+    rgba(16, 18, 18, 0) 105.52%
+  );
   --bg_color-next-gradient: linear-gradient(
     269.25deg,
     #0f1014 0.62%,
