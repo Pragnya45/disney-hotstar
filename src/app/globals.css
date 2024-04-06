@@ -9,6 +9,7 @@
   --bg_color400: #095ae5;
   --bg_color300: #0f0f14;
   --bg_color200: rgba(0, 0, 0, 0.64);
+  --bg_color100: hsla(0, 0%, 100%, 0.04);
 
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-gradient1000: linear-gradient(
@@ -57,6 +58,7 @@
   --box-shadow900: 1px 31px 23px 1px rgba(0, 0, 0, 0.57);
 
   --border-color1000: #1b1c1e;
+  --border-color900: rgba(225, 230, 240, 0.5);
   --text-shadow: 0 0 10px #000;
   --overlay-color: linear-gradient(
     180deg,
@@ -104,6 +106,12 @@
     );
   --linear-gradient-color900: linear-gradient(180deg, #252833 0, #0f1014 100%);
   --linear-gradient-color800: linear-gradient(93.87deg, #095ae6, #062794);
+  --linear-gradient-color700: linear-gradient(
+    180deg,
+    rgba(112, 122, 148, 0),
+    #707a94 50%,
+    rgba(112, 122, 148, 0)
+  );
 
   --sidenav-backdrop-color: linear-gradient(
     90.43deg,
