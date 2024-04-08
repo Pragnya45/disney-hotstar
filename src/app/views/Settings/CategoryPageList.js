@@ -75,7 +75,8 @@ export default function CategoryPageList() {
 }
 const Wrapper = styled.div`
   display: flex;
-  height: 43rem;
+  height: auto;
+  width: 100%;
 `;
 const Divider = styled.div`
   height: 100%;
@@ -98,6 +99,7 @@ const Heading = styled.h1`
 const CategoryListWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 `;
 
 const Categories = styled.div`
@@ -160,5 +162,8 @@ const LogoutBtn = styled.button`
   padding: 12px;
   margin-top: 4rem;
   margin-left: 2rem;
+  cursor: pointer;
 `;
-const SectionWrapper = styled.div``;
+const SectionWrapper = styled.div`
+  width: 100%;
+`;
