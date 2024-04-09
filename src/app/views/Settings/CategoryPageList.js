@@ -145,7 +145,7 @@ const Title = styled.p`
   font-weight: 600;
 `;
 const Subtitle = styled.p`
-  color: var(--text-color500);
+  color: var(--text-color1000);
   font-size: 14px;
   font-weight: 400;
   margin-top: 0.5rem;

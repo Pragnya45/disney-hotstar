@@ -20,7 +20,7 @@ function MyPage() {
     <Wrapper>
       <SubscribeWrapper>
         <LeftContent>
-          <ImageView src={logo} alt="disney-logo" width={51} height={40} />
+          <StyledLogo src={logo} alt="disney-logo" width={51} height={40} />
           <SubscribeText>
             Subscribe to enjoy Disney+ Hotstar
             <SideArrow />
@@ -382,4 +382,10 @@ const Add = styled(AddRoundedIcon)`
 `;
 const HoriZontalWrapper = styled.div`
   margin-top: 3rem;
+`;
+const StyledLogo = styled(ImageView)`
+  display: none;
+  @media (max-width: 600px) {
+    display: block;
+  }
 `;

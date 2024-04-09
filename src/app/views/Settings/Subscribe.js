@@ -19,6 +19,7 @@ export default function Subscribe() {
       used: "5 Days ago",
     },
   ];
+
   return (
     <Wrapper>
       <SubscribeWrapper>
