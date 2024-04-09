@@ -13,4 +13,7 @@ const Wrapper = styled.div`
   background: var(--bg_color-gradient1000);
   padding-left: 6rem;
   display: flex;
+  @media (max-width: 600px) {
+    padding-left: 0rem;
+  }
 `;
