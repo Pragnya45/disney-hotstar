@@ -11,6 +11,9 @@ import ParentalControl from "./PerentalControl";
 import Support from "./Support";
 import { FiArrowLeft } from "react-icons/fi";
 import { useRouter } from "next/navigation";
+import { FaAngleDown } from "react-icons/fa6";
+import { RiDownloadLine } from "react-icons/ri";
+import { LiaLanguageSolid } from "react-icons/lia";
 
 export default function CategoryPageList() {
   const [screenWidth, setScreenWidth] = useState(0);
@@ -49,24 +52,34 @@ export default function CategoryPageList() {
   ];
   const Mblcategories = [
     {
-      title: "Subscription & Devices",
-      subtitle: "Manage Subscription & Devices",
+      title: "Account Settings",
+      subtitle: "Subscription Details & Device Manager",
       icon: <RiAccountCircleLine size={30} color="#e1e6f0" />,
+      arrow: <FaAngleRight size={15} color="#707a94" />,
+    },
+    {
+      title: "Downloads",
+      subtitle: "Download quality,storage & more",
+      icon: <RiDownloadLine size={30} color="#e1e6f0" />,
+      arrow: <FaAngleDown size={15} color="#707a94" />,
+    },
+    {
+      title: "App Language",
+      subtitle: "English",
+      icon: <LiaLanguageSolid size={30} color="#e1e6f0" />,
+      arrow: <FaAngleRight size={15} color="#707a94" />,
     },
     {
       title: "Parental Controls",
-      subtitle: "Parental Controls",
+      subtitle: "Parental Lock",
       icon: <MdLockOutline size={30} color="#e1e6f0" />,
+      arrow: <FaAngleDown size={15} color="#707a94" />,
     },
     {
       title: "Help & Support",
       subtitle: "Help Centre",
       icon: <MdOutlineHelpOutline size={30} color="#e1e6f0" />,
-    },
-    {
-      title: "Help & Support",
-      subtitle: "Help Centre",
-      icon: <MdOutlineHelpOutline size={30} color="#e1e6f0" />,
+      arrow: <FaAngleRight size={15} color="#707a94" />,
     },
   ];
   const router = useRouter();
@@ -107,24 +120,14 @@ export default function CategoryPageList() {
                 </Categories>
               ))
             : Mblcategories?.map((category, index) => (
-                <Categories
-                  key={index}
-                  onClick={() => setSelectedIndex(index)}
-                  selected={selectedIndex === index}
-                >
+                <Categories key={index} onClick={() => setSelectedIndex(index)}>
                   {category?.icon}
-                  <ContentWrapper
-                    lastIndex={index === categories?.length - 1}
-                    selected={selectedIndex === index}
-                  >
+                  <ContentWrapper lastIndex={index === categories?.length - 1}>
                     <Content>
                       <Title>{category?.title}</Title>
                       <Subtitle>{category?.subtitle}</Subtitle>
                     </Content>
-                    <StyledLeft
-                      color={selectedIndex === index ? "#fff" : "#707a94"}
-                      size={15}
-                    />
+                    {category?.arrow}
                   </ContentWrapper>
                 </Categories>
               ))}
@@ -208,10 +211,10 @@ const Categories = styled.div`
   border: 1px solid
     ${(props) => (props.selected ? "var(--border-color900)" : "none")};
   @media (max-width: 600px) {
-    background-color: ${(props) =>
-      props.selected ? "none" : "none"} !important;
+    background-color: ${(props) => (props.selected ? "transparent" : "none")};
     border: none !important;
     gap: 1rem;
+    padding: 0.5rem;
   }
 `;
 const ContentWrapper = styled.div`
@@ -227,6 +230,15 @@ const ContentWrapper = styled.div`
         : props?.lastIndex
         ? "none"
         : ` var(--bg_color700)`};
+  @media (max-width: 600px) {
+    border-bottom: 1px solid
+      ${(props) =>
+        props.selected
+          ? "var(--bg_color700)"
+          : props?.lastIndex
+          ? "none"
+          : ` var(--bg_color700)`};
+  }
 `;
 const StyledLeft = styled(FaAngleRight)`
   margin-left: auto;
@@ -241,12 +253,20 @@ const Title = styled.p`
   color: var(--text-color900);
   font-size: 16px;
   font-weight: 600;
+  @media (max-width: 600px) {
+    font-size: 14px;
+    font-weight: 500;
+  }
 `;
 const Subtitle = styled.p`
   color: var(--text-color1000);
   font-size: 14px;
   font-weight: 400;
   margin-top: 0.5rem;
+  @media (max-width: 600px) {
+    font-size: 12px;
+    font-weight: 400;
+  }
 `;
 const LogoutBtn = styled.button`
   width: 100px;
@@ -292,5 +312,8 @@ const LogoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  align-items: center;
+  align-items: start;
+  @media (max-width: 600px) {
+    align-items: center;
+  }
 `;
