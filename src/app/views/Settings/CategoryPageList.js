@@ -119,10 +119,10 @@ export default function CategoryPageList() {
                   </ContentWrapper>
                 </Categories>
               ))
-            : Mblcategories?.map((category, index) => (
-                <Categories key={index} onClick={() => setSelectedIndex(index)}>
+            : Mblcategories?.map((category, i) => (
+                <Categories key={i}>
                   {category?.icon}
-                  <ContentWrapper lastIndex={index === categories?.length - 1}>
+                  <ContentWrapper lastIndexMbl={i === category?.length - 1}>
                     <Content>
                       <Title>{category?.title}</Title>
                       <Subtitle>{category?.subtitle}</Subtitle>
@@ -134,6 +134,12 @@ export default function CategoryPageList() {
         </CategoryListWrapper>
         <LogoutWrapper>
           <LogoutBtn>Log Out</LogoutBtn>
+          <PrivacyWrapper>
+            <Text>Privacy Policy</Text>
+            <Dot>.</Dot>
+            <Text>Subscriber Agreement</Text>
+          </PrivacyWrapper>
+          <Version>App Version 24.01.29.6</Version>
         </LogoutWrapper>
       </CategoryWrapper>
       <Divider></Divider>
@@ -193,8 +199,10 @@ const CategoryListWrapper = styled.div`
   width: 100%;
   @media (max-width: 600px) {
     padding: 1rem;
+    height: auto;
     align-items: center;
     margin-top: 0rem;
+    padding-top: 0;
   }
 `;
 
@@ -229,15 +237,10 @@ const ContentWrapper = styled.div`
         ? "none"
         : props?.lastIndex
         ? "none"
-        : ` var(--bg_color700)`};
+        : ` var(--bg_color700)`} !important;
   @media (max-width: 600px) {
     border-bottom: 1px solid
-      ${(props) =>
-        props.selected
-          ? "var(--bg_color700)"
-          : props?.lastIndex
-          ? "none"
-          : ` var(--bg_color700)`};
+      ${(props) => (props.lastIndexMbl ? "none" : `var(--bg_color700)`)} !important;
   }
 `;
 const StyledLeft = styled(FaAngleRight)`
@@ -285,6 +288,8 @@ const LogoutBtn = styled.button`
     background-color: transparent;
     font-size: 14px;
     margin-left: 0rem;
+    margin-top: 2rem;
+    color: var(--bg_color400);
   }
 `;
 const SectionWrapper = styled.div`
@@ -316,4 +321,31 @@ const LogoutWrapper = styled.div`
   @media (max-width: 600px) {
     align-items: center;
   }
+`;
+const PrivacyWrapper = styled.div`
+  display: none;
+  @media screen {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+`;
+const Text = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-color1000);
+`;
+const Dot = styled.p`
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--bg_color700);
+`;
+const Version = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-color1000);
+  text-align: center;
 `;
