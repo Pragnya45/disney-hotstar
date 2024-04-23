@@ -1,14 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { releases, cardData } from "../utils/data";
 import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import DetailedView from "@/app/Components/DetailedView";
 
 export default function Moviedetails() {
-  const { id } = useParams();
-  const details = releases.find((release) => release.id === id);
+  const searchParams = useSearchParams();
+  const releaseId = searchParams.get("releaseId");
+  const details = releases.find((release) => release.id === releaseId);
 
   return (
     <Wrapper>

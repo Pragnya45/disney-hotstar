@@ -25,21 +25,17 @@ export default function SliderComponent({ title, data, isSpan }) {
   const [muted, setMuted] = useState(true);
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
-  const [clicked, setClicked] = useState(true);
   const pathname = usePathname();
   const router = useRouter();
   const handleCardClick = ({ release, e }) => {
     e.preventDefault();
     const newPath =
       pathname === "/"
-        ? `/tv/${release.title}/${release.id}`
-        : `${pathname}/${release.title}/${release.id}`;
-    if (clicked) {
-      router.push(newPath);
-    } else {
-      router.replace(`${pathname}`);
-    }
-    setClicked(false);
+        ? `/tv/play?relaseTitle=${release.title}&releaseId=${release.id}`
+        : pathname.includes("/play")
+        ? `${pathname}?relaseTitle=${release.title}&releaseId=${release.id}`
+        : `${pathname}/play?relaseTitle=${release.title}&releaseId=${release.id}`;
+    router.push(newPath);
   };
 
   const handleHover = (index) => {
