@@ -13,6 +13,8 @@
   --bg_color200: rgba(0, 0, 0, 0.64);
   --bg_color100: hsla(0, 0%, 100%, 0.04);
 
+  --bg_color-opacity: rgba(0, 0, 0, 0.8);
+
   --bg_color-gradient: linear-gradient(270deg, #16181f, #0f1014);
   --bg_color-gradient1000: linear-gradient(
     140.15deg,
