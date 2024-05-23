@@ -199,7 +199,7 @@ export default function WatchedDetailedView() {
     setVideoduration(videoRef.current.duration);
   };
   const handleTimeUpdate = () => {
-    setCurrentTime(videoRef.current.currentTime);
+    setCurrentTime(videoRef.current?.currentTime);
     animationRef.current = requestAnimationFrame(handleTimeUpdate);
   };
   const onSliderhover = (e) => {

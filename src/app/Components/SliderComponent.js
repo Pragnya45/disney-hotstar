@@ -22,16 +22,15 @@ const freeImg = "/assets/images/free.webp";
 
 export default function SliderComponent({ title, data, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
-  const [muted, setMuted] = useState({});
+  const [muted, setMuted] = useState(data.map(() => true));
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const toggleMute = (index) => {
-    setMuted((prevState) => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }));
+    const newMuted = [...muted];
+    newMuted[index] = !newMuted[index];
+    setMuted(newMuted);
   };
   const handleCardClick = ({ release, e }) => {
     e.preventDefault();
@@ -55,6 +54,7 @@ export default function SliderComponent({ title, data, isSpan }) {
 
   const handleVideoEnd = (index) => {
     setShowvideo(false);
+
     setIsFirstchild(index);
     setIslastchild(index);
   };
@@ -96,7 +96,10 @@ export default function SliderComponent({ title, data, isSpan }) {
             <SwiperSlide key={release.id}>
               <Card
                 onMouseEnter={() => handleHover(index)}
-                onMouseLeave={() => handleVideoEnd(null)}
+                onMouseLeave={() => {
+                  setMuted(data.map(() => true));
+                  handleVideoEnd(null);
+                }}
               >
                 <CardImage
                   onClick={(e) => {
@@ -122,7 +125,7 @@ export default function SliderComponent({ title, data, isSpan }) {
                             autoPlay
                             playsInline
                             onEnded={handleVideoEnd}
-                            muted={true}
+                            muted={muted[index]}
                           />
                         </PlayerWrapper>
                       ) : (
@@ -147,18 +150,22 @@ export default function SliderComponent({ title, data, isSpan }) {
                           alt="hanuman-img"
                         />
                         {muted[index] ? (
-                          <Tooltip title="Mute Trailer">
-                            <Sound onClick={() => toggleMute(index)} />
-                          </Tooltip>
-                        ) : (
                           <Tooltip title="Unmute Trailer">
                             <Mute onClick={() => toggleMute(index)} />
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Mute Trailer">
+                            <Sound onClick={() => toggleMute(index)} />
                           </Tooltip>
                         )}
                       </SoundWrapper>
                       <BottomContentWrapper>
                         <WatchWrapper>
-                          <WatchNowBUtton>
+                          <WatchNowBUtton
+                            onClick={(e) => {
+                              handleCardClick({ release, e });
+                            }}
+                          >
                             <StyleddPlay /> Watch Now
                           </WatchNowBUtton>
                           <WatchListButton>
