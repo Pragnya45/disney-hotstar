@@ -22,11 +22,17 @@ const freeImg = "/assets/images/free.webp";
 
 export default function SliderComponent({ title, data, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState({});
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const toggleMute = (index) => {
+    setMuted((prevState) => ({
+      ...prevState,
+      [index]: !prevState[index],
+    }));
+  };
   const handleCardClick = ({ release, e }) => {
     e.preventDefault();
     const newPath =
@@ -89,13 +95,13 @@ export default function SliderComponent({ title, data, isSpan }) {
           {data.map((release, index) => (
             <SwiperSlide key={release.id}>
               <Card
-                onClick={(e) => {
-                  handleCardClick({ release, e });
-                }}
                 onMouseEnter={() => handleHover(index)}
                 onMouseLeave={() => handleVideoEnd(null)}
               >
                 <CardImage
+                  onClick={(e) => {
+                    handleCardClick({ release, e });
+                  }}
                   src={release.img}
                   alt={release?.title}
                   width={100}
@@ -116,7 +122,7 @@ export default function SliderComponent({ title, data, isSpan }) {
                             autoPlay
                             playsInline
                             onEnded={handleVideoEnd}
-                            muted={muted}
+                            muted={true}
                           />
                         </PlayerWrapper>
                       ) : (
@@ -140,13 +146,13 @@ export default function SliderComponent({ title, data, isSpan }) {
                           height={100}
                           alt="hanuman-img"
                         />
-                        {muted ? (
-                          <Tooltip title="Unmute Trailer">
-                            <Mute onClick={() => setMuted(!muted)} />{" "}
+                        {muted[index] ? (
+                          <Tooltip title="Mute Trailer">
+                            <Sound onClick={() => toggleMute(index)} />
                           </Tooltip>
                         ) : (
-                          <Tooltip title="Mute Trailer">
-                            <Sound onClick={() => setMuted(!muted)} />
+                          <Tooltip title="Unmute Trailer">
+                            <Mute onClick={() => toggleMute(index)} />
                           </Tooltip>
                         )}
                       </SoundWrapper>

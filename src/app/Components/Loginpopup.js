@@ -2,10 +2,57 @@ import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import ImageView from "@/app/Components/Image";
 import TextField from "@mui/material/TextField";
-import Login from "@/app/Components/Loginpopup";
-const scanner = "/assets/icons/scanner.svg";
-export default function LoginPage() {
-  return <Login />;
+
+const scanner = "/assets/images/scanner.png";
+export default function Login() {
+  return (
+    <Wrapper>
+      <LoginPopup>
+        <Close size={32} color="#707a94" />
+        <Heading>Login or sign up to continue</Heading>
+        <SubHeading>Scan QR code or enter phone number to login</SubHeading>
+        <Container>
+          <ScannerContainer>
+            <ImageView
+              src={scanner}
+              width={180}
+              height={180}
+              alt="scanner"
+              style={{ borderRadius: "10px" }}
+            />
+            <ScannerHeading>Use Camera App to Scan QR</ScannerHeading>
+            <ScannerSubHeading>
+              Click on the link generated to redirect to Disney+ Hotstar mobile
+              app
+            </ScannerSubHeading>
+          </ScannerContainer>
+          <Divider>
+            <OrText>OR</OrText>
+          </Divider>
+          <PhoneNumberContainer>
+            <InstructionWrapper>
+              <PhoneInputFieldWrapper>
+                <Code>+91</Code>
+                <StyledTextField
+                  id="outlined-basic"
+                  label="Enter mobile number"
+                  variant="outlined"
+                />
+              </PhoneInputFieldWrapper>
+              <PhoneFieldInstruction>
+                By proceeding you confirm that you are above 18 years of age and
+                agree to the <FieldSpan>Privacy Policy</FieldSpan> &{" "}
+                <FieldSpan>Terms of use</FieldSpan>
+              </PhoneFieldInstruction>
+            </InstructionWrapper>
+            <TroubleText>
+              Having trouble logging in? <TroubleSpan>Get Help</TroubleSpan>
+            </TroubleText>
+          </PhoneNumberContainer>
+        </Container>
+      </LoginPopup>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`

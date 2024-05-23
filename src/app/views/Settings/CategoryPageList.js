@@ -324,7 +324,7 @@ const LogoutWrapper = styled.div`
 `;
 const PrivacyWrapper = styled.div`
   display: none;
-  @media screen {
+  @media (max-width: 600px) {
     display: flex;
     gap: 0.5rem;
     width: 100%;
@@ -344,8 +344,11 @@ const Dot = styled.p`
   color: var(--bg_color700);
 `;
 const Version = styled.p`
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-color1000);
-  text-align: center;
+  display: none;
+  @media (max-width: 600px) {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-color1000);
+    text-align: center;
+  }
 `;

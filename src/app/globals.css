@@ -62,6 +62,7 @@
 
   --border-color1000: #1b1c1e;
   --border-color900: rgba(225, 230, 240, 0.5);
+  --border-color800: #4b5166;
   --text-shadow: 0 0 10px #000;
   --overlay-color: linear-gradient(
     180deg,
@@ -87,6 +88,7 @@
       rgba(15, 16, 20, 0.9) 74.14%,
       #101115
     );
+  --overlay-color-3: rgba(0, 0, 0, 0.85);
   --linear-gradient-color: linear-gradient(
     180deg,
     rgba(15, 16, 20, 0),
