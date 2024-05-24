@@ -9,6 +9,7 @@ import ImageView from "@/app/Components/Image";
 import DoneIcon from "@mui/icons-material/Done";
 import { useRouter } from "next/navigation";
 import { releases, cardData } from "../utils/data";
+import Login from "./Login";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 const star = "/assets/icons/stars.svg";
@@ -18,7 +19,7 @@ function MyPage() {
   const router = useRouter();
   return (
     <Wrapper>
-      <SubscribeWrapper>
+      {/* <SubscribeWrapper>
         <LeftContent>
           <StyledLogo src={logo} alt="disney-logo" width={51} height={40} />
           <SubscribeText>
@@ -70,11 +71,11 @@ function MyPage() {
           <Username>Add</Username>
         </ProfileContent>
       </ProfileWrapper>
-      {/* <SliderComponent title="Watchlist" data={releases} /> */}
       <SliderComponent title="Watchlist" data={releases} />
       <HoriZontalWrapper>
         <WatchedSlider title="Continue Watching for You" data={cardData} />
-      </HoriZontalWrapper>
+      </HoriZontalWrapper> */}
+      <Login />
     </Wrapper>
   );
 }

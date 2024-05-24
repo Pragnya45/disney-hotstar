@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CategoryPageList from "./CategoryPageList";
+
 export default function Settings() {
   return (
     <Wrapper>

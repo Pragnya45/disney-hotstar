@@ -2,13 +2,23 @@ import styled from "styled-components";
 import { IoMdClose } from "react-icons/io";
 import ImageView from "@/app/Components/Image";
 import TextField from "@mui/material/TextField";
+import { useRouter, usePathname } from "next/navigation";
 
 const scanner = "/assets/images/scanner.png";
-export default function Login() {
+export default function LoginPopupPage({ setShowloginPopup }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname);
+  const handleClose = () => {
+    setShowloginPopup(false);
+    router.replace(pathname);
+  };
   return (
     <Wrapper>
       <LoginPopup>
-        <Close size={32} color="#707a94" />
+        <CloseButton onClick={handleClose}>
+          <Close size={32} color="#707a94" />
+        </CloseButton>
         <Heading>Login or sign up to continue</Heading>
         <SubHeading>Scan QR code or enter phone number to login</SubHeading>
         <Container>
@@ -209,4 +219,11 @@ const TroubleText = styled.p`
 const TroubleSpan = styled.span`
   color: var(--text-color700);
   font-weight: 600;
+`;
+const CloseButton = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 `;
