@@ -6,6 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { FaAngleRight } from "react-icons/fa6";
 import { useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
+import TextInputField from "./TextField";
 
 const scanner = "/assets/images/scanner.png";
 export default function LoginPopupPage({ setShowloginPopup }) {
@@ -144,18 +145,11 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                       id={`otpField-${i}`}
                       name={data}
                       onChange={handleOtpChange}
-                      style={{
-                        MozAppearance: "textfield",
-                        WebkitAppearance: "none",
-                        margin: 0,
-                      }}
                       onKeyUp={onKeyUp}
                       onKeyDown={(e) =>
                         i + 1 === otpFields.length && handleKeyDown(e)
                       }
-                      className={`${otpClassName(
-                        otp[data]
-                      )} text-center  text-black font-medium text-xl`}
+                      className={`${otpClassName(otp[data])}`}
                       value={otp[data]}
                     />
                   ))}
@@ -410,23 +404,24 @@ const OtpForm = styled.form`
   gap: 0.8rem;
   margin-top: 0.3rem;
 `;
-const OtpTextField = styled(TextField)`
-  width: 3.5rem;
-  height: 2.9rem;
-  & .MuiInputLabel-root {
-    color: var(--text-color1000);
-    font-family: 500;
+const OtpTextField = styled(TextInputField)`
+  width: 3.3rem;
+  height: 3.3rem;
+  color: white;
+  font-weight: 500;
+  background: transparent !important;
+  border-color: var(--border-color800);
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: var(--FONT-FAMILY);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  & .ant-input-outlined:hover {
+    border-color: #4096ff;
+    background-color: transparent !important;
   }
-  & .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: var(--border-color800);
-    border-radius: 8px;
-  }
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: var(--border-color800);
-    border-radius: 8px;
-  }
-  & .MuiOutlinedInput-input {
-    color: var(--text-color900);
-    font-size: 20px;
+  & .ant-input-outlined {
+    background: transparent;
   }
 `;
