@@ -7,17 +7,23 @@ import { FaAngleRight } from "react-icons/fa6";
 import { useState } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import TextInputField from "./TextField";
+import { useDispatch } from "react-redux";
+import useApi from "@/app/Hooks/useApi";
+import { BtnLoader } from "./Progress";
+import { emailValidation } from "../utils/helper";
+import { urlObj } from "../utils/url";
+import { profileFn } from "../Redux/profileSlice";
+import useNotification from "../Hooks/useNotification";
 
 const scanner = "/assets/images/scanner.png";
 export default function LoginPopupPage({ setShowloginPopup }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const pathname = usePathname();
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [emailField, setEmailField] = useState("");
   const [showOtp, setShowOtp] = useState(false);
-  let otpFields = [0, 1, 2, 3];
-
-  const [otp, setOtp] = useState(["", "", "", ""]);
-  const [disable, setDisable] = useState(true);
+  const [apiFn, loading] = useApi();
+  const { showMessage } = useNotification();
   const [error, setError] = useState("");
   const handleClose = () => {
     setShowloginPopup(false);
@@ -26,81 +32,43 @@ export default function LoginPopupPage({ setShowloginPopup }) {
 
   const handleChange = (event) => {
     const input = event.target.value;
-    if (/^\d*$/.test(input) && input.length <= 10) {
-      setMobileNumber(input);
-    }
+    setEmailField(input);
   };
-  const handleOtpChange = (e) => {
-    let name = +e.target.name;
-    let value = e.target.value;
-    if (value < 0 || value === "+" || value === "-") {
+  const handleLogin = async () => {
+    console.log("Email before API call:", emailField); // Debug log
+    if (emailField === "") {
+      setError("Email is required");
       return;
     }
-    let tempOtp = [...otp];
-    if (tempOtp[name] && value.length > 1) {
-      value = value.split("")[value.length - 1];
-    }
-    tempOtp[name] = value;
-    setError("");
-    setOtp([...tempOtp]);
-    for (let i in tempOtp) {
-      if (!tempOtp[i]) {
-        setDisable(true);
-        return;
-      }
-    }
-    setDisable(false);
-  };
-
-  const onKeyUp = (e) => {
-    let name = +e.target.name;
-    let value = e.target.value;
-
-    if (value < 0 || value === "+" || value === "-") {
+    if (!emailValidation(emailField)) {
+      setError("Invalid Email");
       return;
     }
+    const { response, error } = await apiFn({
+      url: `${urlObj.user}/login`,
+      options: {
+        method: "POST",
+        body: {
+          email: emailField,
+        },
+      },
+    });
+    console.log(response);
+    if (error) {
+      showMessage({ value: error, type: "error" });
+      return;
+    }
+    const {
+      token,
+      user: { email, username, watchHistory },
+    } = response?.data;
+    dispatch(profileFn({ email, token, username, watchHistory }));
+    setEmailField("");
+    setShowloginPopup(false);
+    showMessage({ value: response?.message, type: "success" });
+    router.push("/my-page");
+  };
 
-    let field = "";
-
-    if (
-      e.key === "Delete" ||
-      e.key === "Backspace" ||
-      (e.shiftKey && e.key === "Tab")
-    ) {
-      field = e.target.form.elements[name - 1];
-    } else if (!e.shiftKey) {
-      if (value) {
-        field = e.target.form.elements[name + 1];
-      }
-    }
-
-    if (field) {
-      field.focus();
-    }
-  };
-  const handlePaste = (e) => {
-    e.preventDefault();
-    const value = e.clipboardData.getData("text");
-    const arr = value.replace(/\D+/g, "").split("");
-    setOtp(arr);
-    if (arr && arr.length === 6) {
-      setDisable(false);
-    }
-  };
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !disable) {
-      e.preventDefault();
-      handleClick();
-    }
-  };
-  const otpClassName = (data) => {
-    if (data && error) {
-      return "error-otpField";
-    } else if (data) {
-      return "filled-otpField";
-    }
-    return "otpField";
-  };
   return (
     <Wrapper>
       <LoginPopup>
@@ -134,7 +102,7 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                   <GoArrowLeft color="#8f98b2" size="20" />
                   Back
                 </Backbutton>
-                <OtpHeading>Enter OTP sent to +91{mobileNumber}</OtpHeading>
+                {/* <OtpHeading>Enter OTP sent to +91{mobileNumber}</OtpHeading>
                 <OtpForm>
                   {otpFields.map((data, i) => (
                     <OtpTextField
@@ -156,21 +124,18 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                 </OtpForm>
                 <ResendOtp>
                   Resend Otp in:<span>00.30</span>
-                </ResendOtp>
+                </ResendOtp> */}
               </OtpContainer>
             ) : (
               <>
                 <InstructionWrapper>
                   <PhoneInputFieldWrapper>
-                    <Code>+91</Code>
                     <StyledTextField
-                      id="outlined-basic"
-                      label="Enter mobile number"
-                      variant="outlined"
-                      value={mobileNumber}
+                      placeholder="Enter your Email"
+                      value={emailField}
                       onChange={handleChange}
-                      inputProps={{ maxLength: 10 }}
                     />
+                    <ErrorText>{error}</ErrorText>
                   </PhoneInputFieldWrapper>
                   <PhoneFieldInstruction>
                     By proceeding you confirm that you are above 18 years of age
@@ -178,11 +143,11 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                     <FieldSpan>Terms of use</FieldSpan>
                   </PhoneFieldInstruction>
                 </InstructionWrapper>
-                {mobileNumber.length === 10 && (
-                  <OtpButton onClick={() => setShowOtp(true)}>
-                    Get OTP <FaAngleRight color="white" />
-                  </OtpButton>
-                )}
+
+                <OtpButton onClick={() => handleLogin()}>
+                  Login{" "}
+                  {loading ? <BtnLoader /> : <FaAngleRight color="white" />}
+                </OtpButton>
               </>
             )}
             <TroubleText>
@@ -298,7 +263,8 @@ const InstructionWrapper = styled.div`
 `;
 const PhoneInputFieldWrapper = styled.div`
   display: flex;
-  gap: 0.7rem;
+  gap: 0.5rem;
+  flex-direction: column;
 `;
 const Code = styled.button`
   display: flex;
@@ -315,23 +281,21 @@ const Code = styled.button`
   font-weight: 500;
 `;
 
-const StyledTextField = styled(TextField)`
-  & .MuiInputLabel-root {
-    color: var(--text-color1000);
-    font-family: 500;
-  }
-  & .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: var(--border-color800);
-    border-radius: 8px;
-  }
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: var(--border-color800);
-    border-radius: 8px;
-  }
-  & .MuiOutlinedInput-input {
+const StyledTextField = styled.input`
+  width: 100%;
+  color: var(--text-color1000);
+  font-family: 500;
+  border: 1px solid var(--border-color800);
+  border-radius: 8px;
+  font-size: 20px;
+  background: transparent;
+  outline: none;
+  height: 3rem;
+  padding: 0 0.5rem;
+
+  /* & .MuiOutlinedInput-input {
     color: var(--text-color900);
-    font-size: 20px;
-  }
+  } */
 `;
 
 const PhoneFieldInstruction = styled.p`
@@ -372,6 +336,7 @@ const OtpButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 3rem;
 `;
 const OtpContainer = styled.div`
   display: flex;
@@ -424,4 +389,10 @@ const OtpTextField = styled(TextInputField)`
   & .ant-input-outlined {
     background: transparent;
   }
+`;
+
+const ErrorText = styled.p`
+  font-size: 14px;
+  color: red;
+  height: 12px;
 `;

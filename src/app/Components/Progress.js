@@ -1,10 +1,14 @@
-import { Progress } from "antd";
-import React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+import { styled } from "styled-components";
+import { LoadingOutlined } from "@ant-design/icons";
 
-export default function ProgressBar() {
-  return <Loader showInfo={false} />;
+export default function Progress() {
+  return <Loader />;
+}
+export function BtnLoader() {
+  return <LoadingOutlined />;
 }
 
-const Loader = styled(Progress)`
+const Loader = styled(CircularProgress)`
   color: ${(props) => props.theme.darkMode.accentBgColor700} !important;
 `;

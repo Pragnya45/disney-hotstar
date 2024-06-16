@@ -10,6 +10,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import { useRouter } from "next/navigation";
 import { releases, cardData } from "../utils/data";
 import Login from "./Login";
+import { profileState } from "@/app/Redux/profileSlice";
+import { useSelector, useDispatch } from "react-redux";
+import useApi from "@/app/Hooks/useApi";
+import useNotification from "antd/es/notification/useNotification";
+import { useEffect, useState } from "react";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 const star = "/assets/icons/stars.svg";
@@ -17,65 +22,81 @@ const disney = "/assets/icons/disney.png";
 const kids = "/assets/icons/kids.png";
 function MyPage() {
   const router = useRouter();
+  const [showlogin, setShowlogin] = useState(true);
+  const { token } = useSelector(profileState);
+
+  useEffect(() => {
+    if (token) {
+      setShowlogin(false);
+    } else {
+      setShowlogin(true);
+    }
+  }, [token]);
+
   return (
     <Wrapper>
-      {/* <SubscribeWrapper>
-        <LeftContent>
-          <StyledLogo src={logo} alt="disney-logo" width={51} height={40} />
-          <SubscribeText>
-            Subscribe to enjoy Disney+ Hotstar
-            <SideArrow />
-          </SubscribeText>
-          <SubscribeNumber>+91 9********8‬</SubscribeNumber>
-        </LeftContent>
-        <RightContent>
-          <SubscribeColumn>
-            <SubscribeButton onClick={() => router.push("/paywall")}>
-              Subscribe
-            </SubscribeButton>
-            <Plan>Plans start at ₹299</Plan>
-          </SubscribeColumn>
-          <SettingButton onClick={() => router.push("/settings")}>
-            <Settings /> Help & Settings
-          </SettingButton>
-        </RightContent>
-      </SubscribeWrapper>
-      <HoriZontalLine></HoriZontalLine>
-      <ProfileHeader>
-        <Header>Profiles</Header>
-        <EditButton>
-          <Edit />
-          Edit
-        </EditButton>
-      </ProfileHeader>
-      <ProfileWrapper>
-        <ProfileContent>
-          <ProfileContainer>
-            <Profile src={disney} alt="disney" width={60} height={60} />
-            <SelectButton>
-              <Select />
-            </SelectButton>
-          </ProfileContainer>
-          <Username>Pragnya Sahu</Username>
-        </ProfileContent>
-        <ProfileContent>
-          <ProfileContainer>
-            <Profile src={kids} alt="disney" width={60} height={60} />
-          </ProfileContainer>
-          <Username>Kids</Username>
-        </ProfileContent>
-        <ProfileContent>
-          <PlusContainer>
-            <Add />
-          </PlusContainer>
-          <Username>Add</Username>
-        </ProfileContent>
-      </ProfileWrapper>
-      <SliderComponent title="Watchlist" data={releases} />
-      <HoriZontalWrapper>
-        <WatchedSlider title="Continue Watching for You" data={cardData} />
-      </HoriZontalWrapper> */}
-      <Login />
+      {!showlogin ? (
+        <>
+          <SubscribeWrapper>
+            <LeftContent>
+              <StyledLogo src={logo} alt="disney-logo" width={51} height={40} />
+              <SubscribeText>
+                Subscribe to enjoy Disney+ Hotstar
+                <SideArrow />
+              </SubscribeText>
+              <SubscribeNumber>+91 9********8‬</SubscribeNumber>
+            </LeftContent>
+            <RightContent>
+              <SubscribeColumn>
+                <SubscribeButton onClick={() => router.push("/paywall")}>
+                  Subscribe
+                </SubscribeButton>
+                <Plan>Plans start at ₹299</Plan>
+              </SubscribeColumn>
+              <SettingButton onClick={() => router.push("/settings")}>
+                <Settings /> Help & Settings
+              </SettingButton>
+            </RightContent>
+          </SubscribeWrapper>
+          <HoriZontalLine></HoriZontalLine>
+          <ProfileHeader>
+            <Header>Profiles</Header>
+            <EditButton>
+              <Edit />
+              Edit
+            </EditButton>
+          </ProfileHeader>
+          <ProfileWrapper>
+            <ProfileContent>
+              <ProfileContainer>
+                <Profile src={disney} alt="disney" width={60} height={60} />
+                <SelectButton>
+                  <Select />
+                </SelectButton>
+              </ProfileContainer>
+              <Username>Pragnya Sahu</Username>
+            </ProfileContent>
+            <ProfileContent>
+              <ProfileContainer>
+                <Profile src={kids} alt="disney" width={60} height={60} />
+              </ProfileContainer>
+              <Username>Kids</Username>
+            </ProfileContent>
+            <ProfileContent>
+              <PlusContainer>
+                <Add />
+              </PlusContainer>
+              <Username>Add</Username>
+            </ProfileContent>
+          </ProfileWrapper>
+          <SliderComponent title="Watchlist" data={releases} />
+          <HoriZontalWrapper>
+            <WatchedSlider title="Continue Watching for You" data={cardData} />
+          </HoriZontalWrapper>
+        </>
+      ) : (
+        <Login />
+      )}
     </Wrapper>
   );
 }
