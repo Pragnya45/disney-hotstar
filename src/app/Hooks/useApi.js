@@ -42,6 +42,7 @@ function useApi() {
         body: options?.body && updateBody(options?.body),
         headers: headers && Object.keys(headers).length ? headers : undefined,
       });
+      console.log(response);
 
       if (!response.ok) {
         if (response.status === 401) {

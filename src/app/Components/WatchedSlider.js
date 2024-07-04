@@ -11,7 +11,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-function WatchedSlider({ title, data }) {
+function WatchedSlider({ title, data, watchHistory }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isFirstchild, setIsFirstchild] = useState(false);
@@ -30,9 +30,17 @@ function WatchedSlider({ title, data }) {
   const handleCardClick = (release) => {
     console.log(release);
     if (pathname === "/") {
-      router.push(`/tv/watch/${release.title}/${release.id}`);
+      router.push(
+        `/tv/watch/${release.title}/${release._id}${
+          watchHistory ? `?watchHistory=true` : ""
+        }`
+      );
     } else {
-      router.push(`${pathname}/watch/${release.title}/${release.id}`);
+      router.push(
+        `${pathname}/watch/${release.title}/${release._id}${
+          watchHistory ? `?watchHistory=true` : ""
+        }`
+      );
     }
   };
   return (
@@ -61,7 +69,7 @@ function WatchedSlider({ title, data }) {
             },
           }}
         >
-          {data.map((release, index) => (
+          {data?.map((release, index) => (
             <SwiperSlide key={index}>
               <ContentWrapper>
                 <Card
@@ -298,6 +306,7 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: start;
+  margin-left: 0 !important;
   @media (max-width: 600px) {
     height: 11rem !important;
   }

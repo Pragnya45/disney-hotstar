@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -9,18 +9,30 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import useQueryApi from "../Hooks/useQueryApi";
+import { urlObj } from "../utils/url";
 
 function HorizontalCard({ title, data }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
+
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?category=${title}`,
+    queryKey: `${title}`,
+  });
+  useEffect(() => {
+    console.log("SliderComponent title:", title);
+    refetch();
+  }, [title]);
+
   const handleCardClick = (release) => {
     console.log(release);
     if (pathname === "/") {
-      router.push(`/tv/${release.title}/${release.id}`);
+      router.push(`/tv/watch/${release.title}/${release._id}`);
     } else {
-      router.push(`${pathname}/${release.title}/${release.id}`);
+      router.push(`${pathname}/watch/${release.title}/${release._id}`);
     }
   };
   const handleHover = (index) => {
@@ -57,7 +69,7 @@ function HorizontalCard({ title, data }) {
             },
           }}
         >
-          {data.map((release, index) => (
+          {videoData?.response?.map((release, index) => (
             <SwiperSlide key={index}>
               <ContentWrapper>
                 <Card
@@ -254,6 +266,7 @@ const StyledSwiper = styled(Swiper)`
   display: flex;
   align-items: center;
   justify-content: start;
+  margin-left: 0 !important;
   @media (max-width: 600px) {
     height: 11rem !important;
   }

@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
@@ -15,6 +16,8 @@ import { useSelector, useDispatch } from "react-redux";
 import useApi from "@/app/Hooks/useApi";
 import useNotification from "antd/es/notification/useNotification";
 import { useEffect, useState } from "react";
+import { urlObj } from "@/app/utils/url";
+import Progress from "@/app/Components/Progress";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 const star = "/assets/icons/stars.svg";
@@ -23,11 +26,28 @@ const kids = "/assets/icons/kids.png";
 function MyPage() {
   const router = useRouter();
   const [showlogin, setShowlogin] = useState(true);
-  const { token } = useSelector(profileState);
+  const { token, email, username } = useSelector(profileState);
+  const [apiFn, loading] = useApi();
+  const [watchList, setWatchList] = useState([]);
 
   useEffect(() => {
+    const fetchdata = async () => {
+      console.log("called");
+      const { response, error } = await apiFn({
+        url: `${urlObj.user}/watch-history`,
+        options: {
+          method: "POST",
+          body: {
+            email: email,
+          },
+        },
+      });
+      console.log(response);
+      setWatchList(response?.results);
+    };
     if (token) {
       setShowlogin(false);
+      fetchdata();
     } else {
       setShowlogin(true);
     }
@@ -44,7 +64,7 @@ function MyPage() {
                 Subscribe to enjoy Disney+ Hotstar
                 <SideArrow />
               </SubscribeText>
-              <SubscribeNumber>+91 9********8‬</SubscribeNumber>
+              <SubscribeNumber>{email}</SubscribeNumber>
             </LeftContent>
             <RightContent>
               <SubscribeColumn>
@@ -74,7 +94,7 @@ function MyPage() {
                   <Select />
                 </SelectButton>
               </ProfileContainer>
-              <Username>Pragnya Sahu</Username>
+              <Username>{username}</Username>
             </ProfileContent>
             <ProfileContent>
               <ProfileContainer>
@@ -91,7 +111,18 @@ function MyPage() {
           </ProfileWrapper>
           <SliderComponent title="Watchlist" data={releases} />
           <HoriZontalWrapper>
-            <WatchedSlider title="Continue Watching for You" data={cardData} />
+            {watchList && watchList?.length ? (
+              <WatchedSlider
+                title="Continue Watching for You"
+                data={watchList}
+              />
+            ) : watchList && !watchList.length ? (
+              <DataMessage>No Data available</DataMessage>
+            ) : (
+              <LoaderWrapper>
+                <Progress />
+              </LoaderWrapper>
+            )}
           </HoriZontalWrapper>
         </>
       ) : (
@@ -410,4 +441,15 @@ const StyledLogo = styled(ImageView)`
   @media (max-width: 600px) {
     display: block;
   }
+`;
+const DataMessage = styled.p`
+  font-size: 23px;
+  color: white;
+`;
+const LoaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22rem;
+  width: 100%;
 `;

@@ -1,13 +1,20 @@
+"use client";
 import styled from "styled-components";
 import LoginPopupPage from "@/app/Components/Loginpopup";
 import { MdOutlineContactSupport } from "react-icons/md";
 import ImageView from "@/app/Components/Image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import useApi from "@/app/Hooks/useApi";
+import { useSelector } from "react-redux";
+import { profileState } from "@/app/Redux/profileSlice";
+import { urlObj } from "@/app/utils/url";
 
 const login = "/assets/images/login.webp";
+
 export default function Login() {
   const [showloginPopup, setShowloginPopup] = useState(false);
+  const { token, email } = useSelector(profileState);
   const router = useRouter();
 
   return (

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import ImageView from "./Image";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -17,16 +17,29 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { Tooltip } from "antd";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import useQueryApi from "../Hooks/useQueryApi";
+import { urlObj } from "../utils/url";
 
-const freeImg = "/assets/images/free.webp";
+const freeImg = "/assets/images/Free.webp";
 
-export default function SliderComponent({ title, data, isSpan }) {
+export default function SliderComponent({ title, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
-  const [muted, setMuted] = useState(data.map(() => true));
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?category=${title}`,
+    queryKey: `${title}`,
+  });
+  useEffect(() => {
+    refetch();
+  }, [title]);
+  console.log(videoData);
+
+  // const [muted, setMuted] = useState(data?.map(() => true));
+  const [muted, setMuted] = useState(true);
+
   const toggleMute = (index) => {
     const newMuted = [...muted];
     newMuted[index] = !newMuted[index];
@@ -36,16 +49,16 @@ export default function SliderComponent({ title, data, isSpan }) {
     e.preventDefault();
     const newPath =
       pathname === "/"
-        ? `/tv/play?relaseTitle=${release.title}&releaseId=${release.id}`
+        ? `/tv/play?relaseTitle=${release.title}&releaseId=${release._id}`
         : pathname.includes("/play")
-        ? `${pathname}?relaseTitle=${release.title}&releaseId=${release.id}`
-        : `${pathname}/play?relaseTitle=${release.title}&releaseId=${release.id}`;
+        ? `${pathname}?relaseTitle=${release.title}&releaseId=${release._id}`
+        : `${pathname}/play?relaseTitle=${release.title}&releaseId=${release._id}`;
     router.push(newPath);
   };
 
   const handleHover = (index) => {
     setIsFirstchild(index === 0);
-    setIslastchild(index === data.length - 1);
+    setIslastchild(index === videoData?.response?.length - 1);
 
     setTimeout(() => {
       setShowvideo(true);
@@ -77,27 +90,27 @@ export default function SliderComponent({ title, data, isSpan }) {
       <CardWrapper>
         <StyledSwiper
           centeredSlides={false}
-          slidesPerView={"auto"}
+          slidesPerView="auto"
           slidesPerGroup={2}
           loop={false}
           spaceBetween={20}
           navigation={true}
           modules={[Navigation]}
-          loopfillgroupwithblank={false}
-          breakpoints={{
-            320: {
-              spaceBetween: 10,
-              loopfillgroupwithblank: false,
-            },
-          }}
+          // loopfillgroupwithblank={false}
+          // breakpoints={{
+          //   320: {
+          //     spaceBetween: 10,
+          //     loopfillgroupwithblank: false,
+          //   },
+          // }}
           className="swiper-container"
         >
-          {data.map((release, index) => (
+          {videoData?.response?.map((release, index) => (
             <SwiperSlide key={release.id}>
               <Card
                 onMouseEnter={() => handleHover(index)}
                 onMouseLeave={() => {
-                  setMuted(data.map(() => true));
+                  setMuted(videoData?.response?.map(() => true));
                   handleVideoEnd(null);
                 }}
               >
@@ -235,6 +248,7 @@ const StyledSwiper = styled(Swiper)`
   width: auto;
   align-items: center;
   justify-content: start;
+  margin-left: 0 !important;
   @media (max-width: 600px) {
     height: 11rem !important;
   }

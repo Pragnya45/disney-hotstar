@@ -10,5 +10,5 @@ export function BtnLoader() {
 }
 
 const Loader = styled(CircularProgress)`
-  color: ${(props) => props.theme.darkMode.accentBgColor700} !important;
+  color: white !important;
 `;

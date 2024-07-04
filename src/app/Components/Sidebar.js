@@ -194,7 +194,7 @@ const Button = styled(Link)`
     margin-left: 37px;
     transition: 0.3s ease-in-out;
     ${Home},${Tv},${Movie},${Sports},${Category} {
-      display: none;
+      display: none !important;
       color: var(--white_color);
       box-shadow: var(--box-shadow1000);
       fill: var(--white_color);
@@ -206,9 +206,10 @@ const Button = styled(Link)`
       fill: var(--white_color);
       border-color: var(--white_color1000);
       transform: scale(1.08);
+      filter: drop-shadow(0 0 15px var(--tw-shadow));
     }
     ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
-      display: block;
+      display: block !important;
       color: var(--white_color);
       fill: var(--white_color);
       width: 22px;
@@ -225,7 +226,7 @@ const Button = styled(Link)`
   }
   &.active {
     ${Search}, ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
-      display: block;
+      display: block !important;
       filter: drop-shadow(0 0 15px var(--tw-shadow));
       color: var(--white_color);
       fill: var(--white_color);
@@ -237,7 +238,7 @@ const Button = styled(Link)`
       transform: scale(1.08);
     }
     ${Home},${Tv},${Movie},${Sports},${Category} {
-      display: none;
+      display: none !important;
       fill: var(--white_color);
       transform: scale(1.08);
     }
@@ -247,5 +248,20 @@ const Button = styled(Link)`
       filter: drop-shadow(0 0 15px var(--tw-shadow));
       transform: scale(1.08);
     }
+  }
+  ${Homefilled},${Tvfilled},${Moviefilled},${Sportsfilled},${Categoryfilled} {
+    display: none !important;
+    filter: drop-shadow(0 0 15px var(--tw-shadow));
+    color: var(--white_color);
+    fill: var(--white_color);
+    border-color: var(--white_color1000);
+    transform: scale(1.08);
+  }
+  ${Search} {
+    color: var(--tw-shadow);
+    fill: var(--tw-shadow);
+    border-color: var(--white_color1000);
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 15px var(--tw-shadow));
   }
 `;

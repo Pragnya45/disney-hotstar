@@ -21,10 +21,15 @@ import { Slider } from "antd";
 import { TbPlayerPauseFilled } from "react-icons/tb";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { urlObj } from "../utils/url";
+import useApi from "../Hooks/useApi";
+import { profileState } from "../Redux/profileSlice";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "next/navigation";
 
-export default function WatchedDetailedView() {
+export default function WatchedDetailedView({}) {
   const { id } = useParams();
-  const details = cardData.find((release) => release.id === id);
+  //const details = cardData.find((release) => release.id === id);
   const [showvideo, setShowvideo] = useState(false);
   const [showSoundslider, setShowSoundslider] = useState(false);
   const [showSnapImg, setShowSnapImg] = useState(false);
@@ -47,7 +52,69 @@ export default function WatchedDetailedView() {
   const animationRef = useRef(null);
   const snapShotRef = useRef(null);
   const router = useRouter();
+  const { token, email, username } = useSelector(profileState);
+  const [details, setDetails] = useState([]);
+  const [apiFn] = useApi();
+  const [watchapiFn] = useApi();
+  const searchParams = useSearchParams();
+  const watchHistory = searchParams.get("watchHistory");
 
+  console.log(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("called");
+        const { response, error } = await apiFn({
+          url: watchHistory
+            ? `${urlObj.user}/watch-history/${id}`
+            : `${urlObj.video}/${id}`,
+          options: {
+            method: watchHistory ? "POST" : "GET",
+            ...(watchHistory && {
+              body: {
+                email: email,
+              },
+            }),
+          },
+        });
+
+        if (error) {
+          console.error("API error:", error);
+          return;
+        }
+
+        console.log(response);
+        setDetails(watchHistory ? response?.video : response);
+
+        if (response && !watchHistory) {
+          const { response: watchHistoryResponse, error: watchHistoryError } =
+            await watchapiFn({
+              url: `${urlObj.user}/add-watch-history`,
+              options: {
+                method: "POST",
+                body: {
+                  email: email,
+                  videoId: id,
+                },
+              },
+            });
+
+          if (watchHistoryError) {
+            console.error("Watch history API error:", watchHistoryError);
+            return;
+          }
+
+          console.log(watchHistoryResponse);
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    }
+  }, [id]);
   const QualityData = [
     {
       quality: "Auto",
@@ -222,7 +289,7 @@ export default function WatchedDetailedView() {
   };
   const shoot = (video) => {
     let canvas = capture(video);
-    setSnapshotImage(canvas.toDataURL());
+    setSnapshotImage(canvas?.toDataURL());
   };
   const capture = (video) => {
     let w = video.videoWidth;
@@ -236,39 +303,44 @@ export default function WatchedDetailedView() {
   };
   return (
     <Wrapper>
-      <BannerImage
-        src={details?.hovercardData[0]?.coverpic}
-        showvideo={showvideo}
-        alt="bannerImg"
-        width={200}
-        height={200}
-      />
-      {showvideo && (
-        <Player
-          src={details?.hovercardData[0]?.video}
-          autoPlay
-          playsInline
-          muted={muted}
-          ref={videoRef}
-          onLoadedMetadata={handleVideoMetadata}
-          onTimeUpdate={handleTimeUpdate}
-          onClick={() => {
-            isPaused ? togglePlayPause("play") : togglePlayPause("pause");
-            setShowcontrols(true);
-            setTimeout(() => {
-              setShowcontrols(false);
-            }, 5000);
-          }}
-          onMouseMove={() => {
-            setShowcontrols(true);
-            setTimeout(() => {
-              setShowcontrols(false);
-            }, 5000);
-          }}
-        >
-          <source src={details?.hovercardData[0]?.video} type="video/mp4" />
-        </Player>
+      {details && details?.hovercardData && details?.hovercardData[0] && (
+        <BannerImage
+          src={details.hovercardData[0].coverpic || ""}
+          showvideo={showvideo}
+          alt="bannerImg"
+          width={200}
+          height={200}
+        />
       )}
+      {showvideo &&
+        details &&
+        details?.hovercardData &&
+        details?.hovercardData[0] && (
+          <Player
+            src={details?.hovercardData[0]?.video}
+            autoPlay
+            playsInline
+            muted={muted}
+            ref={videoRef}
+            onLoadedMetadata={handleVideoMetadata}
+            onTimeUpdate={handleTimeUpdate}
+            onClick={() => {
+              isPaused ? togglePlayPause("play") : togglePlayPause("pause");
+              setShowcontrols(true);
+              setTimeout(() => {
+                setShowcontrols(false);
+              }, 5000);
+            }}
+            onMouseMove={() => {
+              setShowcontrols(true);
+              setTimeout(() => {
+                setShowcontrols(false);
+              }, 5000);
+            }}
+          >
+            <source src={details?.hovercardData[0]?.video} type="video/mp4" />
+          </Player>
+        )}
       {showcontrols && (
         <HeaderWrapper>
           <TitleWrapper>
@@ -282,7 +354,7 @@ export default function WatchedDetailedView() {
                 Quality <SelectedQuality>{selectedQuality}</SelectedQuality>
               </QualityButton>
               <QualityDropdown>
-                {QualityData.map((option, index) => (
+                {QualityData?.map((option, index) => (
                   <QualityOption
                     key={index}
                     onClick={() => handleSelectQuality(option.quality)}
@@ -315,7 +387,7 @@ export default function WatchedDetailedView() {
                   <AudioOptionWrapper>
                     <OptionHeading>Audio</OptionHeading>
 
-                    {AudioData.map((option, index) => (
+                    {AudioData?.map((option, index) => (
                       <QualityOption key={index}>
                         <MdDone size={15} color="#3586f0" />
                         {option.audio}
@@ -324,7 +396,7 @@ export default function WatchedDetailedView() {
                   </AudioOptionWrapper>
                   <SubtitleWrapper>
                     <OptionHeading>Subtitle</OptionHeading>
-                    {SubtitleData.map((option, index) => (
+                    {SubtitleData?.map((option, index) => (
                       <QualityOption
                         key={index}
                         onClick={() => handleSelectSubtitle(option.subtitle)}
@@ -498,16 +570,28 @@ export default function WatchedDetailedView() {
           </Controller>
         </ControllerWrapper>
       )}
-
-      <SecondPlayer
-        src={details?.hovercardData[0]?.video}
-        autoPlay
-        playsInline
-        muted={true}
-        ref={secondvideoRef}
-      >
-        <source src={details?.hovercardData[0]?.video} type="video/mp4" />
-      </SecondPlayer>
+      {details && details?.hovercardData && details?.hovercardData[0] && (
+        <SecondPlayer
+          src={
+            details?.hovercardData[0]?.video
+              ? details?.hovercardData[0]?.video
+              : ""
+          }
+          autoPlay
+          playsInline
+          muted={true}
+          ref={secondvideoRef}
+        >
+          <source
+            src={
+              details?.hovercardData[0]?.video
+                ? details?.hovercardData[0]?.video
+                : ""
+            }
+            type="video/mp4"
+          />
+        </SecondPlayer>
+      )}
     </Wrapper>
   );
 }

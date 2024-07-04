@@ -1,3 +1,4 @@
+"use client";
 import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
@@ -6,8 +7,36 @@ import ProductionHouse from "@/app/Components/ProductionHouse";
 import BannerMovie from "@/app/Components/BannerMovie";
 import WatchedSlider from "@/app/Components/WatchedSlider";
 import { releases, cardData } from "@/app/views/utils/data";
+import { useSelector } from "react-redux";
+import useApi from "@/app/Hooks/useApi";
+import { profileState } from "@/app/Redux/profileSlice";
+import { urlObj } from "@/app/utils/url";
+import { useState, useEffect } from "react";
 
 function Home() {
+  const { token, email } = useSelector(profileState);
+  const [apiFn, loading] = useApi();
+  const [watchList, setWatchList] = useState([]);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      console.log("called");
+      const { response, error } = await apiFn({
+        url: `${urlObj.user}/watch-history`,
+        options: {
+          method: "POST",
+          body: {
+            email: email,
+          },
+        },
+      });
+      console.log(response);
+      setWatchList(response?.results);
+    };
+    if (token) {
+      fetchdata();
+    }
+  }, [token]);
   return (
     <Wrapper>
       <Contentwrapper>
@@ -15,7 +44,13 @@ function Home() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
-        <WatchedSlider title="Continue Watching for You" data={cardData} />
+        {watchList && watchList?.length && (
+          <WatchedSlider
+            title="Continue Watching for You"
+            data={watchList}
+            watchHistory={true}
+          />
+        )}
         <SliderComponent
           title="Latest Releases"
           data={releases}

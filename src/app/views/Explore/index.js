@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import ImageView from "../../Components/Image";
@@ -7,10 +7,18 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
 import { releases } from "../utils/data";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import { urlObj } from "@/app/utils/url";
 
 function Explore() {
   const [name, setName] = useState("");
-
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?search=${name}`,
+    queryKey: `searchVd`,
+  });
+  useEffect(() => {
+    refetch();
+  }, [name]);
   return (
     <Wrapper>
       <SearchbarContainer>
@@ -27,7 +35,7 @@ function Explore() {
       <PopularSearch>
         <Heading>Popular Searches</Heading>
         <CardWrapper>
-          {releases.map((release, index) => (
+          {videoData?.response?.map((release, index) => (
             <Card key={index}>
               <CardImage
                 src={release.img}

@@ -4,14 +4,50 @@ import SliderComponent from "@/app/Components/SliderComponent";
 import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import DetailedView from "@/app/Components/DetailedView";
 import { releases, cardData } from "../utils/data";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import { urlObj } from "@/app/utils/url";
+import { useEffect } from "react";
+import useApi from "@/app/Hooks/useApi";
+import { profileState } from "@/app/Redux/profileSlice";
+import { useSelector } from "react-redux";
 
 export default function Tvdetails() {
   const searchParams = useSearchParams();
   const releaseId = searchParams.get("releaseId");
+  const { email } = useSelector(profileState);
+  const [apiFn] = useApi();
+
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}/${releaseId}`,
+    queryKey: `videodata`,
+  });
+  useEffect(() => {
+    refetch();
+  }, [releaseId]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const { response, error } = await apiFn({
+        url: `${urlObj.user}/add-watch-history`,
+        options: {
+          method: "POST",
+          body: {
+            email: email,
+            videoId: releaseId,
+          },
+        },
+      });
+      if (error) {
+        showMessage({ value: error, type: "error" });
+        return;
+      }
+      console.log(response);
+    };
+    fetchData();
+  }, [releaseId]);
   const details = releases.find((release) => release.id === releaseId);
   return (
     <Wrapper>
-      <DetailedView details={details} />
+      <DetailedView details={videoData?.response} />
       <SliderCardWrapper>
         <SliderComponent title="More Like This" data={releases} />
         <HorizontalCard title="Thriller Shows" data={cardData} />

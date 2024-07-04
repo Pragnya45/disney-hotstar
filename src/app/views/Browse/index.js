@@ -5,10 +5,18 @@ import { releases, cardData } from "../utils/data";
 import Sportscard from "@/app/Components/Sportscard";
 import WatchListCard from "@/app/Components/WatchListCard";
 import { HiArrowSmallLeft } from "react-icons/hi2";
+import { urlObj } from "@/app/utils/url";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import Progress from "@/app/Components/Progress";
+
 export default function Browse() {
   const searchParams = useSearchParams();
   const title = searchParams.get("type");
   const router = useRouter();
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?category=${title}`,
+    queryKey: `${title}`,
+  });
 
   return (
     <Wrapper>
@@ -17,17 +25,25 @@ export default function Browse() {
         <Heading>{title}</Heading>
       </HeadingWrapper>
       <CardWrapper istrue={title.includes("Sports") || title.includes("Watch")}>
-        {title && title.includes("Sports")
-          ? cardData.map((release, index) => (
+        {videoData?.response && videoData?.response?.length ? (
+          title && title.includes("Sports") ? (
+            videoData?.response?.map((release, index) => (
               <Sportscard key={index} release={release} />
             ))
-          : title && title.includes("Watch")
-          ? cardData.map((release, index) => (
+          ) : title && title.includes("Watch") ? (
+            videoData?.response?.map((release, index) => (
               <WatchListCard key={index} release={release} />
             ))
-          : releases.map((release, index) => (
+          ) : (
+            videoData?.response?.map((release, index) => (
               <Card key={index} release={release} />
-            ))}
+            ))
+          )
+        ) : (
+          <ProgressWrapper>
+            <Progress />
+          </ProgressWrapper>
+        )}
       </CardWrapper>
     </Wrapper>
   );
@@ -47,6 +63,13 @@ const Wrapper = styled.div`
     align-items: start;
     gap: 1rem;
   }
+`;
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Heading = styled.p`
   font-family: var(--FONT-FAMILY);

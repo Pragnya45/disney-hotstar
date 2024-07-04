@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { FaAngleDown } from "react-icons/fa6";
 import { RiDownloadLine } from "react-icons/ri";
 import { LiaLanguageSolid } from "react-icons/lia";
+import LogoutPopup from "./LogoutPopup";
 
 export default function CategoryPageList() {
   const [screenWidth, setScreenWidth] = useState(0);
@@ -84,6 +85,7 @@ export default function CategoryPageList() {
   ];
   const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <Wrapper>
       <CategoryWrapper>
@@ -133,7 +135,7 @@ export default function CategoryPageList() {
               ))}
         </CategoryListWrapper>
         <LogoutWrapper>
-          <LogoutBtn>Log Out</LogoutBtn>
+          <LogoutBtn onClick={() => setShowPopup(true)}>Log Out</LogoutBtn>
           <PrivacyWrapper>
             <Text>Privacy Policy</Text>
             <Dot>.</Dot>
@@ -154,6 +156,7 @@ export default function CategoryPageList() {
           <Subscribe />
         )}
       </SectionWrapper>
+      {showPopup && <LogoutPopup setShowPopup={setShowPopup} />}
     </Wrapper>
   );
 }

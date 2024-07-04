@@ -23,23 +23,92 @@ export default function LoginPopupPage({ setShowloginPopup }) {
   const [emailField, setEmailField] = useState("");
   const [showOtp, setShowOtp] = useState(false);
   const [apiFn, loading] = useApi();
+  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [disable, setDisable] = useState(true);
+  const [btntext, setBtntext] = useState("Send OTP");
   const { showMessage } = useNotification();
   const [error, setError] = useState("");
   const handleClose = () => {
     setShowloginPopup(false);
     router.replace(pathname);
   };
+  let otpFields = [0, 1, 2, 3];
 
   const handleChange = (event) => {
     const input = event.target.value;
     setEmailField(input);
   };
+  const handleOtpChange = (e) => {
+    let name = +e.target.name;
+    let value = e.target.value;
+    if (value < 0 || value === "+" || value === "-") {
+      return;
+    }
+    let tempOtp = [...otp];
+    if (tempOtp[name] && value.length > 1) {
+      value = value.split("")[value.length - 1];
+    }
+    tempOtp[name] = value;
+    setError("");
+    setOtp([...tempOtp]);
+    for (let i in tempOtp) {
+      if (!tempOtp[i]) {
+        setDisable(true);
+        return;
+      }
+    }
+    setDisable(false);
+  };
+
+  const onKeyUp = (e) => {
+    let name = +e.target.name;
+    let value = e.target.value;
+
+    if (value < 0 || value === "+" || value === "-") {
+      return;
+    }
+
+    let field = "";
+
+    if (
+      e.key === "Delete" ||
+      e.key === "Backspace" ||
+      (e.shiftKey && e.key === "Tab")
+    ) {
+      field = e.target.form.elements[name - 1];
+    } else if (!e.shiftKey) {
+      if (value) {
+        field = e.target.form.elements[name + 1];
+      }
+    }
+
+    if (field) {
+      field.focus();
+    }
+  };
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const value = e.clipboardData.getData("text");
+    const arr = value.replace(/\D+/g, "").split("");
+    setOtp(arr);
+    if (arr && arr.length === 6) {
+      setDisable(false);
+    }
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !disable) {
+      e.preventDefault();
+      handleClick();
+    }
+  };
   const handleLogin = async () => {
+    let formatChange = otp.join("");
     console.log("Email before API call:", emailField); // Debug log
     if (emailField === "") {
       setError("Email is required");
       return;
     }
+
     if (!emailValidation(emailField)) {
       setError("Invalid Email");
       return;
@@ -50,14 +119,21 @@ export default function LoginPopupPage({ setShowloginPopup }) {
         method: "POST",
         body: {
           email: emailField,
+          otp: formatChange ? formatChange : "",
         },
       },
     });
-    console.log(response);
     if (error) {
       showMessage({ value: error, type: "error" });
       return;
     }
+    if (response && !formatChange) {
+      setShowOtp(true);
+      setBtntext("Login");
+      return;
+    }
+    console.log(response);
+
     const {
       token,
       user: { email, username, watchHistory },
@@ -102,7 +178,7 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                   <GoArrowLeft color="#8f98b2" size="20" />
                   Back
                 </Backbutton>
-                {/* <OtpHeading>Enter OTP sent to +91{mobileNumber}</OtpHeading>
+                <OtpHeading>Enter OTP sent to {emailField}</OtpHeading>
                 <OtpForm>
                   {otpFields.map((data, i) => (
                     <OtpTextField
@@ -117,14 +193,14 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                       onKeyDown={(e) =>
                         i + 1 === otpFields.length && handleKeyDown(e)
                       }
-                      className={`${otpClassName(otp[data])}`}
+                      // className={`${otpClassName(otp[data])}`}
                       value={otp[data]}
                     />
                   ))}
                 </OtpForm>
                 <ResendOtp>
                   Resend Otp in:<span>00.30</span>
-                </ResendOtp> */}
+                </ResendOtp>
               </OtpContainer>
             ) : (
               <>
@@ -143,13 +219,12 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                     <FieldSpan>Terms of use</FieldSpan>
                   </PhoneFieldInstruction>
                 </InstructionWrapper>
-
-                <OtpButton onClick={() => handleLogin()}>
-                  Login{" "}
-                  {loading ? <BtnLoader /> : <FaAngleRight color="white" />}
-                </OtpButton>
               </>
             )}
+            <OtpButton onClick={() => handleLogin()}>
+              {btntext}
+              {loading ? <BtnLoader /> : <FaAngleRight color="white" />}
+            </OtpButton>
             <TroubleText>
               Having trouble logging in? <TroubleSpan>Get Help</TroubleSpan>
             </TroubleText>
