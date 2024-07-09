@@ -356,6 +356,7 @@ const CardImage = styled(ImageView)`
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
+  z-index: 1 !important;
   @media (max-width: 600px) {
     border-radius: 2px;
   }
@@ -397,10 +398,11 @@ const Card = styled.div`
   height: 16rem !important;
   cursor: pointer;
   transition: transform 0.7s ease-in-out;
+  /* z-index: -1 !important; */
   &:hover {
     ${HoverCard} {
       display: block;
-      z-index: 8;
+      /* z-index: 8 !important; */
     }
   }
   @media (max-width: 600px) {
@@ -409,7 +411,7 @@ const Card = styled.div`
     &:hover {
       ${HoverCard} {
         display: none;
-        z-index: 8;
+        /* z-index: 8; */
       }
     }
   }

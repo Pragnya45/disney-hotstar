@@ -12,6 +12,7 @@ import useApi from "@/app/Hooks/useApi";
 import { profileState } from "@/app/Redux/profileSlice";
 import { urlObj } from "@/app/utils/url";
 import { useState, useEffect } from "react";
+import Progress from "@/app/Components/Progress";
 
 function Home() {
   const { token, email } = useSelector(profileState);
@@ -44,57 +45,76 @@ function Home() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
-        {watchList && watchList?.length && (
-          <WatchedSlider
-            title="Continue Watching for You"
-            data={watchList}
-            watchHistory={true}
-          />
-        )}
-        <SliderComponent
-          title="Latest Releases"
-          data={releases}
-          isSpan={false}
-        />
-        <HorizontalCard title="Best in Sports" data={cardData} />
-        <SliderComponent title="Newly Added" data={releases} isSpan={true} />
-        <SliderComponent title="Popular Shows" data={releases} isSpan={false} />
-        {/* <top10></top10> */}
-        <SliderComponent
-          title="Watch With Your Family"
-          data={releases}
-          isSpan={false}
-        />
-        <SliderComponent
-          title="Movies from the 2010s"
-          data={releases}
-          isSpan={false}
-        />
-        <HorizontalCard title="Param Bhakt Hanuman's Journey" data={cardData} />
-        {/* <watchlist></watchlist> */}
-        <SliderComponent
-          title="Popular Movies"
-          data={releases}
-          isSpan={false}
-        />
-        <SliderComponent
-          title="Hotstar Specials"
-          data={releases}
-          isSpan={false}
-        />
-        <SliderComponent title="Coming Soon" data={releases} isSpan={false} />
-        <SliderComponent
-          title="Best of Superheros"
-          data={releases}
-          isSpan={false}
-        />
-        <SliderComponent
-          title="Exclusive Indian Movies"
-          data={releases}
-          isSpan={false}
-        />
+        {loading ? (
+          <ProgressWrapper>
+            <Progress />
+          </ProgressWrapper>
+        ) : (
+          <>
+            {watchList && watchList?.length && (
+              <WatchedSlider
+                title="Continue Watching for You"
+                data={watchList}
+                watchHistory={true}
+              />
+            )}
+            <SliderComponent
+              title="Latest Releases"
+              data={releases}
+              isSpan={false}
+            />
+            <HorizontalCard title="Best in Sports" data={cardData} />
+            <SliderComponent
+              title="Newly Added"
+              data={releases}
+              isSpan={true}
+            />
+            <SliderComponent
+              title="Popular Shows"
+              data={releases}
+              isSpan={false}
+            />
+            {/* <top10></top10> */}
+            <SliderComponent
+              title="Watch With Your Family"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Movies from the 2010s"
+              data={releases}
+              isSpan={false}
+            />
+            {/* <watchlist></watchlist> */}
+            <SliderComponent
+              title="Popular Movies"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Hotstar Specials"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Coming Soon"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Best of Superheros"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Exclusive Indian Movies"
+              data={releases}
+              isSpan={false}
+            />
 
-        <ProductionHouse />
+            <ProductionHouse />
+          </>
+        )}
       </ProductionWrapper>
     </Wrapper>
   );
@@ -111,6 +131,13 @@ const Wrapper = styled.div`
   @media (max-width: 600px) {
     gap: 0.5rem;
   }
+`;
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const Contentwrapper = styled.div`
   padding-right: 6rem;
