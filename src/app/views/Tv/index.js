@@ -70,7 +70,7 @@ function TvPage() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
-        <SliderComponent title="StarPLus Shows" data={releases} />
+        <SliderComponent title="StarPlus Shows" data={releases} />
         <HorizontalCard title="Thriller Shows" data={cardData} />
         <SliderComponent title="Comedy Shows" data={releases} />
         <SliderComponent title="Popular Shows" data={releases} />
