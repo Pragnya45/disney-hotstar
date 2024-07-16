@@ -5,6 +5,8 @@ import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import PosterCard from "@/app/Components/PosterCard";
 import BannerMovie from "@/app/Components/BannerMovie";
 import { releases, cardData } from "../utils/data";
+import { useState } from "react";
+import Progress from "@/app/Components/Progress";
 
 const starPlus = "/assets/images/star-plus.webp";
 const starTelugu = "/assets/images/star-telugu.webp";
@@ -77,17 +79,22 @@ function TvPage() {
         <PosterCard data={channels} title="Popular Channels" />
         <SliderComponent title="Kids Shows" data={releases} />
         <SliderComponent title="Action Shows" data={releases} />
-        <SliderComponent title="Channel V Shows" data={releases} />
         <SliderComponent title="Hotstar Specials" data={releases} />
-        <SliderComponent title="Star Utsav Shows" data={releases} />
         <SliderComponent title="Quix Shows" data={releases} />
-        <SliderComponent title="Star Shows" data={releases} />
       </ProductionWrapper>
     </Wrapper>
   );
 }
 
 export default TvPage;
+
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Wrapper = styled.div`
   min-height: 100vh;

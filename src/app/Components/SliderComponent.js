@@ -35,7 +35,6 @@ export default function SliderComponent({ title, isSpan }) {
   useEffect(() => {
     refetch();
   }, [title]);
-  console.log(videoData);
 
   // const [muted, setMuted] = useState(data?.map(() => true));
   const [muted, setMuted] = useState(true);
