@@ -13,15 +13,11 @@ function MoviePage() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
-        <SliderComponent title="Movies You Watched" data={releases} />
-        <SliderComponent title="Top 10 Movies - Hindi" data={releases} />
         <SliderComponent title="Drama Movies" data={releases} />
         <SliderComponent title="Romance Movies" data={releases} />
         <SliderComponent title="Popular Movies" data={releases} />
         <SliderComponent title="Comedy Movies" data={releases} />
         <SliderComponent title="Thriller Movies" data={releases} />
-        <SliderComponent title="Inspirational" data={releases} />
-        <SliderComponent title="Top rated on IMDb" data={releases} />
         <SliderComponent title="Horror Movies" data={releases} />
       </ProductionWrapper>
     </Wrapper>

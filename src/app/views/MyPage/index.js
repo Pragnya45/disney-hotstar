@@ -109,7 +109,6 @@ function MyPage() {
               <Username>Add</Username>
             </ProfileContent>
           </ProfileWrapper>
-          <SliderComponent title="Watchlist" data={releases} />
           <HoriZontalWrapper>
             {watchList && watchList?.length ? (
               <WatchedSlider

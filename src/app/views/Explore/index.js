@@ -9,6 +9,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import { releases } from "../utils/data";
 import useQueryApi from "@/app/Hooks/useQueryApi";
 import { urlObj } from "@/app/utils/url";
+import SliderComponent from "@/app/Components/SliderComponent";
+import Progress from "@/app/Components/Progress";
 
 function Explore() {
   const [name, setName] = useState("");
@@ -33,71 +35,96 @@ function Explore() {
         />
       </SearchbarContainer>
       <PopularSearch>
-        <Heading>Popular Searches</Heading>
-        <CardWrapper>
-          {videoData?.response?.map((release, index) => (
-            <Card key={index}>
-              <CardImage
-                src={release.img}
-                alt={release?.title}
-                width={100}
-                height={100}
-              />
-              {release?.hovercardData?.map((hoverData, index) => (
-                <HoverCard key={index}>
-                  <HoverContent>
-                    <Hoverimg
-                      src={hoverData.coverpic}
-                      alt="hanuman"
-                      width={200}
-                      height={200}
-                    />
-                    <LanguageWrapper>
-                      {hoverData.language}
-                      <StyleddownArrow />
-                    </LanguageWrapper>
-                    <ImgOverlay> </ImgOverlay>I
-                    <HovercardTitleImg
-                      src={hoverData.titleImg}
+        {name ? (
+          <>
+            <Heading>Search Results</Heading>
+            <CardWrapper>
+              {videoData?.response && videoData?.response?.length ? (
+                videoData?.response?.map((release, index) => (
+                  <Card key={index}>
+                    <CardImage
+                      src={release.img}
+                      alt={release?.title}
                       width={100}
                       height={100}
-                      alt="hanuman-img"
                     />
-                    <BottomContentWrapper>
-                      <WatchWrapper>
-                        <WatchNowBUtton>
-                          <StyleddPlay /> Watch Now
-                        </WatchNowBUtton>
-                        <WatchListButton>
-                          <StyleddPlus />
-                        </WatchListButton>
-                      </WatchWrapper>
-                      <YearDetailsWrapper>
-                        <Text>{hoverData.year}</Text>
-                        <StyledCircle />
-                        <Text>
-                          {hoverData.seasons}
-                          Seasons
-                        </Text>
-                        <StyledCircle />
-                        <Text>{hoverData.totalLanguage}Languages</Text>
-                        <StyledCircle />
-                        <Text>U/A{hoverData.ua}</Text>
-                      </YearDetailsWrapper>
-                      <Description>{hoverData.description}</Description>
-                    </BottomContentWrapper>
-                  </HoverContent>
-                </HoverCard>
-              ))}
-            </Card>
-          ))}
-        </CardWrapper>
+                    {release?.hovercardData?.map((hoverData, index) => (
+                      <HoverCard key={index}>
+                        <HoverContent>
+                          <Hoverimg
+                            src={hoverData.coverpic}
+                            alt="hanuman"
+                            width={200}
+                            height={200}
+                          />
+                          <LanguageWrapper>
+                            {hoverData.language}
+                            <StyleddownArrow />
+                          </LanguageWrapper>
+                          <ImgOverlay> </ImgOverlay>I
+                          <HovercardTitleImg
+                            src={hoverData.titleImg}
+                            width={100}
+                            height={100}
+                            alt="hanuman-img"
+                          />
+                          <BottomContentWrapper>
+                            <WatchWrapper>
+                              <WatchNowBUtton>
+                                <StyleddPlay /> Watch Now
+                              </WatchNowBUtton>
+                              <WatchListButton>
+                                <StyleddPlus />
+                              </WatchListButton>
+                            </WatchWrapper>
+                            <YearDetailsWrapper>
+                              <Text>{hoverData.year}</Text>
+                              <StyledCircle />
+                              <Text>
+                                {hoverData.seasons}
+                                Seasons
+                              </Text>
+                              <StyledCircle />
+                              <Text>{hoverData.totalLanguage}Languages</Text>
+                              <StyledCircle />
+                              <Text>U/A{hoverData.ua}</Text>
+                            </YearDetailsWrapper>
+                            <Description>{hoverData.description}</Description>
+                          </BottomContentWrapper>
+                        </HoverContent>
+                      </HoverCard>
+                    ))}
+                  </Card>
+                ))
+              ) : videoData?.response && !videoData?.response?.length ? (
+                <ProgressWrapper>
+                  <Heading>No Results Found</Heading>
+                </ProgressWrapper>
+              ) : (
+                <ProgressWrapper>
+                  <Progress />
+                </ProgressWrapper>
+              )}
+            </CardWrapper>
+          </>
+        ) : (
+          <SliderComponent title="Popular Searches" data={releases} />
+        )}
       </PopularSearch>
     </Wrapper>
   );
 }
 
 export default Explore;
+
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Wrapper = styled.div`
   min-height: 100vh;
   width: 100%;
