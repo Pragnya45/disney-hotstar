@@ -98,7 +98,7 @@ const Home = styled(HomeOutlinedIcon)`
   color: var(--tw-shadow);
 `;
 const Homefilled = styled(HomeIcon)`
-  display: none;
+  display: none !important;
   width: 20px;
   height: 20px;
   color: var(--tw-shadow);
@@ -116,7 +116,7 @@ const Button = styled(Link)`
 
   &.active {
     ${Search}, ${Homefilled} {
-      display: block;
+      display: block !important;
       filter: drop-shadow(0 0 15px var(--tw-shadow));
       color: var(--white_color);
       fill: var(--white_color);
@@ -124,7 +124,7 @@ const Button = styled(Link)`
     }
 
     ${Home} {
-      display: none;
+      display: none !important;
       fill: var(--white_color);
       transform: scale(1.08);
     }
