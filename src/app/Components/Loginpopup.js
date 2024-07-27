@@ -36,6 +36,7 @@ export default function LoginPopupPage({ setShowloginPopup }) {
 
   const handleChange = (event) => {
     const input = event.target.value;
+    setError("");
     setEmailField(input);
   };
   const handleOtpChange = (e) => {
@@ -221,6 +222,7 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                 </InstructionWrapper>
               </>
             )}
+
             <OtpButton onClick={() => handleLogin()}>
               {btntext}
               {loading ? <BtnLoader /> : <FaAngleRight color="white" />}
@@ -257,6 +259,10 @@ const LoginPopup = styled.div`
   padding: 1rem;
   align-items: center;
   gap: 0.3rem;
+  @media (max-width: 600px) {
+    width: 90%;
+    height: 65%;
+  }
 `;
 const Close = styled(IoMdClose)`
   position: absolute;
@@ -268,18 +274,32 @@ const Heading = styled.p`
   font-size: 30px;
   font-weight: 600;
   color: var(--text-color900);
+  @media (max-width: 600px) {
+    margin-top: 2rem;
+    font-size: 20px;
+    text-align: center;
+  }
 `;
 const SubHeading = styled.p`
   font-family: var(--FONT-FAMILY);
   font-size: 16px;
   font-weight: 400;
+  text-align: center;
   color: var(--text-color1000);
+  @media (max-width: 600px) {
+    font-size: 13px;
+  }
 `;
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 4rem;
   padding: 0 2rem;
+  @media (max-width: 600px) {
+    margin-top: 2rem;
+    padding: 0 0.5rem;
+    width: 100%;
+  }
 `;
 const ScannerContainer = styled.div`
   display: flex;
@@ -287,6 +307,9 @@ const ScannerContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 const ScannerHeading = styled.p`
@@ -317,6 +340,9 @@ const Divider = styled.div`
     rgba(112, 122, 148, 0)
   );
   margin: 0 4rem;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const OrText = styled.p`
   background: #16181f;
@@ -330,6 +356,9 @@ const PhoneNumberContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 50%;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 const InstructionWrapper = styled.div`
   display: flex;
@@ -378,6 +407,9 @@ const PhoneFieldInstruction = styled.p`
   font-family: var(--FONT_FAMILY);
   font-size: 14px;
   line-height: 20px;
+  @media (max-width: 600px) {
+    text-align: center;
+  }
 `;
 const FieldSpan = styled.span`
   color: var(--text-color1000);
@@ -386,6 +418,12 @@ const FieldSpan = styled.span`
 const TroubleText = styled.p`
   color: var(--text-color1000);
   font-size: 16px;
+  margin-top: 0.4rem;
+  @media (max-width: 600px) {
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
 `;
 const TroubleSpan = styled.span`
   color: var(--text-color700);
@@ -412,12 +450,19 @@ const OtpButton = styled.button`
   font-weight: 600;
   cursor: pointer;
   margin-top: 3rem;
+  @media (max-width: 600px) {
+    margin-top: 2rem;
+  }
 `;
 const OtpContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   align-items: start;
+  @media (max-width: 600px) {
+    width: 100%;
+    gap: 0.5rem;
+  }
 `;
 const Backbutton = styled.div`
   color: var(--text-color1000);

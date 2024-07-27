@@ -23,7 +23,7 @@ export default function Login() {
         <MdOutlineContactSupport color="white" /> Help & Support
       </SettingButton>
       <LoginWrapper>
-        <ImageView src={login} alt="" width={300} height={120} />
+        <StyledImage src={login} alt="" width={300} height={120} />
         <SubscribeText>Login to Disney+ Hotstar</SubscribeText>
         <Text>
           Start watching from where you left off, personalise for kids and more
@@ -48,6 +48,19 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 3rem 3rem 0 0;
+  @media (max-width: 600px) {
+    padding: 1rem 1rem 0 0;
+  }
+`;
+const StyledImage = styled(ImageView)`
+  width: 300px;
+  height: 120px;
+  object-fit: cover;
+  @media (max-width: 600px) {
+    object-fit: contain;
+    width: 250px;
+    height: 120px;
+  }
 `;
 const SettingButton = styled.button`
   background: var(--bg_color600);
@@ -114,6 +127,7 @@ const Text = styled.p`
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+  text-align: center;
   font-family: var(--FONT-FAMILY);
 `;
 const SubscribeButton = styled.button`
