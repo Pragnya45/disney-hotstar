@@ -11,12 +11,14 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import useQueryApi from "../Hooks/useQueryApi";
 import { urlObj } from "../utils/url";
+import CardSkeleton from "./CardSkeleton";
 
 function HorizontalCard({ title, data }) {
   const pathname = usePathname();
   const router = useRouter();
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   const { data: videoData, refetch } = useQueryApi({
     url: `${urlObj.video}?category=${title}`,
@@ -26,7 +28,21 @@ function HorizontalCard({ title, data }) {
     console.log("SliderComponent title:", title);
     refetch();
   }, [title]);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
 
+    if (typeof window !== "undefined") {
+      setScreenWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
+  const isWideScreen = screenWidth > 600;
   const handleCardClick = (release) => {
     console.log(release);
     if (pathname === "/") {
@@ -53,72 +69,78 @@ function HorizontalCard({ title, data }) {
         </ViewButton>
       </HeaderWrapper>
       <CardWrapper>
-        <StyledSwiper
-          centeredSlides={false}
-          slidesPerView={"auto"}
-          slidesPerGroup={2}
-          loop={false}
-          spaceBetween={20}
-          navigation={true}
-          modules={[Navigation]}
-          className="swiper-container"
-          breakpoints={{
-            320: {
-              spaceBetween: 10,
-              loopfillgroupwithblank: false,
-            },
-          }}
-        >
-          {videoData?.response?.map((release, index) => (
-            <SwiperSlide key={index}>
-              <ContentWrapper>
-                <Card
-                  onClick={() => handleCardClick(release)}
-                  onMouseEnter={() => handleHover(index)}
-                  onMouseLeave={() => handleVideoEnd(null)}
-                >
-                  <CardImage
-                    src={release.img}
-                    alt={release?.title}
-                    width={100}
-                    height={100}
-                  />
-                  <PlayWrapper>
-                    <Play />
-                    <Duration>5m</Duration>
-                  </PlayWrapper>
-                  {release?.hovercardData?.map((hoverData, index) => (
-                    <HoverCard
-                      key={index}
-                      isFirstchild={isFirstchild}
-                      islastchild={islastchild}
-                    >
-                      <HoverContent>
-                        <Hoverimg
-                          src={hoverData.coverpic}
-                          alt="hanuman"
-                          width={200}
-                          height={200}
-                        />
-                        <HoverPlayWrapper>
-                          <Play />
-                          <Duration>5m</Duration>
-                        </HoverPlayWrapper>
-                        <BottomContentWrapper>
-                          <Title>{release.title}</Title>
-                          <Description>{hoverData.description}</Description>
-                        </BottomContentWrapper>
-                      </HoverContent>
-                    </HoverCard>
-                  ))}
-                </Card>
-                <TextContainer>
-                  <Title>{release.title}</Title>
-                </TextContainer>
-              </ContentWrapper>
-            </SwiperSlide>
-          ))}
-        </StyledSwiper>
+        {videoData?.response && videoData?.response?.length ? (
+          <StyledSwiper
+            centeredSlides={false}
+            slidesPerView={"auto"}
+            slidesPerGroup={2}
+            loop={false}
+            spaceBetween={20}
+            navigation={true}
+            modules={[Navigation]}
+            className="swiper-container"
+            breakpoints={{
+              320: {
+                spaceBetween: 10,
+                loopfillgroupwithblank: false,
+              },
+            }}
+          >
+            {videoData?.response?.map((release, index) => (
+              <SwiperSlide key={index}>
+                <ContentWrapper>
+                  <Card
+                    onClick={() => handleCardClick(release)}
+                    onMouseEnter={() => handleHover(index)}
+                    onMouseLeave={() => handleVideoEnd(null)}
+                  >
+                    <CardImage
+                      src={release.img}
+                      alt={release?.title}
+                      width={100}
+                      height={100}
+                    />
+                    <PlayWrapper>
+                      <Play />
+                      <Duration>5m</Duration>
+                    </PlayWrapper>
+                    {release?.hovercardData?.map((hoverData, index) => (
+                      <HoverCard
+                        key={index}
+                        isFirstchild={isFirstchild}
+                        islastchild={islastchild}
+                      >
+                        <HoverContent>
+                          <Hoverimg
+                            src={hoverData.coverpic}
+                            alt="hanuman"
+                            width={200}
+                            height={200}
+                          />
+                          <HoverPlayWrapper>
+                            <Play />
+                            <Duration>5m</Duration>
+                          </HoverPlayWrapper>
+                          <BottomContentWrapper>
+                            <Title>{release.title}</Title>
+                            <Description>{hoverData.description}</Description>
+                          </BottomContentWrapper>
+                        </HoverContent>
+                      </HoverCard>
+                    ))}
+                  </Card>
+                  <TextContainer>
+                    <Title>{release.title}</Title>
+                  </TextContainer>
+                </ContentWrapper>
+              </SwiperSlide>
+            ))}
+          </StyledSwiper>
+        ) : videoData?.response && !videoData?.response?.length ? (
+          <CardSkeleton cards={isWideScreen ? 6 : 3} />
+        ) : (
+          <CardSkeleton cards={isWideScreen ? 6 : 3} />
+        )}
       </CardWrapper>
     </Wrapper>
   );
