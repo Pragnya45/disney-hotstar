@@ -172,7 +172,7 @@ const TextContainer = styled.div`
 const Title = styled.p`
   font-family: var(--FONT-FAMILY);
   font-weight: 600;
-  font-size: 20px;
+  font-size: 17px;
   color: var(--text-color900);
   @media (max-width: 600px) {
     font-size: 13px;
@@ -187,4 +187,9 @@ const Description = styled.p`
   text-align: start;
   margin-top: 1rem;
   transition: display 0.3s ease-in;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 90%;
 `;

@@ -81,7 +81,7 @@ const CardImage = styled(ImageView)`
 `;
 const HoverCard = styled.div`
   display: none;
-  width: 330px !important;
+  width: 350px !important;
   height: 395px !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
@@ -200,7 +200,8 @@ const BottomContentWrapper = styled.div`
 `;
 const WatchWrapper = styled.div`
   display: flex;
-  padding-left: 0.2rem;
+  padding: 0.2rem;
+  width: 100%;
 `;
 const WatchNowBUtton = styled.button`
   font-family: var(--FONT-FAMILY);
@@ -208,7 +209,7 @@ const WatchNowBUtton = styled.button`
   font-size: 14px;
   color: var(--bg_color1000);
   font-weight: 700;
-  width: 15.2rem;
+  width: 80%;
   border-radius: 8px;
   cursor: pointer;
   display: flex;
@@ -229,14 +230,16 @@ const WatchListButton = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  width: 20%;
 `;
 const YearDetailsWrapper = styled.div`
   display: flex;
   margin-top: 1.2rem;
-  gap: 9px;
+  gap: 1px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
+  padding: 0 4px;
 `;
 const Text = styled.p`
   font-family: var(--FONT-FAMILY);
@@ -251,4 +254,9 @@ const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   text-align: start;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Replace 3 with the number of lines you want to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 90%;
 `;

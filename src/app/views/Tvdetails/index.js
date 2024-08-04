@@ -10,13 +10,14 @@ import { useEffect } from "react";
 import useApi from "@/app/Hooks/useApi";
 import { profileState } from "@/app/Redux/profileSlice";
 import { useSelector } from "react-redux";
+import useNotification from "@/app/Hooks/useNotification";
 
 export default function Tvdetails() {
   const searchParams = useSearchParams();
   const releaseId = searchParams.get("releaseId");
   const { email } = useSelector(profileState);
   const [apiFn] = useApi();
-
+  const { showMessage } = useNotification();
   const { data: videoData, refetch } = useQueryApi({
     url: `${urlObj.video}/${releaseId}`,
     queryKey: `videodata`,
@@ -42,7 +43,9 @@ export default function Tvdetails() {
       }
       console.log(response);
     };
-    fetchData();
+    if (email) {
+      fetchData();
+    }
   }, [releaseId]);
   const details = releases.find((release) => release.id === releaseId);
   return (

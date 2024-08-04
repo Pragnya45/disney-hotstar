@@ -219,7 +219,7 @@ const HoverPlayWrapper = styled.div`
   position: absolute;
   display: flex;
   width: 100%;
-  bottom: 128px;
+  bottom: 111px;
   padding: 15px 10px;
   justify-content: space-between;
   align-items: center;
@@ -257,8 +257,13 @@ const Description = styled.p`
   font-size: 16px;
   font-weight: 400;
   text-align: start;
-  margin-top: 1rem;
+  margin-top: 0.3rem;
   transition: display 0.3s ease-in;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 90%;
 `;
 const TextContainer = styled.div`
   display: flex;
@@ -372,8 +377,8 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: 23rem;
-  height: 20rem;
+  width: 21rem;
+  height: 19rem;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -387,7 +392,6 @@ const HoverCard = styled.div`
   animation: hoveranimation 0.2s ease-in forwards;
   top: -35px;
   border-radius: 6px;
-  z-index: 5 !important;
 
   @keyframes hoveranimation {
     0% {
