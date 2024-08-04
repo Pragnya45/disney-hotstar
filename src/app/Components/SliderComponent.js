@@ -393,7 +393,7 @@ const CardImage = styled(ImageView)`
 const HoverCard = styled.div`
   display: none;
   width: 20rem !important;
-  height: 24rem !important;
+  height: 26rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -405,15 +405,15 @@ const HoverCard = styled.div`
   /* left: -35px; */
   z-index: 8 !important;
   animation: hoveranimation 0.4s ease-in forwards;
-  top: -45px;
+  top: -65px;
 
   @keyframes hoveranimation {
     0% {
-      transform: scale3d(0.8, 0.8, 1);
+      transform: scale3d(0.75, 0.8, 1);
     }
     100% {
       opacity: 1;
-      transform: scaleX(0.9) scaleY(0.9);
+      transform: scaleX(0.75) scaleY(0.8);
     }
   }
   @media (max-width: 600px) {
@@ -517,8 +517,8 @@ const StyleddPlus = styled(AddIcon)`
   color: var(--white_color);
 `;
 const StyledCircle = styled(CircleIcon)`
-  width: 5px;
-  height: 5px;
+  width: 3px;
+  height: 3px;
   color: var(--tw-shadow);
 `;
 const ImgOverlay = styled.div`
@@ -570,10 +570,11 @@ const WatchListButton = styled.button`
 const YearDetailsWrapper = styled.div`
   display: flex;
   margin-top: 1.2rem;
-  gap: 9px;
+  gap: 1px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
+  padding: 0 4px;
 `;
 const Text = styled.p`
   font-family: var(--FONT-FAMILY);
@@ -588,6 +589,11 @@ const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   text-align: start;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Replace 3 with the number of lines you want to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 90%;
 `;
 const HeaderWrapper = styled.div`
   display: flex;

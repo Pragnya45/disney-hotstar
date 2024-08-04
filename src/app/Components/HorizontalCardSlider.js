@@ -339,8 +339,11 @@ const StyledSwiper = styled(Swiper)`
 `;
 const CardWrapper = styled.div`
   display: flex;
-  gap: 0.2rem;
+  gap: 1rem;
   width: 100%;
+  @media (max-width: 600px) {
+    gap: 0.4rem;
+  }
 
   &:hover {
     ${ViewButton} {
