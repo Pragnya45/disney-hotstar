@@ -392,8 +392,8 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: 20rem !important;
-  height: 26rem !important;
+  width: ${(props) => (props.isFirstchild ? "16.8rem" : "19rem")} !important;
+  height: 24rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
   opacity: 0;
@@ -409,11 +409,11 @@ const HoverCard = styled.div`
 
   @keyframes hoveranimation {
     0% {
-      transform: scale3d(0.75, 0.8, 1);
+      transform: scale3d(0.8, 0.8, 1);
     }
     100% {
       opacity: 1;
-      transform: scaleX(0.75) scaleY(0.8);
+      transform: scaleX(0.8) scaleY(0.8);
     }
   }
   @media (max-width: 600px) {
@@ -517,8 +517,8 @@ const StyleddPlus = styled(AddIcon)`
   color: var(--white_color);
 `;
 const StyledCircle = styled(CircleIcon)`
-  width: 3px;
-  height: 3px;
+  width: 8px !important;
+  height: 8px !important;
   color: var(--tw-shadow);
 `;
 const ImgOverlay = styled.div`
@@ -537,7 +537,8 @@ const BottomContentWrapper = styled.div`
 `;
 const WatchWrapper = styled.div`
   display: flex;
-  padding-left: 0.2rem;
+  padding: 0 0.2rem;
+  width: 100%;
 `;
 const WatchNowBUtton = styled.button`
   font-family: var(--FONT-FAMILY);
@@ -545,7 +546,7 @@ const WatchNowBUtton = styled.button`
   font-size: 14px;
   color: var(--bg_color1000);
   font-weight: 700;
-  width: 15.2rem;
+  width: 75%;
   border-radius: 8px;
   cursor: pointer;
   display: flex;

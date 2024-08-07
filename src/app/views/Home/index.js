@@ -13,11 +13,13 @@ import { profileState } from "@/app/Redux/profileSlice";
 import { urlObj } from "@/app/utils/url";
 import { useState, useEffect } from "react";
 import Progress from "@/app/Components/Progress";
+import CardSkeleton from "@/app/Components/CardSkeleton";
 
 function Home() {
   const { token, email } = useSelector(profileState);
   const [apiFn, loading] = useApi();
   const [watchList, setWatchList] = useState([]);
+  const [screenWidth, setScreenWidth] = useState(0);
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -38,6 +40,22 @@ function Home() {
       fetchdata();
     }
   }, [token]);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    if (typeof window !== "undefined") {
+      setScreenWidth(window.innerWidth);
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, []);
+  const isWideScreen = screenWidth > 600;
+
   return (
     <Wrapper>
       <Contentwrapper>
@@ -45,76 +63,73 @@ function Home() {
       </Contentwrapper>
       <BannerMovie />
       <ProductionWrapper>
-        {loading ? (
+        {/* {loading ? (
           <ProgressWrapper>
             <Progress />
           </ProgressWrapper>
-        ) : (
-          <>
-            {watchList && watchList?.length && (
+        ) : ( */}
+        <>
+          {!loading ? (
+            watchList &&
+            watchList?.length && (
               <WatchedSlider
                 title="Continue Watching for You"
                 data={watchList}
                 watchHistory={true}
               />
-            )}
-            <SliderComponent
-              title="Latest Releases"
-              data={releases}
-              isSpan={false}
-            />
-            <HorizontalCard title="Best in Sports" data={cardData} />
-            <SliderComponent
-              title="Newly Added"
-              data={releases}
-              isSpan={true}
-            />
-            <SliderComponent
-              title="Popular Shows"
-              data={releases}
-              isSpan={false}
-            />
-            {/* <top10></top10> */}
-            <SliderComponent
-              title="Watch With Your Family"
-              data={releases}
-              isSpan={false}
-            />
-            <SliderComponent
-              title="Movies from the 2010s"
-              data={releases}
-              isSpan={false}
-            />
-            {/* <watchlist></watchlist> */}
-            <SliderComponent
-              title="Popular Movies"
-              data={releases}
-              isSpan={false}
-            />
-            <SliderComponent
-              title="Hotstar Specials"
-              data={releases}
-              isSpan={false}
-            />
-            <SliderComponent
-              title="Coming Soon"
-              data={releases}
-              isSpan={false}
-            />
-            <SliderComponent
-              title="Best of Superheros"
-              data={releases}
-              isSpan={false}
-            />
-            <SliderComponent
-              title="Exclusive Indian Movies"
-              data={releases}
-              isSpan={false}
-            />
+            )
+          ) : (
+            <CardSkeleton cards={isWideScreen ? 6 : 3} />
+          )}
+          <SliderComponent
+            title="Latest Releases"
+            data={releases}
+            isSpan={false}
+          />
+          <HorizontalCard title="Best in Sports" data={cardData} />
+          <SliderComponent title="Newly Added" data={releases} isSpan={true} />
+          <SliderComponent
+            title="Popular Shows"
+            data={releases}
+            isSpan={false}
+          />
+          {/* <top10></top10> */}
+          <SliderComponent
+            title="Watch With Your Family"
+            data={releases}
+            isSpan={false}
+          />
+          <SliderComponent
+            title="Movies from the 2010s"
+            data={releases}
+            isSpan={false}
+          />
+          {/* <watchlist></watchlist> */}
+          <SliderComponent
+            title="Popular Movies"
+            data={releases}
+            isSpan={false}
+          />
+          <SliderComponent
+            title="Hotstar Specials"
+            data={releases}
+            isSpan={false}
+          />
+          <SliderComponent title="Coming Soon" data={releases} isSpan={false} />
+          <SliderComponent
+            title="Best of Superheros"
+            data={releases}
+            isSpan={false}
+          />
+          <SliderComponent
+            title="Exclusive Indian Movies"
+            data={releases}
+            isSpan={false}
+          />
 
-            <ProductionHouse />
-          </>
-        )}
+          <ProductionHouse />
+        </>
+        {/* )} */}
       </ProductionWrapper>
     </Wrapper>
   );
