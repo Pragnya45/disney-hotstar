@@ -390,11 +390,11 @@ const HoverCard = styled.div`
   left: ${(props) =>
     props.isFirstchild ? "0px" : props.islastchild ? "-90px" : "-35px"};
   z-index: 8 !important;
-  animation: hoveranimation 0.2s ease-in forwards;
+  animation: hoverhorizontalanimation 0.2s ease-in forwards;
   top: -35px;
   border-radius: 6px;
 
-  @keyframes hoveranimation {
+  @keyframes hoverhorizontalanimation {
     0% {
       transform: scale3d(0.8, 0.8, 1);
     }

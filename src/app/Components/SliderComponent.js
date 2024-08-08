@@ -27,6 +27,7 @@ export default function SliderComponent({ title, isSpan }) {
   const [showvideo, setShowvideo] = useState(false);
   const [isFirstchild, setIsFirstchild] = useState(false);
   const [islastchild, setIslastchild] = useState(false);
+  const [hoverIndex, setHoverIndex] = useState(null);
   const [screenWidth, setScreenWidth] = useState(0);
 
   const pathname = usePathname();
@@ -56,7 +57,9 @@ export default function SliderComponent({ title, isSpan }) {
   }, [!videoData?.response]);
 
   // const [muted, setMuted] = useState(data?.map(() => true));
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(
+    () => videoData?.response?.map(() => true) || []
+  ); // Initialize as an array of booleans
 
   const toggleMute = (index) => {
     const newMuted = [...muted];
@@ -77,7 +80,7 @@ export default function SliderComponent({ title, isSpan }) {
   const handleHover = (index) => {
     setIsFirstchild(index === 0);
     setIslastchild(index === videoData?.response?.length - 1);
-
+    setHoverIndex(index);
     setTimeout(() => {
       setShowvideo(true);
     }, 5000);
@@ -107,7 +110,7 @@ export default function SliderComponent({ title, isSpan }) {
       </HeaderWrapper>
 
       <CardWrapper>
-        {videoData?.response && videoData?.response?.length ? (
+        {videoData?.response && videoData?.response.length ? (
           <StyledSwiper
             centeredSlides={false}
             slidesPerView="auto"
@@ -116,21 +119,16 @@ export default function SliderComponent({ title, isSpan }) {
             spaceBetween={20}
             navigation={true}
             modules={[Navigation]}
-            // loopfillgroupwithblank={false}
-            // breakpoints={{
-            //   320: {
-            //     spaceBetween: 10,
-            //     loopfillgroupwithblank: false,
-            //   },
-            // }}
             className="swiper-container"
           >
-            {videoData?.response?.map((release, index) => (
+            {videoData.response.map((release, index) => (
               <SwiperSlide key={release.id}>
                 <Card
                   onMouseEnter={() => handleHover(index)}
                   onMouseLeave={() => {
-                    setMuted(videoData?.response?.map(() => true));
+                    setHoverIndex(null);
+                    const newMuted = videoData.response.map(() => true); // Reset all videos to muted on mouse leave
+                    setMuted(newMuted);
                     handleVideoEnd(null);
                   }}
                 >
@@ -143,91 +141,87 @@ export default function SliderComponent({ title, isSpan }) {
                     width={100}
                     height={100}
                   />
-                  {release?.hovercardData?.map((hoverData, index) => (
-                    <HoverCard
-                      key={index}
-                      isFirstchild={isFirstchild}
-                      islastchild={islastchild}
-                    >
-                      <HoverContent>
-                        {showvideo ? (
-                          <PlayerWrapper>
-                            <Player
-                              src={hoverData.video}
-                              controls={false}
-                              autoPlay
-                              playsInline
-                              onEnded={handleVideoEnd}
-                              muted={muted[index]}
-                            />
-                          </PlayerWrapper>
-                        ) : (
-                          <Hoverimg
-                            src={hoverData.coverpic}
-                            showvideo={showvideo}
-                            alt="hanuman"
-                            width={200}
-                            height={200}
-                          />
-                        )}
-                        <LanguageWrapper>
-                          {hoverData.language}
-                          <StyleddownArrow />
-                        </LanguageWrapper>
-                        <ImgOverlay> </ImgOverlay>
-                        <SoundWrapper>
-                          <HovercardTitleImg
-                            src={hoverData.titleImg}
-                            width={100}
-                            height={100}
-                            alt="hanuman-img"
-                          />
-                          {muted[index] ? (
-                            <Tooltip title="Unmute Trailer">
-                              <Mute onClick={() => toggleMute(index)} />
-                            </Tooltip>
+                  {hoverIndex === index &&
+                    release?.hovercardData?.map((hoverData, i) => (
+                      <HoverCard
+                        key={i}
+                        isFirstchild={isFirstchild}
+                        islastchild={islastchild}
+                      >
+                        <HoverContent>
+                          {showvideo ? (
+                            <PlayerWrapper>
+                              <Player
+                                src={hoverData.video}
+                                controls={false}
+                                autoPlay
+                                playsInline
+                                onEnded={handleVideoEnd}
+                                muted={muted[index]}
+                              />
+                            </PlayerWrapper>
                           ) : (
-                            <Tooltip title="Mute Trailer">
-                              <Sound onClick={() => toggleMute(index)} />
-                            </Tooltip>
+                            <Hoverimg
+                              src={hoverData.coverpic}
+                              showvideo={showvideo}
+                              alt="hanuman"
+                              width={200}
+                              height={200}
+                            />
                           )}
-                        </SoundWrapper>
-                        <BottomContentWrapper>
-                          <WatchWrapper>
-                            <WatchNowBUtton
-                              onClick={(e) => {
-                                handleCardClick({ release, e });
-                              }}
-                            >
-                              <StyleddPlay /> Watch Now
-                            </WatchNowBUtton>
-                            <WatchListButton>
-                              <StyleddPlus />
-                            </WatchListButton>
-                          </WatchWrapper>
-                          <YearDetailsWrapper>
-                            <Text>{hoverData.year}</Text>
-                            <StyledCircle />
-                            <Text>
-                              {hoverData.seasons}
-                              Seasons
-                            </Text>
-                            <StyledCircle />
-                            <Text>{hoverData.totalLanguage}Languages</Text>
-                            <StyledCircle />
-                            <Text>U/A{hoverData.ua}</Text>
-                          </YearDetailsWrapper>
-                          <Description>{hoverData.description}</Description>
-                        </BottomContentWrapper>
-                      </HoverContent>
-                    </HoverCard>
-                  ))}
+                          <LanguageWrapper>
+                            {hoverData.language}
+                            <StyleddownArrow />
+                          </LanguageWrapper>
+                          <ImgOverlay> </ImgOverlay>
+                          <SoundWrapper>
+                            <HovercardTitleImg
+                              src={hoverData.titleImg}
+                              width={100}
+                              height={100}
+                              alt="hanuman-img"
+                            />
+                            {muted[hoverIndex] ? ( // Use hoverIndex for muted state
+                              <Tooltip title="Unmute Trailer">
+                                <Mute onClick={() => toggleMute(index)} />
+                              </Tooltip>
+                            ) : (
+                              <Tooltip title="Mute Trailer">
+                                <Sound onClick={() => toggleMute(index)} />
+                              </Tooltip>
+                            )}
+                          </SoundWrapper>
+                          <BottomContentWrapper>
+                            <WatchWrapper>
+                              <WatchNowBUtton
+                                onClick={(e) => {
+                                  handleCardClick({ release, e });
+                                }}
+                              >
+                                <StyleddPlay /> Watch Now
+                              </WatchNowBUtton>
+                              <WatchListButton>
+                                <StyleddPlus />
+                              </WatchListButton>
+                            </WatchWrapper>
+                            <YearDetailsWrapper>
+                              <Text>{hoverData.year}</Text>
+                              <StyledCircle />
+                              <Text>{hoverData.seasons} Seasons</Text>
+                              <StyledCircle />
+                              <Text>{hoverData.totalLanguage} Languages</Text>
+                              <StyledCircle />
+                              <Text>U/A {hoverData.ua}</Text>
+                            </YearDetailsWrapper>
+                            <Description>{hoverData.description}</Description>
+                          </BottomContentWrapper>
+                        </HoverContent>
+                      </HoverCard>
+                    ))}
                 </Card>
               </SwiperSlide>
             ))}
           </StyledSwiper>
-        ) : videoData?.response && !videoData?.response?.length ? (
-          <CardSkeleton cards={isWideScreen ? 6 : 3} />
         ) : (
           <CardSkeleton cards={isWideScreen ? 6 : 3} />
         )}
