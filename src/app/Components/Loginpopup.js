@@ -4,7 +4,7 @@ import ImageView from "@/app/Components/Image";
 import TextField from "@mui/material/TextField";
 import { useRouter, usePathname } from "next/navigation";
 import { FaAngleRight } from "react-icons/fa6";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GoArrowLeft } from "react-icons/go";
 import TextInputField from "./TextField";
 import { useDispatch } from "react-redux";
@@ -23,7 +23,10 @@ export default function LoginPopupPage({ setShowloginPopup }) {
   const [emailField, setEmailField] = useState("");
   const [showOtp, setShowOtp] = useState(false);
   const [apiFn, loading] = useApi();
+  const [resendapiFn, resendloading] = useApi();
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const [showTimer, setShowTimer] = useState(true);
+  const [timer, setTimer] = useState(60);
   const [disable, setDisable] = useState(true);
   const [btntext, setBtntext] = useState("Send OTP");
   const { showMessage } = useNotification();
@@ -102,6 +105,47 @@ export default function LoginPopupPage({ setShowloginPopup }) {
       handleClick();
     }
   };
+
+  const handleResend = async () => {
+    setTimer(60);
+    setError("");
+    setOtp(["", "", "", ""]);
+    let formatChange = otp.join("");
+    // const field = document.querySelector < HTMLInputElement > "#otpField-0";
+    // field?.focus();
+    setShowTimer(true);
+    const { response, error } = await resendapiFn({
+      url: `${urlObj.user}/login`,
+      options: {
+        method: "POST",
+        body: {
+          email: emailField,
+          otp: formatChange ? formatChange : "",
+        },
+      },
+    });
+
+    if (error) {
+      showMessage({ type: "error", value: error });
+      return;
+    }
+  };
+  useEffect(() => {
+    let countDown = null;
+    if (timer >= 1) {
+      countDown = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    }
+
+    if (timer === 0) {
+      setShowTimer(false);
+    }
+
+    return () => {
+      if (countDown) {
+        clearInterval(countDown);
+      }
+    };
+  }, [timer]);
   const handleLogin = async () => {
     let formatChange = otp.join("");
     console.log("Email before API call:", emailField); // Debug log
@@ -199,9 +243,12 @@ export default function LoginPopupPage({ setShowloginPopup }) {
                     />
                   ))}
                 </OtpForm>
-                <ResendOtp>
-                  Resend Otp in:<span>00.30</span>
-                </ResendOtp>
+                <ErrorText>{error}</ErrorText>
+                {!showTimer ? (
+                  <ResendOtp onClick={handleResend}>Resend</ResendOtp>
+                ) : (
+                  <ResendOtp>Resend OTP in {timer}s</ResendOtp>
+                )}
               </OtpContainer>
             ) : (
               <>

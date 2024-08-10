@@ -79,7 +79,9 @@ function Home() {
               />
             )
           ) : (
-            <CardSkeleton cards={isWideScreen ? 6 : 3} />
+            <CardWrapper>
+              <CardSkeleton cards={isWideScreen ? 6 : 3} />
+            </CardWrapper>
           )}
           <SliderComponent
             title="Latest Releases"
@@ -146,6 +148,11 @@ const Wrapper = styled.div`
   @media (max-width: 600px) {
     gap: 0.5rem;
   }
+`;
+const CardWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1rem;
 `;
 const ProgressWrapper = styled.div`
   width: 100%;

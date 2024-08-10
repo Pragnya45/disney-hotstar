@@ -386,7 +386,7 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: 23rem !important;
+  width: 21rem !important;
   height: 19rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
