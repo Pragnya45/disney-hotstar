@@ -94,7 +94,7 @@ export default function SliderComponent({ title, isSpan }) {
   };
   return (
     <Wrapper>
-      <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
+      <HeaderWrapper onClick={() => router.replace(`/browse?type=${title}`)}>
         {isSpan ? (
           <Heading>
             <SpanImage src={freeImg} alt="free" width={30} height={30} />

@@ -530,6 +530,7 @@ const ResendOtp = styled.p`
   font-size: 14px;
   font-weight: 500;
   margin-top: 1rem;
+  cursor: pointer;
 `;
 const OtpForm = styled.form`
   display: flex;

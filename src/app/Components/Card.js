@@ -4,7 +4,22 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddIcon from "@mui/icons-material/Add";
 import CircleIcon from "@mui/icons-material/Circle";
+import { useRouter, usePathname } from "next/navigation";
+
 function Card({ release }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const handleCardClick = ({ release, e }) => {
+    e.preventDefault();
+    const newPath =
+      pathname === "/" || pathname.includes("browse")
+        ? `/tv/play?relaseTitle=${release.title}&releaseId=${release._id}`
+        : pathname.includes("/play")
+        ? `${pathname}?relaseTitle=${release.title}&releaseId=${release._id}`
+        : `${pathname}/play?relaseTitle=${release.title}&releaseId=${release._id}`;
+    router.replace(newPath);
+  };
+
   return (
     <CardContainer>
       <CardImage
@@ -35,7 +50,11 @@ function Card({ release }) {
             />
             <BottomContentWrapper>
               <WatchWrapper>
-                <WatchNowBUtton>
+                <WatchNowBUtton
+                  onClick={(e) => {
+                    handleCardClick({ release, e });
+                  }}
+                >
                   <StyleddPlay /> Watch Now
                 </WatchNowBUtton>
                 <WatchListButton>
