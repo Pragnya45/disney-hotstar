@@ -78,7 +78,7 @@ function WatchedSlider({ title, data, watchHistory }) {
                   onMouseLeave={() => handleVideoEnd(null)}
                 >
                   <CardImage
-                    src={release.img}
+                    src={release.hovercardData[0]?.coverpic}
                     alt={release?.title}
                     width={100}
                     height={100}
@@ -186,6 +186,10 @@ const Title = styled.p`
   font-weight: 600;
   font-size: 20px;
   color: var(--text-color900);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   @media (max-width: 600px) {
     font-size: 13px;
     font-weight: 500;
@@ -386,7 +390,7 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: 21rem !important;
+  width: ${(props) => (props.isFirstchild ? "18.5rem" : "21rem")} !important;
   height: 19rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
