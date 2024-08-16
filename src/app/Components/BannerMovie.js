@@ -16,14 +16,15 @@ import "swiper/css/autoplay";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { releases } from "../views/utils/data";
-
-function BannerMovie() {
+import { usePathname, useRouter } from "next/navigation";
+function BannerMovie({ releases }) {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
   const [muted, setMuted] = useState(true);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const contentRef = useRef();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const container = document.getElementById("Container");
@@ -88,6 +89,18 @@ function BannerMovie() {
       swiperRef.current.swiper.autoplay.stop();
     }
   }, [currentVideoIndex]);
+
+  const handleCardClick = ({ releases, e }) => {
+    e.preventDefault();
+    const newPath =
+      pathname === "/"
+        ? `/tv/play?relaseTitle=${releases.title}&releaseId=${releases._id}`
+        : pathname.includes("/play")
+        ? `${pathname}?relaseTitle=${releases.title}&releaseId=${releases._id}`
+        : `${pathname}/play?relaseTitle=${releases.title}&releaseId=${releases._id}`;
+    router.push(newPath);
+  };
+
   return (
     <Wrapper>
       <BannerImage
@@ -163,7 +176,11 @@ function BannerMovie() {
             </Button>
           </SliderWrapper>
           <WatchWrapper>
-            <WatchNowButton>
+            <WatchNowButton
+              onClick={(e) => {
+                handleCardClick({ releases, e });
+              }}
+            >
               <StyleddPlay /> Watch Now
             </WatchNowButton>
             <Tooltip title="Watchlist">
@@ -371,6 +388,10 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 `;
 const WatchWrapper = styled.div`
   display: flex;

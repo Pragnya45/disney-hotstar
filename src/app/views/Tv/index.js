@@ -7,6 +7,8 @@ import BannerMovie from "@/app/Components/BannerMovie";
 import { releases, cardData } from "../utils/data";
 import { useState } from "react";
 import Progress from "@/app/Components/Progress";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import { urlObj } from "@/app/utils/url";
 
 const starPlus = "/assets/images/star-plus.webp";
 const starTelugu = "/assets/images/star-telugu.webp";
@@ -65,23 +67,35 @@ function TvPage() {
       image: starUtsav,
     },
   ];
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?category=Kids Shows`,
+    queryKey: `Kids Shows`,
+  });
   return (
     <Wrapper>
-      <Contentwrapper>
-        <Banner />
-      </Contentwrapper>
-      <BannerMovie />
-      <ProductionWrapper>
-        <SliderComponent title="StarPlus Shows" data={releases} />
-        <HorizontalCard title="Thriller Shows" data={cardData} />
-        <SliderComponent title="Comedy Shows" data={releases} />
-        <SliderComponent title="Popular Shows" data={releases} />
-        <PosterCard data={channels} title="Popular Channels" />
-        <SliderComponent title="Kids Shows" data={releases} />
-        <SliderComponent title="Action Shows" data={releases} />
-        <SliderComponent title="Hotstar Specials" data={releases} />
-        <SliderComponent title="Quix Shows" data={releases} />
-      </ProductionWrapper>
+      {videoData?.response && videoData?.response?.length ? (
+        <>
+          <Contentwrapper>
+            <Banner />
+          </Contentwrapper>
+          <BannerMovie releases={videoData?.response} />
+          <ProductionWrapper>
+            <SliderComponent title="StarPlus Shows" data={releases} />
+            <HorizontalCard title="Thriller Shows" data={cardData} />
+            <SliderComponent title="Comedy Shows" data={releases} />
+            <SliderComponent title="Popular Shows" data={releases} />
+            <PosterCard data={channels} title="Popular Channels" />
+            <SliderComponent title="Kids Shows" data={releases} />
+            <SliderComponent title="Action Shows" data={releases} />
+            <SliderComponent title="Hotstar Specials" data={releases} />
+            <SliderComponent title="Quix Shows" data={releases} />
+          </ProductionWrapper>
+        </>
+      ) : (
+        <ProgressWrapper>
+          <Progress />
+        </ProgressWrapper>
+      )}
     </Wrapper>
   );
 }
@@ -90,7 +104,7 @@ export default TvPage;
 
 const ProgressWrapper = styled.div`
   width: 100%;
-  height: 40vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
