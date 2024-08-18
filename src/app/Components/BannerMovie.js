@@ -178,7 +178,7 @@ function BannerMovie({ releases }) {
           <WatchWrapper>
             <WatchNowButton
               onClick={(e) => {
-                handleCardClick({ releases, e });
+                handleCardClick({ releases: releases[currentVideoIndex], e });
               }}
             >
               <StyleddPlay /> Watch Now

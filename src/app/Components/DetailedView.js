@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Tooltip } from "antd";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
+import { useRouter } from "next/navigation";
 
 const arya = "/assets/videos/arya.mp4";
 
@@ -19,6 +20,8 @@ export default function DetailedView({ details }) {
   const [selectedLanguage, setSelectedLanguage] = useState("Hindi");
   const [muted, setMuted] = useState(true);
   const contentRef = useRef();
+  const router = useRouter();
+  console.log(details);
   useEffect(() => {
     const container = document.getElementById("Container");
     const handleScroll = () => {
@@ -145,8 +148,10 @@ export default function DetailedView({ details }) {
             </Button>
           </SliderWrapper>
           <WatchWrapper>
-            <WatchNowButton>
-              <StyleddPlay /> Watch Now
+            <WatchNowButton
+              onClick={() => router.push(`/paywall?contentId=${details?._id}`)}
+            >
+              <StyleddPlay /> Subscribe to Watch
             </WatchNowButton>
             <Tooltip title="Watchlist">
               <WatchListButton>

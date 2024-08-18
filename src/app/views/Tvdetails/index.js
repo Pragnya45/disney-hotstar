@@ -52,7 +52,7 @@ export default function Tvdetails() {
     <Wrapper>
       <DetailedView details={videoData?.response} />
       <SliderCardWrapper>
-        <SliderComponent title="More Like This" data={releases} />
+        <SliderComponent title="More Like This" />
         <SliderComponent title="Thriller Shows" data={cardData} />
       </SliderCardWrapper>
     </Wrapper>

@@ -8,6 +8,9 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import DoneIcon from "@mui/icons-material/Done";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import { urlObj } from "@/app/utils/url";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 
@@ -16,6 +19,13 @@ function Subscribe() {
   const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [selectedPlan, setSelectedPlan] = useState("Quarterly");
   const [selectedType, setSelectedType] = useState("Mobile");
+  const searchParams = useSearchParams();
+  const contentId = searchParams.get("contentId");
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}/${contentId}`,
+    queryKey: `subscribedata`,
+  });
+  console.log(videoData);
   const menuRef = useRef(null);
   const router = useRouter();
   const toggleDropdown = () => {
@@ -320,6 +330,14 @@ function Subscribe() {
             </ImageContainer>
           </BgAnimation>
           <SubscribeTextContent>
+            {contentId ? (
+              <StyledImage
+                src={videoData?.response?.img}
+                alt="image"
+                height={250}
+                width={180}
+              />
+            ) : null}
             <Title>Subscribe now and start streaming</Title>
             <Instruction>
               You will be able to watch only on Mobile app
@@ -514,6 +532,13 @@ function Subscribe() {
 }
 
 export default Subscribe;
+
+const StyledImage = styled(ImageView)`
+  border-radius: 4px;
+  border: 1px solid white;
+  margin-bottom: 0.5rem;
+`;
+
 const Wrapper = styled.div`
   min-height: 100vh;
   width: 100%;
