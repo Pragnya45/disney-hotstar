@@ -6,6 +6,9 @@ import HorizontalCard from "@/app/Components/HorizontalCardSlider";
 import PosterCard from "@/app/Components/PosterCard";
 import BannerMovie from "@/app/Components/BannerMovie";
 import { cardData } from "../utils/data";
+import Progress from "@/app/Components/Progress";
+import useQueryApi from "@/app/Hooks/useQueryApi";
+import { urlObj } from "@/app/utils/url";
 
 const cricket = "/assets/images/cricket.webp";
 const kabaddi = "/assets/images/kabaddi.webp";
@@ -154,23 +157,43 @@ export default function Sport() {
       image: "/assets/images/mfn.webp",
     },
   ];
+  const { data: videoData, refetch } = useQueryApi({
+    url: `${urlObj.video}?category=Best in Sports`,
+    queryKey: `Sports`,
+  });
+  console.log(videoData);
   return (
     <Wrapper>
-      <Contentwrapper>
-        <Banner />
-      </Contentwrapper>
-      <BannerMovie />
-      <ProductionWrapper>
-        <PosterCard data={sports} title="Popular Sports" />
-        <HorizontalCard title="Best in Sports" data={cardData} />
-        <HorizontalCardWrapper>
-          <HorizontalCard title="ICC Men's U-19 CWC" data={iccMen} />
-        </HorizontalCardWrapper>
-        <PosterCard data={tournaments} title="Popular Tournaments" />
-      </ProductionWrapper>
+      {videoData?.response && videoData?.response?.length ? (
+        <>
+          <Contentwrapper>
+            <Banner />
+          </Contentwrapper>
+          <BannerMovie releases={videoData?.response} />
+          <ProductionWrapper>
+            <PosterCard data={sports} title="Popular Sports" />
+            <HorizontalCard title="Best in Sports" data={cardData} />
+            <HorizontalCardWrapper>
+              <HorizontalCard title="ICC Men's U-19 CWC" data={iccMen} />
+            </HorizontalCardWrapper>
+            <PosterCard data={tournaments} title="Popular Tournaments" />
+          </ProductionWrapper>
+        </>
+      ) : (
+        <ProgressWrapper>
+          <Progress />
+        </ProgressWrapper>
+      )}
     </Wrapper>
   );
 }
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Wrapper = styled.div`
   min-height: 100vh;

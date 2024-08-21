@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { MdOutlineComputer } from "react-icons/md";
 import { BsPhone } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 const star = "/assets/icons/stars.svg";
 
@@ -19,12 +20,14 @@ export default function Subscribe() {
       used: "5 Days ago",
     },
   ];
-
+  const router = useRouter();
   return (
     <Wrapper>
       <SubscribeWrapper>
         <Heading>Subscribe to enjoy Disney+ Hotstar</Heading>
-        <SubscribeBtn>Subscribe</SubscribeBtn>
+        <SubscribeBtn onClick={() => router.push("/paywall")}>
+          Subscribe
+        </SubscribeBtn>
       </SubscribeWrapper>
       <SubscribeWrapper>
         <NumberWrapper>

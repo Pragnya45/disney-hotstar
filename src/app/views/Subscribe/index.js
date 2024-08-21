@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import useQueryApi from "@/app/Hooks/useQueryApi";
 import { urlObj } from "@/app/utils/url";
+import Progress from "@/app/Components/Progress";
 
 const logo = "/assets/icons/logo-d-plus.svg";
 
@@ -282,256 +283,278 @@ function Subscribe() {
   };
   return (
     <Wrapper>
-      <HeaderWrapper>
-        <LogoWrapper>
-          <Close onClick={() => router.push("/my-page")} />
-          <Image src={logo} alt="disney-logo" width={81} height={70} />
-        </LogoWrapper>
-        <DropdownWrapper>
-          <LanguageDropdown onClick={() => toggleDropdown()}>
-            {selectedLanguage}
-            <Arrowdown />
-          </LanguageDropdown>
-          {opendropdown && (
-            <OptionMenu ref={menuRef}>
-              <DisplayLanguage onClick={() => toggleDropdown()}>
-                {selectedLanguage} <Arrowup />
-              </DisplayLanguage>
-              <LanguageOptions>
-                {languageOptions.map((option, index) => (
-                  <Option
-                    key={index}
-                    onClick={() => handleLanguageSelect(option.language)}
-                    isSelected={option.language === selectedLanguage}
-                  >
-                    <Select isSelected={option.language === selectedLanguage} />
-                    {option.language}
-                  </Option>
-                ))}
-              </LanguageOptions>
-            </OptionMenu>
-          )}
-        </DropdownWrapper>
-      </HeaderWrapper>
-      <ContentWrapper>
-        <LeftContent>
-          <OverlayBg></OverlayBg>
-          <BgAnimation>
-            <ImageContainer>
-              {imageList.map((item, index) => (
-                <SubscribeImage
-                  key={index}
-                  src={item.image}
-                  alt="subscribe"
-                  width={120}
-                  height={160}
-                />
-              ))}
-            </ImageContainer>
-          </BgAnimation>
-          <SubscribeTextContent>
-            {contentId ? (
-              <StyledImage
-                src={videoData?.response?.img}
-                alt="image"
-                height={250}
-                width={180}
-              />
-            ) : null}
-            <Title>Subscribe now and start streaming</Title>
-            <Instruction>
-              You will be able to watch only on Mobile app
-            </Instruction>
-          </SubscribeTextContent>
-        </LeftContent>
-        <RightContent>
-          <Table>
-            <ColGroup>
-              <ContentColumn />
-              <MobileColumn selectedType={selectedType === "Mobile"} />
-              <SuperColumn selectedType={selectedType === "Super"} />
-              <PremiumColumn selectedType={selectedType === "Premium"} />
-            </ColGroup>
-            <TableHeader>
-              <TableRow>
-                <Tablehead></Tablehead>
-                <Tablehead>
-                  <Heading>Mobile</Heading>
-                </Tablehead>
-                <Tablehead>
-                  <Heading>Super</Heading>
-                </Tablehead>
-                <Tablehead>
-                  <Heading>Premium</Heading>
-                </Tablehead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {tableData.map((item, index) => (
-                <TableBodyrow key={index}>
-                  <TableData>
-                    <Content>{item.content}</Content>
-                    <br />
-                    <Subcontent>{item.subcontent}</Subcontent>
-                  </TableData>
-                  {item.mblcontent === "" ? (
-                    item.mblIcon ? (
-                      <TableData>
-                        <Avalable />
-                      </TableData>
-                    ) : (
-                      <TableData>
-                        <NotAvailable />
-                      </TableData>
-                    )
-                  ) : (
-                    <TableData>
-                      <RowContent>{item.mblcontent}</RowContent>
-                      <br />
-                      <RowsubContent>{item.mblsubcontent}</RowsubContent>
-                    </TableData>
-                  )}
-                  {item.supercontent === "" ? (
-                    item.superIcon ? (
-                      <TableData>
-                        <Avalable />
-                      </TableData>
-                    ) : (
-                      <TableData>
-                        <NotAvailable />
-                      </TableData>
-                    )
-                  ) : (
-                    <TableData>
-                      <RowContent>{item.supercontent}</RowContent>
-                      <br />
-                      <RowsubContent>{item.supersubcontent}</RowsubContent>
-                    </TableData>
-                  )}
-                  {item.premiumcontent === "" ? (
-                    item.premiumIcon ? (
-                      <TableData>
-                        <Avalable />
-                      </TableData>
-                    ) : (
-                      <TableData>
-                        <NotAvailable />
-                      </TableData>
-                    )
-                  ) : (
-                    <TableData>
-                      <RowContent>{item.premiumcontent}</RowContent>
-                      <br />
-                      <RowsubContent>{item.premiumsubcontent}</RowsubContent>
-                    </TableData>
-                  )}
-                </TableBodyrow>
-              ))}
-            </TableBody>
-          </Table>
-          <ChoosePlan>
-            {planButtons.map((button, index) => (
-              <PlanButton
-                selected={selectedPlan === button}
-                key={index}
-                onClick={() => handlePlanChange(button)}
-              >
-                {button}
-                {selectedPlan === button && (
-                  <IconWrapper>
-                    <Tick />
-                  </IconWrapper>
+      {contentId && videoData?.response ? (
+        <>
+          <HeaderWrapper>
+            <LogoWrapper>
+              <Close onClick={() => router.push("/my-page")} />
+              <Image src={logo} alt="disney-logo" width={81} height={70} />
+            </LogoWrapper>
+            <DropdownWrapper>
+              <LanguageDropdown onClick={() => toggleDropdown()}>
+                {selectedLanguage}
+                <Arrowdown />
+              </LanguageDropdown>
+              {opendropdown && (
+                <OptionMenu ref={menuRef}>
+                  <DisplayLanguage onClick={() => toggleDropdown()}>
+                    {selectedLanguage} <Arrowup />
+                  </DisplayLanguage>
+                  <LanguageOptions>
+                    {languageOptions.map((option, index) => (
+                      <Option
+                        key={index}
+                        onClick={() => handleLanguageSelect(option.language)}
+                        isSelected={option.language === selectedLanguage}
+                      >
+                        <Select
+                          isSelected={option.language === selectedLanguage}
+                        />
+                        {option.language}
+                      </Option>
+                    ))}
+                  </LanguageOptions>
+                </OptionMenu>
+              )}
+            </DropdownWrapper>
+          </HeaderWrapper>
+          <ContentWrapper>
+            <LeftContent>
+              <OverlayBg></OverlayBg>
+              <BgAnimation>
+                <ImageContainer>
+                  {imageList.map((item, index) => (
+                    <SubscribeImage
+                      key={index}
+                      src={item.image}
+                      alt="subscribe"
+                      width={120}
+                      height={160}
+                    />
+                  ))}
+                </ImageContainer>
+              </BgAnimation>
+              <SubscribeTextContent>
+                {contentId ? (
+                  <StyledImage
+                    src={videoData?.response?.img}
+                    alt="image"
+                    height={250}
+                    width={180}
+                  />
+                ) : null}
+                <Title>Subscribe now and start streaming</Title>
+                {selectedType === "Mobile" && (
+                  <Instruction>
+                    You will be able to watch only on Mobile app
+                  </Instruction>
                 )}
-              </PlanButton>
-            ))}
-          </ChoosePlan>
-          <CustomPlan>
-            {planOptions.map((option, index) => (
-              <PlanOption
-                key={index}
-                disabled={
-                  selectedPlan === "Monthly"
-                    ? option.monthly !== null
-                      ? false
-                      : true
-                    : false
-                }
-                selectedoption={
-                  selectedPlan === "Monthly"
-                    ? option.monthly !== null
-                      ? selectedType === option.type
-                      : null
-                    : selectedType === option.type
-                }
-                onClick={() => handleTypeChange(option.type)}
-              >
-                <TickIconWrapper
-                  selectedoption={
-                    selectedPlan === "Monthly"
-                      ? option.monthly !== null
-                        ? selectedType === option.type
-                        : null
-                      : selectedType === option.type
-                  }
-                >
-                  <Tick />
-                </TickIconWrapper>
+              </SubscribeTextContent>
+            </LeftContent>
+            <RightContent>
+              <Table>
+                <ColGroup>
+                  <ContentColumn />
+                  <MobileColumn selectedType={selectedType === "Mobile"} />
+                  <SuperColumn selectedType={selectedType === "Super"} />
+                  <PremiumColumn selectedType={selectedType === "Premium"} />
+                </ColGroup>
+                <TableHeader>
+                  <TableRow>
+                    <Tablehead></Tablehead>
+                    <Tablehead>
+                      <Heading>Mobile</Heading>
+                    </Tablehead>
+                    <Tablehead>
+                      <Heading>Super</Heading>
+                    </Tablehead>
+                    <Tablehead>
+                      <Heading>Premium</Heading>
+                    </Tablehead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {tableData.map((item, index) => (
+                    <TableBodyrow key={index}>
+                      <TableData>
+                        <Content>{item.content}</Content>
+                        <br />
+                        <Subcontent>{item.subcontent}</Subcontent>
+                      </TableData>
+                      {item.mblcontent === "" ? (
+                        item.mblIcon ? (
+                          <TableData>
+                            <Avalable />
+                          </TableData>
+                        ) : (
+                          <TableData>
+                            <NotAvailable />
+                          </TableData>
+                        )
+                      ) : (
+                        <TableData>
+                          <RowContent>{item.mblcontent}</RowContent>
+                          <br />
+                          <RowsubContent>{item.mblsubcontent}</RowsubContent>
+                        </TableData>
+                      )}
+                      {item.supercontent === "" ? (
+                        item.superIcon ? (
+                          <TableData>
+                            <Avalable />
+                          </TableData>
+                        ) : (
+                          <TableData>
+                            <NotAvailable />
+                          </TableData>
+                        )
+                      ) : (
+                        <TableData>
+                          <RowContent>{item.supercontent}</RowContent>
+                          <br />
+                          <RowsubContent>{item.supersubcontent}</RowsubContent>
+                        </TableData>
+                      )}
+                      {item.premiumcontent === "" ? (
+                        item.premiumIcon ? (
+                          <TableData>
+                            <Avalable />
+                          </TableData>
+                        ) : (
+                          <TableData>
+                            <NotAvailable />
+                          </TableData>
+                        )
+                      ) : (
+                        <TableData>
+                          <RowContent>{item.premiumcontent}</RowContent>
+                          <br />
+                          <RowsubContent>
+                            {item.premiumsubcontent}
+                          </RowsubContent>
+                        </TableData>
+                      )}
+                    </TableBodyrow>
+                  ))}
+                </TableBody>
+              </Table>
+              <ChoosePlan>
+                {planButtons.map((button, index) => (
+                  <PlanButton
+                    selected={selectedPlan === button}
+                    key={index}
+                    onClick={() => handlePlanChange(button)}
+                  >
+                    {button}
+                    {selectedPlan === button && (
+                      <IconWrapper>
+                        <Tick />
+                      </IconWrapper>
+                    )}
+                  </PlanButton>
+                ))}
+              </ChoosePlan>
+              <CustomPlan>
+                {planOptions.map((option, index) => (
+                  <PlanOption
+                    key={index}
+                    disabled={
+                      selectedPlan === "Monthly"
+                        ? option.monthly !== null
+                          ? false
+                          : true
+                        : false
+                    }
+                    selectedoption={
+                      selectedPlan === "Monthly"
+                        ? option.monthly !== null
+                          ? selectedType === option.type
+                          : null
+                        : selectedType === option.type
+                    }
+                    onClick={() => handleTypeChange(option.type)}
+                  >
+                    <TickIconWrapper
+                      selectedoption={
+                        selectedPlan === "Monthly"
+                          ? option.monthly !== null
+                            ? selectedType === option.type
+                            : null
+                          : selectedType === option.type
+                      }
+                    >
+                      <Tick />
+                    </TickIconWrapper>
 
-                <PlanType
-                  selectedoption={
-                    selectedPlan === "Monthly"
-                      ? option.monthly !== null
-                        ? selectedType === option.type
-                        : null
-                      : selectedType === option.type
-                  }
-                  disabledcolor={
-                    selectedPlan === "Monthly" && option.monthly === null
-                  }
-                >
-                  {option.type}
-                </PlanType>
-                <Price>
-                  <SuperScript>
-                    {selectedPlan === "Monthly"
-                      ? option.monthly !== null
-                        ? "₹"
-                        : null
-                      : "₹"}
-                  </SuperScript>
-                  {selectedPlan === "Quarterly"
-                    ? option.quarterly
-                    : selectedPlan === "Monthly"
-                    ? option.monthly
-                    : selectedPlan === "Yearly"
-                    ? option.yearly
-                    : ""}
-                  <Timeline>
-                    {selectedPlan === "Quarterly"
-                      ? "/3Months"
-                      : selectedPlan === "Yearly"
-                      ? "/Year"
-                      : selectedPlan === "Monthly"
-                      ? option.monthly !== null
-                        ? "/Month"
-                        : null
-                      : ""}
-                  </Timeline>
-                </Price>
-              </PlanOption>
-            ))}
-          </CustomPlan>
-          <Continue>
-            Continue with {selectedType}
-            <Arrowleft />
-          </Continue>
-        </RightContent>
-      </ContentWrapper>
+                    <PlanType
+                      selectedoption={
+                        selectedPlan === "Monthly"
+                          ? option.monthly !== null
+                            ? selectedType === option.type
+                            : null
+                          : selectedType === option.type
+                      }
+                      disabledcolor={
+                        selectedPlan === "Monthly" && option.monthly === null
+                      }
+                    >
+                      {option.type}
+                    </PlanType>
+                    <Price>
+                      <SuperScript>
+                        {selectedPlan === "Monthly"
+                          ? option.monthly !== null
+                            ? "₹"
+                            : null
+                          : "₹"}
+                      </SuperScript>
+                      {selectedPlan === "Quarterly"
+                        ? option.quarterly
+                        : selectedPlan === "Monthly"
+                        ? option.monthly
+                        : selectedPlan === "Yearly"
+                        ? option.yearly
+                        : ""}
+                      <Timeline>
+                        {selectedPlan === "Quarterly"
+                          ? "/3Months"
+                          : selectedPlan === "Yearly"
+                          ? "/Year"
+                          : selectedPlan === "Monthly"
+                          ? option.monthly !== null
+                            ? "/Month"
+                            : null
+                          : ""}
+                      </Timeline>
+                    </Price>
+                  </PlanOption>
+                ))}
+              </CustomPlan>
+              <Continue>
+                Continue with {selectedType}
+                <Arrowleft />
+              </Continue>
+            </RightContent>
+          </ContentWrapper>
+        </>
+      ) : (
+        <ProgressWrapper>
+          <Progress />
+        </ProgressWrapper>
+      )}
     </Wrapper>
   );
 }
 
 export default Subscribe;
+
+const ProgressWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const StyledImage = styled(ImageView)`
   border-radius: 4px;
