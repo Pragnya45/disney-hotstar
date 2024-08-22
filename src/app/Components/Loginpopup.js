@@ -291,6 +291,7 @@ const Wrapper = styled.div`
   right: 0;
   bottom: 0;
   background: var(--overlay-color-3);
+  z-index: 20;
 `;
 const LoginPopup = styled.div`
   position: absolute;
