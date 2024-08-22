@@ -92,7 +92,8 @@ function Home() {
                 data={releases}
                 isSpan={false}
               />
-              <HorizontalCard title="Best in Sports" data={cardData} />
+              <HorizontalCard title="Best in Sports" />
+              <HorizontalCard title="Newly Added" />
               <SliderComponent
                 title="Newly Added"
                 data={releases}
