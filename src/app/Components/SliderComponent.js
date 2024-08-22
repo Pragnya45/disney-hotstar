@@ -204,7 +204,7 @@ export default function SliderComponent({ title, isSpan }) {
                                 <StyleddPlus />
                               </WatchListButton>
                             </WatchWrapper>
-                            <YearDetailsWrapper>
+                            <YearDetailsWrapper isFirstchild={isFirstchild}>
                               <Text>{hoverData.year}</Text>
                               <StyledCircle />
                               <Text>{hoverData.seasons} Seasons</Text>
@@ -272,7 +272,7 @@ const StyledSwiper = styled(Swiper)`
     height: 11rem !important;
   }
   .swiper-slide {
-    width: 12rem !important;
+    width: 13rem !important;
     top: 2rem;
     @media (max-width: 600px) {
       width: 8rem !important;
@@ -386,7 +386,7 @@ const CardImage = styled(ImageView)`
 
 const HoverCard = styled.div`
   display: none;
-  width: ${(props) => (props.isFirstchild ? "16.8rem" : "19rem")} !important;
+  width: ${(props) => (props.isFirstchild ? "18rem" : "20.5rem")} !important;
   height: 24rem !important;
   transform: translate(116.769px, 1158.63px);
   transform-origin: left center;
@@ -394,7 +394,7 @@ const HoverCard = styled.div`
   orphans: 10;
   position: absolute;
   left: ${(props) =>
-    props.isFirstchild ? "0px" : props.islastchild ? "-90px" : "-35px"};
+    props.isFirstchild ? "0px" : props.islastchild ? "-35px" : "-35px"};
 
   /* left: -35px; */
   z-index: 8 !important;
@@ -416,7 +416,7 @@ const HoverCard = styled.div`
 `;
 const Card = styled.div`
   position: relative;
-  width: 12rem !important;
+  width: 13rem !important;
   height: 16rem !important;
   cursor: pointer;
   transition: transform 0.7s ease-in-out;
@@ -569,7 +569,8 @@ const YearDetailsWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 4px;
+  padding: ${(props) => (props.isFirstchild ? "0 0" : "0 4px")};
+  /* padding: 0 4px; */
 `;
 const Text = styled.p`
   font-family: var(--FONT-FAMILY);

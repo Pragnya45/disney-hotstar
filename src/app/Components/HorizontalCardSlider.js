@@ -53,7 +53,7 @@ function HorizontalCard({ title, data }) {
   };
   const handleHover = (index) => {
     setIsFirstchild(index === 0);
-    setIslastchild(index === data.length - 1);
+    setIslastchild(index === data?.length - 1);
   };
   const handleVideoEnd = (index) => {
     setIsFirstchild(index);
