@@ -12,6 +12,7 @@ import "swiper/css/pagination";
 import useQueryApi from "../Hooks/useQueryApi";
 import { urlObj } from "../utils/url";
 import CardSkeleton from "./CardSkeleton";
+import Video from "./Video";
 
 function HorizontalCard({ title, data }) {
   const pathname = usePathname();
@@ -59,6 +60,18 @@ function HorizontalCard({ title, data }) {
     setIsFirstchild(index);
     setIslastchild(index);
   };
+  const [durations, setDurations] = useState({});
+
+  const handleLoadedMetadata = (e, index) => {
+    const videoDurationInMinutes = e.target.duration / 60;
+
+    // Store the duration for the specific index
+    setDurations((prevDurations) => ({
+      ...prevDurations,
+      [index]: videoDurationInMinutes, // Store by index
+    }));
+  };
+  console.log(durations);
   return (
     <Wrapper>
       <HeaderWrapper onClick={() => router.push(`browse?type=${title}`)}>
@@ -100,13 +113,21 @@ function HorizontalCard({ title, data }) {
                       width={100}
                       height={100}
                     />
+                    <Player
+                      src={release?.hovercardData?.[0]?.video}
+                      controls={false}
+                      autoPlay
+                      playsInline
+                      muted={true}
+                      onLoadedMetadata={(e) => handleLoadedMetadata(e, index)}
+                    />
                     <PlayWrapper>
                       <Play />
-                      <Duration>5m</Duration>
+                      <Duration>{durations[index]?.toFixed(2)}m</Duration>
                     </PlayWrapper>
-                    {release?.hovercardData?.map((hoverData, index) => (
+                    {release?.hovercardData?.map((hoverData, i) => (
                       <HoverCard
-                        key={index}
+                        key={i}
                         isFirstchild={isFirstchild}
                         islastchild={islastchild}
                       >
@@ -117,9 +138,10 @@ function HorizontalCard({ title, data }) {
                             width={200}
                             height={200}
                           />
+
                           <HoverPlayWrapper>
                             <Play />
-                            <Duration>5m</Duration>
+                            <Duration>{durations[index]?.toFixed(2)}m</Duration>
                           </HoverPlayWrapper>
                           <BottomContentWrapper>
                             <Title>{release.title}</Title>
@@ -444,4 +466,14 @@ const BottomContentWrapper = styled.div`
   flex-direction: column;
   margin: 0.5rem;
   height: fit-content;
+`;
+const Player = styled(Video)`
+  width: 100%;
+  object-fit: cover;
+  line-height: 0;
+  transition: opacity 0.3s ease-in 0.3s;
+  border-radius: 6px;
+  outline: none;
+  height: 100%;
+  display: none;
 `;
