@@ -17,6 +17,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { usePathname, useRouter } from "next/navigation";
+import BannnerSkeleton from "./BannerSkeleton";
 function BannerMovie({ releases }) {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
@@ -103,140 +104,152 @@ function BannerMovie({ releases }) {
 
   return (
     <Wrapper>
-      <BannerImage
-        src={releases[currentVideoIndex]?.hovercardData[0]?.coverpic}
-        showvideo={showvideo}
-        alt="bannerImg"
-        width={200}
-        height={200}
-      />
-      {showvideo && (
-        <Player
-          src={releases[currentVideoIndex]?.hovercardData[0]?.video}
-          controls={false}
-          loop={false}
-          autoPlay
-          playsInline
-          onEnded={() => handleVideoEnd()}
-          muted={muted}
-        />
-      )}
-      <ContentWrapper>
-        <LeftContainer>
-          <TitleImg
-            src={releases[currentVideoIndex]?.hovercardData[0]?.titleImg}
+      {releases ? (
+        <>
+          <BannerImage
+            src={releases[currentVideoIndex]?.hovercardData[0]?.coverpic}
+            showvideo={showvideo}
+            alt="bannerImg"
             width={200}
             height={200}
           />
-          <YearDetailsWrapper>
-            <Text>{releases[currentVideoIndex]?.hovercardData[0]?.year}</Text>
-            <StyledCircle />
-            <Text>
-              {releases[currentVideoIndex]?.hovercardData[0]?.seasons}Seasons
-            </Text>
-            <StyledCircle />
-            <Text>
-              {releases[currentVideoIndex]?.hovercardData[0]?.totalLanguage}
-              Languages
-            </Text>
-            <StyledCircle />
-            <AgeRestriction>
-              U/A {releases[currentVideoIndex]?.hovercardData[0]?.ua}
-            </AgeRestriction>
-          </YearDetailsWrapper>
-          <Description>
-            {releases[currentVideoIndex]?.hovercardData[0]?.description}
-          </Description>
-          <YearDetailsWrapper>
-            <Text>Drama</Text>
-            <VerticalLine></VerticalLine>
-            <Text>Thriller</Text>
-            <VerticalLine></VerticalLine>
-            <Text>Mystery</Text>
-            <VerticalLine></VerticalLine>
-            <Text>Crime</Text>
-          </YearDetailsWrapper>
-          <SliderWrapper>
-            <Button onClick={scrollLeft}>
-              <ArrowLeftIcon />
-            </Button>
-            <LanguageWrapper id="Container" ref={contentRef}>
-              <LanguageButton>
-                Hindi<Original>original</Original>
-              </LanguageButton>
-              <LanguageButton>Telugu</LanguageButton>
-              <LanguageButton>Tamil</LanguageButton>
-              <LanguageButton>Bengali</LanguageButton>
-              <LanguageButton>Marathi</LanguageButton>
-              <LanguageButton>Malayalam</LanguageButton>
-              <LanguageButton>Kannada</LanguageButton>
-            </LanguageWrapper>
-            <Button onClick={scrollRight}>
-              <ArrowRightIcon />
-            </Button>
-          </SliderWrapper>
-          <WatchWrapper>
-            <WatchNowButton
-              onClick={(e) => {
-                handleCardClick({ releases: releases[currentVideoIndex], e });
-              }}
-            >
-              <StyleddPlay /> Watch Now
-            </WatchNowButton>
-            <Tooltip title="Watchlist">
-              <WatchListButton>
-                <StyleddPlus />
-              </WatchListButton>
-            </Tooltip>{" "}
-          </WatchWrapper>
-        </LeftContainer>
-        <RightContainer>
-          <SoundWrapper>
-            {muted ? (
-              <Tooltip title="Unmute Trailer">
-                <Mute onClick={() => setMuted(!muted)} />{" "}
-              </Tooltip>
-            ) : (
-              <Tooltip title="Mute Trailer">
-                <Sound onClick={() => setMuted(!muted)} />
-              </Tooltip>
-            )}
-          </SoundWrapper>
-          <SwiperWrapper>
-            <StyledSwiper
-              centeredSlides={false}
-              slidesPerView={"auto"}
-              direction={"horizontal"}
+          {showvideo && (
+            <Player
+              src={releases[currentVideoIndex]?.hovercardData[0]?.video}
+              controls={false}
               loop={false}
-              spaceBetween={10}
-              navigation={true}
-              ref={swiperRef}
-              autoplay={{
-                delay: 100,
-                disableOnInteraction: false,
-              }}
-              modules={[Navigation, Autoplay]}
-              className="swiper-container"
-            >
-              {releases?.map((release, index) => (
-                <SwiperSlide key={release.id}>
-                  <Card
-                    onClick={() => setCurrentVideoIndex(index)}
-                    selected={index === currentVideoIndex}
-                  >
-                    <CardImg
-                      src={release.hovercardData[0]?.coverpic}
-                      alt="image"
-                      width={98}
-                      height={30}
-                    />
-                  </Card>
-                </SwiperSlide>
-              ))}
-            </StyledSwiper>
-          </SwiperWrapper>
-        </RightContainer>
-      </ContentWrapper>
+              autoPlay
+              playsInline
+              onEnded={() => handleVideoEnd()}
+              muted={muted}
+            />
+          )}
+          <ContentWrapper>
+            <LeftContainer>
+              <TitleImg
+                src={releases[currentVideoIndex]?.hovercardData[0]?.titleImg}
+                width={200}
+                height={200}
+              />
+              <YearDetailsWrapper>
+                <Text>
+                  {releases[currentVideoIndex]?.hovercardData[0]?.year}
+                </Text>
+                <StyledCircle />
+                <Text>
+                  {releases[currentVideoIndex]?.hovercardData[0]?.seasons}
+                  Seasons
+                </Text>
+                <StyledCircle />
+                <Text>
+                  {releases[currentVideoIndex]?.hovercardData[0]?.totalLanguage}
+                  Languages
+                </Text>
+                <StyledCircle />
+                <AgeRestriction>
+                  U/A {releases[currentVideoIndex]?.hovercardData[0]?.ua}
+                </AgeRestriction>
+              </YearDetailsWrapper>
+              <Description>
+                {releases[currentVideoIndex]?.hovercardData[0]?.description}
+              </Description>
+              <YearDetailsWrapper>
+                <Text>Drama</Text>
+                <VerticalLine></VerticalLine>
+                <Text>Thriller</Text>
+                <VerticalLine></VerticalLine>
+                <Text>Mystery</Text>
+                <VerticalLine></VerticalLine>
+                <Text>Crime</Text>
+              </YearDetailsWrapper>
+              <SliderWrapper>
+                <Button onClick={scrollLeft}>
+                  <ArrowLeftIcon />
+                </Button>
+                <LanguageWrapper id="Container" ref={contentRef}>
+                  <LanguageButton>
+                    Hindi<Original>original</Original>
+                  </LanguageButton>
+                  <LanguageButton>Telugu</LanguageButton>
+                  <LanguageButton>Tamil</LanguageButton>
+                  <LanguageButton>Bengali</LanguageButton>
+                  <LanguageButton>Marathi</LanguageButton>
+                  <LanguageButton>Malayalam</LanguageButton>
+                  <LanguageButton>Kannada</LanguageButton>
+                </LanguageWrapper>
+                <Button onClick={scrollRight}>
+                  <ArrowRightIcon />
+                </Button>
+              </SliderWrapper>
+              <WatchWrapper>
+                <WatchNowButton
+                  onClick={(e) => {
+                    handleCardClick({
+                      releases: releases[currentVideoIndex],
+                      e,
+                    });
+                  }}
+                >
+                  <StyleddPlay /> Watch Now
+                </WatchNowButton>
+                <Tooltip title="Watchlist">
+                  <WatchListButton>
+                    <StyleddPlus />
+                  </WatchListButton>
+                </Tooltip>{" "}
+              </WatchWrapper>
+            </LeftContainer>
+            <RightContainer>
+              <SoundWrapper>
+                {muted ? (
+                  <Tooltip title="Unmute Trailer">
+                    <Mute onClick={() => setMuted(!muted)} />{" "}
+                  </Tooltip>
+                ) : (
+                  <Tooltip title="Mute Trailer">
+                    <Sound onClick={() => setMuted(!muted)} />
+                  </Tooltip>
+                )}
+              </SoundWrapper>
+              <SwiperWrapper>
+                <StyledSwiper
+                  centeredSlides={false}
+                  slidesPerView={"auto"}
+                  direction={"horizontal"}
+                  loop={false}
+                  spaceBetween={10}
+                  navigation={true}
+                  ref={swiperRef}
+                  autoplay={{
+                    delay: 100,
+                    disableOnInteraction: false,
+                  }}
+                  modules={[Navigation, Autoplay]}
+                  className="swiper-container"
+                >
+                  {releases?.map((release, index) => (
+                    <SwiperSlide key={release.id}>
+                      <Card
+                        onClick={() => setCurrentVideoIndex(index)}
+                        selected={index === currentVideoIndex}
+                      >
+                        <CardImg
+                          src={release.hovercardData[0]?.coverpic}
+                          alt="image"
+                          width={98}
+                          height={30}
+                        />
+                      </Card>
+                    </SwiperSlide>
+                  ))}
+                </StyledSwiper>
+              </SwiperWrapper>
+            </RightContainer>
+          </ContentWrapper>
+        </>
+      ) : (
+        <BannnerSkeleton />
+      )}
     </Wrapper>
   );
 }

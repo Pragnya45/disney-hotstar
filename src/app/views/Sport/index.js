@@ -164,26 +164,18 @@ export default function Sport() {
   console.log(videoData);
   return (
     <Wrapper>
-      {videoData?.response && videoData?.response?.length ? (
-        <>
-          <Contentwrapper>
-            <Banner />
-          </Contentwrapper>
-          <BannerMovie releases={videoData?.response} />
-          <ProductionWrapper>
-            <PosterCard data={sports} title="Popular Sports" />
-            <HorizontalCard title="Best in Sports" data={cardData} />
-            <HorizontalCardWrapper>
-              <HorizontalCard title="ICC Men's U-19 CWC" data={iccMen} />
-            </HorizontalCardWrapper>
-            <PosterCard data={tournaments} title="Popular Tournaments" />
-          </ProductionWrapper>
-        </>
-      ) : (
-        <ProgressWrapper>
-          <Progress />
-        </ProgressWrapper>
-      )}
+      <Contentwrapper>
+        <Banner />
+      </Contentwrapper>
+      <BannerMovie releases={videoData?.response} />
+      <ProductionWrapper>
+        <PosterCard data={sports} title="Popular Sports" />
+        <HorizontalCard title="Best in Sports" data={cardData} />
+        <HorizontalCardWrapper>
+          <HorizontalCard title="ICC Men's U-19 CWC" data={iccMen} />
+        </HorizontalCardWrapper>
+        <PosterCard data={tournaments} title="Popular Tournaments" />
+      </ProductionWrapper>
     </Wrapper>
   );
 }

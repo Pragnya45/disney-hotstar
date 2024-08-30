@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Banner from "@/app/Components/Banner";
 import SliderComponent from "@/app/Components/SliderComponent";
 import BannerMovie from "@/app/Components/BannerMovie";
-//import { releases } from "../utils/data";
 import Progress from "@/app/Components/Progress";
 import useQueryApi from "@/app/Hooks/useQueryApi";
 import { urlObj } from "@/app/utils/url";
@@ -16,26 +15,18 @@ function MoviePage() {
   console.log(videoData);
   return (
     <Wrapper>
-      {videoData?.response && videoData?.response?.length ? (
-        <>
-          <Contentwrapper>
-            <Banner />
-          </Contentwrapper>
-          <BannerMovie releases={videoData?.response} />
-          <ProductionWrapper>
-            <SliderComponent title="Drama Movies" />
-            <SliderComponent title="Romance Movies" />
-            <SliderComponent title="Popular Movies" />
-            <SliderComponent title="Comedy Movies" />
-            <SliderComponent title="Thriller Movies" />
-            <SliderComponent title="Horror Movies" />
-          </ProductionWrapper>
-        </>
-      ) : (
-        <ProgressWrapper>
-          <Progress />
-        </ProgressWrapper>
-      )}
+      <Contentwrapper>
+        <Banner />
+      </Contentwrapper>
+      <BannerMovie releases={videoData?.response} />
+      <ProductionWrapper>
+        <SliderComponent title="Drama Movies" />
+        <SliderComponent title="Romance Movies" />
+        <SliderComponent title="Popular Movies" />
+        <SliderComponent title="Comedy Movies" />
+        <SliderComponent title="Thriller Movies" />
+        <SliderComponent title="Horror Movies" />
+      </ProductionWrapper>
     </Wrapper>
   );
 }

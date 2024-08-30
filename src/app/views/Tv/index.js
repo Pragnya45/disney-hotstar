@@ -73,29 +73,23 @@ function TvPage() {
   });
   return (
     <Wrapper>
-      {videoData?.response && videoData?.response?.length ? (
-        <>
-          <Contentwrapper>
-            <Banner />
-          </Contentwrapper>
-          <BannerMovie releases={videoData?.response} />
-          <ProductionWrapper>
-            <SliderComponent title="StarPlus Shows" data={releases} />
-            <HorizontalCard title="Thriller Shows" data={cardData} />
-            <SliderComponent title="Comedy Shows" data={releases} />
-            <SliderComponent title="Popular Shows" data={releases} />
-            <PosterCard data={channels} title="Popular Channels" />
-            <SliderComponent title="Kids Shows" data={releases} />
-            <SliderComponent title="Action Shows" data={releases} />
-            <SliderComponent title="Hotstar Specials" data={releases} />
-            <SliderComponent title="Quix Shows" data={releases} />
-          </ProductionWrapper>
-        </>
-      ) : (
-        <ProgressWrapper>
-          <Progress />
-        </ProgressWrapper>
-      )}
+      <>
+        <Contentwrapper>
+          <Banner />
+        </Contentwrapper>
+        <BannerMovie releases={videoData?.response} />
+        <ProductionWrapper>
+          <SliderComponent title="StarPlus Shows" data={releases} />
+          <HorizontalCard title="Thriller Shows" data={cardData} />
+          <SliderComponent title="Comedy Shows" data={releases} />
+          <SliderComponent title="Popular Shows" data={releases} />
+          <PosterCard data={channels} title="Popular Channels" />
+          <SliderComponent title="Kids Shows" data={releases} />
+          <SliderComponent title="Action Shows" data={releases} />
+          <SliderComponent title="Hotstar Specials" data={releases} />
+          <SliderComponent title="Quix Shows" data={releases} />
+        </ProductionWrapper>
+      </>
     </Wrapper>
   );
 }

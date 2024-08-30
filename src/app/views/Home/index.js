@@ -65,92 +65,91 @@ function Home() {
   }, [!videoData?.response]);
   return (
     <Wrapper>
-      {videoData?.response && videoData?.response?.length ? (
-        <>
-          <Contentwrapper>
-            <Banner />
-          </Contentwrapper>
-          <BannerMovie releases={videoData?.response} />
-          <ProductionWrapper>
-            <>
-              {!loading ? (
-                watchList &&
-                watchList?.length && (
-                  <WatchedSlider
-                    title="Continue Watching for You"
-                    data={watchList}
-                    watchHistory={true}
-                  />
-                )
-              ) : (
-                <CardWrapper>
-                  <CardSkeleton cards={isWideScreen ? 6 : 3} />
-                </CardWrapper>
-              )}
-              <SliderComponent
-                title="Latest Releases"
-                data={releases}
-                isSpan={false}
-              />
-              <HorizontalCard title="Best in Sports" />
-              <SliderComponent
-                title="Newly Added"
-                data={releases}
-                isSpan={true}
-              />
-              <SliderComponent
-                title="Popular Shows"
-                data={releases}
-                isSpan={false}
-              />
-              {/* <top10></top10> */}
-              <SliderComponent
-                title="Watch With Your Family"
-                data={releases}
-                isSpan={false}
-              />
-              <SliderComponent
-                title="Movies from the 2010s"
-                data={releases}
-                isSpan={false}
-              />
-              {/* <watchlist></watchlist> */}
-              <SliderComponent
-                title="Popular Movies"
-                data={releases}
-                isSpan={false}
-              />
-              <SliderComponent
-                title="Hotstar Specials"
-                data={releases}
-                isSpan={false}
-              />
-              <SliderComponent
-                title="Coming Soon"
-                data={releases}
-                isSpan={false}
-              />
-              <SliderComponent
-                title="Best of Superheros"
-                data={releases}
-                isSpan={false}
-              />
-              <SliderComponent
-                title="Exclusive Indian Movies"
-                data={releases}
-                isSpan={false}
-              />
+      <>
+        <Contentwrapper>
+          <Banner />
+        </Contentwrapper>
+        <BannerMovie releases={videoData?.response} />
+        <ProductionWrapper>
+          <>
+            {!loading ? (
+              watchList &&
+              watchList?.length && (
+                <WatchedSlider
+                  title="Continue Watching for You"
+                  data={watchList}
+                  watchHistory={true}
+                />
+              )
+            ) : (
+              <CardWrapper>
+                <CardSkeleton cards={isWideScreen ? 6 : 3} />
+              </CardWrapper>
+            )}
+            <SliderComponent
+              title="Latest Releases"
+              data={releases}
+              isSpan={false}
+            />
+            <HorizontalCard title="Best in Sports" />
+            <SliderComponent
+              title="Newly Added"
+              data={releases}
+              isSpan={true}
+            />
+            <SliderComponent
+              title="Popular Shows"
+              data={releases}
+              isSpan={false}
+            />
+            {/* <top10></top10> */}
+            <SliderComponent
+              title="Watch With Your Family"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Movies from the 2010s"
+              data={releases}
+              isSpan={false}
+            />
+            {/* <watchlist></watchlist> */}
+            <SliderComponent
+              title="Popular Movies"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Hotstar Specials"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Coming Soon"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Best of Superheros"
+              data={releases}
+              isSpan={false}
+            />
+            <SliderComponent
+              title="Exclusive Indian Movies"
+              data={releases}
+              isSpan={false}
+            />
 
-              <ProductionHouse />
-            </>
-            {/* )} */}
-          </ProductionWrapper>
-        </>
-      ) : (
+            <ProductionHouse />
+          </>
+          {/* )} */}
+        </ProductionWrapper>
+      </>
+      {/* ) : (
         <ProgressWrapper>
           <Progress />
         </ProgressWrapper>
-      )}
+      )} */}
     </Wrapper>
   );
 }
