@@ -12,8 +12,6 @@ import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 import { useRouter } from "next/navigation";
 
-const arya = "/assets/videos/arya.mp4";
-
 export default function DetailedView({ details }) {
   const [showvideo, setShowvideo] = useState(false);
   const [scrolling, setScrolling] = useState(false);
