@@ -57,7 +57,6 @@ function BannerMovie({ releases }) {
     return () => clearTimeout(timer);
   }, []);
   const handleVideoEnd = () => {
-    console.log("called");
     setShowvideo(false);
     setTimeout(() => {
       setShowvideo(true);

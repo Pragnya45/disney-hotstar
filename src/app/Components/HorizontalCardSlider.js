@@ -26,7 +26,6 @@ function HorizontalCard({ title, data }) {
     queryKey: `${title}`,
   });
   useEffect(() => {
-    console.log("SliderComponent title:", title);
     refetch();
   }, [title]);
   useEffect(() => {
