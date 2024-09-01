@@ -41,7 +41,7 @@ Welcome to the Hotstar Clone, a full-stack web application replicating the core 
 - **NodeMailer**: Utilized for implementing Gmail OTP (One-Time Password) authentication, ensuring secure and verified user logins.
 
 ### Deployment:
-- **Frontend**: The frontend of the application is deployed on Vercel, known for its performance and seamless integration with Next.js. You can access the frontend here: [Hotstar Clone - Frontend](https://disney-hotstar-ritam855s-projects.vercel.app/).
+- **Frontend**: The frontend of the application is deployed on Vercel, known for its performance and seamless integration with Next.js. You can access the frontend here: [Hotstar Clone - Frontend](https://disney-hotstar-s3r3-ce2g-pragnya45s-projects.vercel.app/).
 - **Backend**: The backend is deployed on Render, a reliable platform for deploying Node.js applications. Visit the backend endpoint [here](https://render.com/).
 
 ## Project Structure
@@ -117,11 +117,6 @@ We have several features and improvements planned for the future:
 - **Payment Gateway Integration**: Implementing payment systems to fully enable subscription services.
 - **Movie Recommendations**: Adding a recommendation engine that suggests movies based on user behavior and preferences.
 - **Enhanced UI/UX**: Continuously refining the UI to improve user interaction and satisfaction.
-
-## Deployment
-
-- **Frontend**: Deployed on Vercel - [Frontend Deployment](https://disney-hotstar-s3r3-ce2g-pragnya45s-projects.vercel.app/).
-- **Backend**: Deployed on Render - [Backend Deployment](https://render.com/).
 
 
 ## Additional Information
